@@ -1,4 +1,5 @@
 import HomePage from "@/components/Home";
+import MoviesDetails from "@/components/MoviesDetails";
 import { createBrowserRouter } from "react-router-dom";
 
 export const Router = createBrowserRouter([
@@ -7,6 +8,14 @@ export const Router = createBrowserRouter([
     Component() {
       return (
         <HomePage />
+      )
+    }
+  },
+  {
+    path: '/details',
+    Component() {
+      return (
+        <MoviesDetails />
       )
     }
   }
