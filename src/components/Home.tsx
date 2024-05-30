@@ -6,23 +6,26 @@ import {
 } from "@/components/ui/tabs"
 import CardItem from "./Card";
 import Banner from "./Banner";
+import { useState } from "react";
 
 function HomePage() {
+  const [activeTab, setActiveTab] = useState('populares');
+
   return (
     <>
       <Banner />
       
       <div className="min-h-screen">
         <div className="container">        
-          <Tabs defaultValue="account" className="mt-3">
+          <Tabs defaultValue="populares" value={activeTab} onValueChange={setActiveTab} className="mt-3">
             <div className="flex items-center">
               <h2 className="mr-3 font-semi-bold font-serif hidden sm:block text-md sm:text-2xl md:text-2xl">Os Mais Populares</h2>
               <div className="w-[600px]">              
                 <TabsList className="grid w-full mb-[95px] sm:mb-[31px] md:mb-[0px] sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 bg-transparent border border-[#1BB293]">
-                <TabsTrigger value="populares" className="focus:bg-gradient-to-r from-sky-500 to-green-500">Populares</TabsTrigger>
-                <TabsTrigger value="lancamentos" className="focus:bg-gradient-to-r from-sky-500 to-green-500">Lançamentos</TabsTrigger>
-                <TabsTrigger value="series" className="focus:bg-gradient-to-r from-sky-500 to-green-500">Séries</TabsTrigger>
-                <TabsTrigger value="pessoas" className="focus:bg-gradient-to-r from-sky-500 to-green-500">Pessoas</TabsTrigger>
+                  <TabsTrigger value="populares" className={activeTab === 'populares' ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white' : ''}>Populares</TabsTrigger>
+                  <TabsTrigger value="lancamentos" className={activeTab === 'lancamentos' ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white' : ''}>Lançamentos</TabsTrigger>
+                  <TabsTrigger value="series" className={activeTab === 'series' ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white' : ''}>Séries</TabsTrigger>
+                  <TabsTrigger value="pessoas" className={activeTab === 'pessoas' ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white' : ''}>Pessoas</TabsTrigger>
               </TabsList>
               </div>
             </div>
