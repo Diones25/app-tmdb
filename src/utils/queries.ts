@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { geMoviesUpcoming, getMoviesPopulares, getSeriesPopulares } from "./api";
+import { geMoviesUpcoming, getMoviesPopulares, getPersonsPopulares, getSeriesPopulares } from "./api";
 
 export const useMoviesPopilares = () => {
   const query = useQuery({
@@ -23,6 +23,15 @@ export const useSeriesPopulares = () => {
   const query = useQuery({
     queryKey: ['seriesPopulares'],
     queryFn: getSeriesPopulares
+  });
+
+  return query;
+}
+
+export const usePersonsPopulares = () => {
+  const query = useQuery({
+    queryKey: ['personsPopulares'],
+    queryFn: getPersonsPopulares
   });
 
   return query;

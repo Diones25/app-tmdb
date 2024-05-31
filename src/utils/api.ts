@@ -83,3 +83,8 @@ export const getSeriesPopulares = async () => {
   });
   return response.data;
 }
+
+export const getPersonsPopulares = async () => {
+  const response = await api.get('/person/popular');
+  return response.data;
+}

@@ -7,7 +7,7 @@ import {
 import CardItem from "./Card";
 import Banner from "./Banner";
 import { Key, useState } from "react";
-import { useMoviesPopilares, useMoviesUpcoming, useSeriesPopulares } from "@/utils/queries";
+import { useMoviesPopilares, useMoviesUpcoming, usePersonsPopulares, useSeriesPopulares } from "@/utils/queries";
 import { formateDate } from "@/lib/utils";
 
 function HomePage() {
@@ -15,6 +15,7 @@ function HomePage() {
   const moviesPopulares = useMoviesPopilares();
   const MoviesUpcoming = useMoviesUpcoming();
   const SeriesPopulares = useSeriesPopulares();
+  const PersonsPopulares = usePersonsPopulares();
 
   return (
     <>
@@ -109,7 +110,27 @@ function HomePage() {
             </TabsContent>
 
             <TabsContent value="pessoas">
-              Pessoas
+              <div className="flex justify-center sm:justify-start">
+                <div className='grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
+
+                  {PersonsPopulares.isLoading && 'Carregando...'}
+
+                  {PersonsPopulares.data &&
+                    <>
+                      {PersonsPopulares.data.results.map((item: { id: Key | null | undefined; profile_path: any; name: string | undefined; known_for: { map: (arg0: (item: { name: any; }) => any) => string | undefined; }; }) => (
+                        <CardItem
+                          key={item.id}
+                          poster_path={`	https://media.themoviedb.org/t/p/w300_and_h450_bestv2${item.profile_path}`}
+                          title={item.name}
+                          release_date={item.known_for.map((item: { name: any; }) => item.name)}
+                        />
+                      ))}
+                    </>
+
+                  }
+
+                </div>
+              </div>
             </TabsContent>
           </Tabs>        
         </div>
