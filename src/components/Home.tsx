@@ -7,11 +7,12 @@ import {
 import CardItem from "./Card";
 import Banner from "./Banner";
 import { Key, useState } from "react";
-import { useMoviesPopilares } from "@/utils/queries";
+import { useMoviesPopilares, useMoviesUpcoming } from "@/utils/queries";
 
 function HomePage() {
   const [activeTab, setActiveTab] = useState('populares');
   const moviesPopulares = useMoviesPopilares();
+  const MoviesUpcoming = useMoviesUpcoming();
 
   return (
     <>
@@ -58,7 +59,27 @@ function HomePage() {
             </TabsContent>
 
             <TabsContent value="lancamentos">
-              Lançamentos
+              <div className="flex justify-center sm:justify-start">
+                <div className='grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
+
+                  {MoviesUpcoming.isLoading && 'Carregando...'}
+
+                  {MoviesUpcoming.data &&
+                    <>
+                      {MoviesUpcoming.data.results.map((item: { id: Key | null | undefined; poster_path: string | undefined; title: string; release_date: string; }) => (
+                        <CardItem
+                          key={item.id}
+                          poster_path={item.poster_path}
+                          title={item.title}
+                          release_date={item.release_date}
+                        />
+                      ))}
+                    </>
+
+                  }
+
+                </div>
+              </div>
             </TabsContent>
 
             <TabsContent value="series">
