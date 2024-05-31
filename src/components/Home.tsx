@@ -8,6 +8,7 @@ import CardItem from "./Card";
 import Banner from "./Banner";
 import { Key, useState } from "react";
 import { useMoviesPopilares, useMoviesUpcoming } from "@/utils/queries";
+import { formateDate } from "@/lib/utils";
 
 function HomePage() {
   const [activeTab, setActiveTab] = useState('populares');
@@ -46,7 +47,7 @@ function HomePage() {
                           key={item.id}
                           poster_path={item.poster_path}
                           title={item.title}
-                          release_date={item.release_date}
+                          release_date={formateDate(item.release_date)}
                         />  
                       ))}
                     </>
@@ -71,7 +72,7 @@ function HomePage() {
                           key={item.id}
                           poster_path={item.poster_path}
                           title={item.title}
-                          release_date={item.release_date}
+                          release_date={formateDate(item.release_date)}
                         />
                       ))}
                     </>
