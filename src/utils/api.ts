@@ -59,3 +59,27 @@ export const geMoviesUpcoming = async () => {
   });
   return response.data;
 }
+
+export const getSeriesPopulares = async () => {
+  const response = await api.get('/tv/popular', {
+    transformResponse: [function (data) {
+      const parsedData = JSON.parse(data);
+
+      return {
+        results: parsedData.results.map((item: { id: any; poster_path: any; vote_average: any; title: any; release_date: any; }) => {
+          return {
+            id: item.id,
+            poster_path: `https://www.themoviedb.org/t/p/w220_and_h330_face${item.poster_path}`,
+            vote_average: item.vote_average,
+            title: item.title,
+            release_date: item.release_date
+          }
+        }),
+        page: parsedData.page,
+        total_pages: parsedData.total_pages,
+        total_results: parsedData.total_results,
+      }
+    }]
+  });
+  return response.data;
+}

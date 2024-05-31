@@ -7,13 +7,14 @@ import {
 import CardItem from "./Card";
 import Banner from "./Banner";
 import { Key, useState } from "react";
-import { useMoviesPopilares, useMoviesUpcoming } from "@/utils/queries";
+import { useMoviesPopilares, useMoviesUpcoming, useSeriesPopulares } from "@/utils/queries";
 import { formateDate } from "@/lib/utils";
 
 function HomePage() {
   const [activeTab, setActiveTab] = useState('populares');
   const moviesPopulares = useMoviesPopilares();
   const MoviesUpcoming = useMoviesUpcoming();
+  const SeriesPopulares = useSeriesPopulares();
 
   return (
     <>
@@ -84,7 +85,27 @@ function HomePage() {
             </TabsContent>
 
             <TabsContent value="series">
-              Séries
+              <div className="flex justify-center sm:justify-start">
+                <div className='grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
+
+                  {SeriesPopulares.isLoading && 'Carregando...'}
+
+                  {SeriesPopulares.data &&
+                    <>
+                      {SeriesPopulares.data.results.map((item: { id: Key | null | undefined; poster_path: string | undefined; title: string; release_date: string; }) => (
+                        <CardItem
+                          key={item.id}
+                          poster_path={item.poster_path}
+                          title={item.title}
+                          release_date={formateDate(item.release_date)}
+                        />
+                      ))}
+                    </>
+
+                  }
+
+                </div>
+              </div>
             </TabsContent>
 
             <TabsContent value="pessoas">
