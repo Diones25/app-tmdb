@@ -6,10 +6,12 @@ import {
 } from "@/components/ui/tabs"
 import CardItem from "./Card";
 import Banner from "./Banner";
-import { useState } from "react";
+import { Key, useState } from "react";
+import { useMoviesPopilares } from "@/utils/queries";
 
 function HomePage() {
   const [activeTab, setActiveTab] = useState('populares');
+  const moviesPopulares = useMoviesPopilares();
 
   return (
     <>
@@ -33,65 +35,22 @@ function HomePage() {
             <TabsContent value="populares" className="mt-3">
               <div className="flex justify-center sm:justify-start">
                 <div className='grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
-                  <CardItem
-                    src="https://media.themoviedb.org/t/p/w220_and_h330_face/dzDK2TMXsxrolGVdZwNGcOlZqrF.jpg"
-                    description="Planeta dos Macacos: O Reinado"
-                    date="09 de mai de 2024"
-                  />
 
-                  <CardItem
-                    src="https://media.themoviedb.org/t/p/w220_and_h330_face/dzDK2TMXsxrolGVdZwNGcOlZqrF.jpg"
-                    description="Planeta dos Macacos: O Reinado"
-                    date="09 de mai de 2024"
-                  />
+                  {moviesPopulares.isLoading && 'Carregando...'}
 
-                  <CardItem
-                    src="https://media.themoviedb.org/t/p/w220_and_h330_face/dzDK2TMXsxrolGVdZwNGcOlZqrF.jpg"
-                    description="Planeta dos Macacos: O Reinado"
-                    date="09 de mai de 2024"
-                  />
-
-                  <CardItem
-                    src="https://media.themoviedb.org/t/p/w220_and_h330_face/dzDK2TMXsxrolGVdZwNGcOlZqrF.jpg"
-                    description="Planeta dos Macacos: O Reinado"
-                    date="09 de mai de 2024"
-                  />
-
-                  <CardItem
-                    src="https://media.themoviedb.org/t/p/w220_and_h330_face/dzDK2TMXsxrolGVdZwNGcOlZqrF.jpg"
-                    description="Planeta dos Macacos: O Reinado"
-                    date="09 de mai de 2024"
-                  />
-
-                  <CardItem
-                    src="https://media.themoviedb.org/t/p/w220_and_h330_face/dzDK2TMXsxrolGVdZwNGcOlZqrF.jpg"
-                    description="Planeta dos Macacos: O Reinado"
-                    date="09 de mai de 2024"
-                  />
-
-                  <CardItem
-                    src="https://media.themoviedb.org/t/p/w220_and_h330_face/dzDK2TMXsxrolGVdZwNGcOlZqrF.jpg"
-                    description="Planeta dos Macacos: O Reinado"
-                    date="09 de mai de 2024"
-                  />
-
-                  <CardItem
-                    src="https://media.themoviedb.org/t/p/w220_and_h330_face/dzDK2TMXsxrolGVdZwNGcOlZqrF.jpg"
-                    description="Planeta dos Macacos: O Reinado"
-                    date="09 de mai de 2024"
-                  />
-
-                  <CardItem
-                    src="https://media.themoviedb.org/t/p/w220_and_h330_face/dzDK2TMXsxrolGVdZwNGcOlZqrF.jpg"
-                    description="Planeta dos Macacos: O Reinado"
-                    date="09 de mai de 2024"
-                  />
-
-                  <CardItem
-                    src="https://media.themoviedb.org/t/p/w220_and_h330_face/dzDK2TMXsxrolGVdZwNGcOlZqrF.jpg"
-                    description="Planeta dos Macacos: O Reinado"
-                    date="09 de mai de 2024"
-                  />
+                  {moviesPopulares.data &&
+                    <>
+                      {moviesPopulares.data.results.map((item: { id: Key | null | undefined; poster_path: string | undefined; title: string; release_date: string; }) => (
+                        <CardItem
+                          key={item.id}
+                          poster_path={item.poster_path}
+                          title={item.title}
+                          release_date={item.release_date}
+                        />  
+                      ))}
+                    </>
+                  
+                  }
 
                 </div>
               </div>
