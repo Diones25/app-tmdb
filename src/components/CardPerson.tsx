@@ -2,7 +2,6 @@ import {
   Card,
   CardFooter,
 } from "@/components/ui/card"
-import VoteAveregeItem from "./VoteAveregeItem";
 
 type Props = {
   id?: number;
@@ -12,7 +11,7 @@ type Props = {
   release_date?: string
 }
 
-function CardItem({ id, poster_path, vote_average, title, release_date }: Props) {
+const CardPerson = ({ id, poster_path, vote_average, title, release_date }: Props) => {
   return (
     <>
       <Card className="w-[200px] hover:drop-shadow-2xl cursor-pointer">
@@ -25,16 +24,13 @@ function CardItem({ id, poster_path, vote_average, title, release_date }: Props)
         </div>
         <CardFooter className="flex flex-col mt-5">
           <div className="self-start">
-            <VoteAveregeItem
-              vote_average={vote_average}
-            />
           </div>
-          <h2 className="mt-2 self-start font-bold hover:text-[#53B4E4]">{title }</h2>
-          <span className="self-start text-[#717272]">{release_date }</span>
+          <h2 className="self-start font-bold hover:text-[#53B4E4]">{title}</h2>
+          <span className="self-start text-[#717272]">{release_date}</span>
         </CardFooter>
       </Card>
     </>
   )
 }
 
-export default CardItem
+export default CardPerson

@@ -9,6 +9,7 @@ import Banner from "./Banner";
 import { Key, useState } from "react";
 import { useMoviesPopilares, useMoviesUpcoming, usePersonsPopulares, useSeriesPopulares } from "@/utils/queries";
 import { formateDate } from "@/lib/utils";
+import CardPerson from "./CardPerson";
 
 function HomePage() {
   const [activeTab, setActiveTab] = useState('populares');
@@ -44,9 +45,10 @@ function HomePage() {
 
                   {moviesPopulares.data &&
                     <>
-                      {moviesPopulares.data.results.map((item: { id: Key | null | undefined; poster_path: string | undefined; title: string; release_date: string; }) => (
+                      {moviesPopulares.data.results.map((item) => (
                         <CardItem
                           key={item.id}
+                          vote_average={item.vote_average}
                           poster_path={item.poster_path}
                           title={item.title}
                           release_date={formateDate(item.release_date)}
@@ -69,9 +71,10 @@ function HomePage() {
 
                   {MoviesUpcoming.data &&
                     <>
-                      {MoviesUpcoming.data.results.map((item: { id: Key | null | undefined; poster_path: string | undefined; title: string; release_date: string; }) => (
+                      {MoviesUpcoming.data.results.map((item) => (
                         <CardItem
                           key={item.id}
+                          vote_average={item.vote_average}
                           poster_path={item.poster_path}
                           title={item.title}
                           release_date={formateDate(item.release_date)}
@@ -93,9 +96,10 @@ function HomePage() {
 
                   {SeriesPopulares.data &&
                     <>
-                      {SeriesPopulares.data.results.map((item: { id: Key | null | undefined; poster_path: string | undefined; title: string; release_date: string; }) => (
+                      {SeriesPopulares.data.results.map((item) => (
                         <CardItem
                           key={item.id}
+                          vote_average={item.vote_average}
                           poster_path={item.poster_path}
                           title={item.title}
                           release_date={formateDate(item.release_date)}
@@ -118,7 +122,7 @@ function HomePage() {
                   {PersonsPopulares.data &&
                     <>
                       {PersonsPopulares.data.results.map((item: { id: Key | null | undefined; profile_path: any; name: string | undefined; known_for: { map: (arg0: (item: { name: any; }) => any) => string | undefined; }; }) => (
-                        <CardItem
+                        <CardPerson
                           key={item.id}
                           poster_path={`	https://media.themoviedb.org/t/p/w300_and_h450_bestv2${item.profile_path}`}
                           title={item.name}
