@@ -64,6 +64,11 @@ export const getMovieVideos = async (id: number) => {
   return response.data.results;
 }
 
+export const getMovieCredits = async (id: number) => {
+  const response = await api.get(`/movie/${id}/credits`);
+  return response.data.cast;
+}
+
 export const geMoviesUpcoming = async () => {
   const response = await api.get('/movie/upcoming', {
     transformResponse: [function (data) {

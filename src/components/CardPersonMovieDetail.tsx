@@ -12,10 +12,10 @@ type Props = {
   release_date?: string
 }
 
-const CardPerson = ({ id, poster_path, vote_average, title, release_date,character }: Props) => {
+const CardPersonMovieDetail = ({ id, poster_path, title, character }: Props) => {
   return (
     <>
-      <Card className="w-[200px] hover:drop-shadow-2xl cursor-pointer">
+      <Card className="min-w-[200px] h-[394px] rounded-sm hover:drop-shadow-2xl cursor-pointer">
         <div>
           <img
             className='w-full object-cover rounded-t-md'
@@ -28,11 +28,10 @@ const CardPerson = ({ id, poster_path, vote_average, title, release_date,charact
           </div>
           <h2 className="self-start font-bold hover:text-[#53B4E4]">{title}</h2>
           <p className="self-start">{ character }</p>
-          <span className="self-start text-[#717272]">{release_date}</span>
         </CardFooter>
       </Card>
     </>
   )
 }
 
-export default CardPerson
+export default CardPersonMovieDetail

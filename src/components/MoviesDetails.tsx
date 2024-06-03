@@ -3,7 +3,7 @@ import CardImage from "./CardImage";
 import VoteAveregeItem from "./VoteAveregeItem";
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
-import { getMovieDetails, getMovieVideos } from "@/utils/api";
+import { getMovieCredits, getMovieDetails, getMovieVideos } from "@/utils/api";
 import { MovieDetail } from "@/types/MovieDetail";
 import { formateDateDetails, formateDuration, formateYear } from "@/lib/utils";
 import {
@@ -13,11 +13,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import CardPerson from "./CardPerson";
+import CardPersonMovieDetail from "./CardPersonMovieDetail";
 
 const MoviesDetails = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState<MovieDetail>({});
-  const [video, setVideo] = useState([]);
+  const [movieVideo, setMovieVideo] = useState([]);
+  const [movieCredits, setMovieCredits] = useState([]);
   
   useEffect(() => {
     (async () => {
@@ -27,7 +30,13 @@ const MoviesDetails = () => {
 
     (async () => {
       const res = await getMovieVideos(Number(id));
-      setVideo(res[0]);            
+      setMovieVideo(res[0]);            
+    })();
+
+    (async () => {
+      const res = await getMovieCredits(Number(id));
+      setMovieCredits(res);
+      console.log(res)
     })();
   }, []);
 
@@ -74,7 +83,7 @@ const MoviesDetails = () => {
                     </div>
                   </div>
 
-                  {video !== undefined &&
+                  {movieVideo !== undefined &&
                     <Dialog>
                       <DialogTrigger asChild>
                         <div className="flex justify-center m-auto lg:ml-0 my-3 py-1 px-1 w-44 cursor-pointer rounded-sm hover:bg-gray-500 ">
@@ -90,7 +99,7 @@ const MoviesDetails = () => {
                         <div>
                           <iframe
                             className="w-full h-[28rem]"
-                            src={`https://www.youtube.com/embed/${video?.key}`}
+                            src={`https://www.youtube.com/embed/${movieVideo?.key}`}
                             title="YouTube video player"
                             frameBorder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -113,12 +122,35 @@ const MoviesDetails = () => {
                 </div>
               </div>             
 
-            </div>
-            
+            </div>            
+          </div>
+        </div>
+        
+        <div className="container">
+          <div className='grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6'>
+            <div className='sm:col-span-3 md:col-span-2'>
+              <h1 className="text-black text-2xl font-bold">Elenco principal</h1>
+              <div className="flex overflow-x-scroll overflow-y-hidden gap-4 pb-6 mt-4">
+                {movieCredits &&
+                  <>
+                  {movieCredits.map((item) => (
+                      <CardPersonMovieDetail
+                        key={item.id}
+                        poster_path={`https://media.themoviedb.org/t/p/w300_and_h450_bestv2${item.profile_path}`}
+                        title={item.name}
+                        character={item.character}
+                      />
+                    ))}
+                  </>
 
+                }
+              </div>
+            </div>
+            <div className='sm:col-span-3 md:col-auto bg-blue-500'>0911111111111aaaaaaa</div>
           </div>
         </div>
       </div> 
+
     </>
   )
 }
