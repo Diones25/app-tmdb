@@ -44,9 +44,9 @@ function HomePage() {
 
                   {moviesPopulares.isLoading && 'Carregando...'}
 
-                  {moviesPopulares.data &&
+                  {moviesPopulares.data && 
                     <>
-                    {moviesPopulares.data.results.map((item) => (
+                    {moviesPopulares.data.results.map((item: { id: Key | null | undefined; vote_average: number | undefined; poster_path: string | undefined; title: string | undefined; release_date: string; }) => (
                       <Link to={`/details/${item.id}`}>
                         <CardItem
                           key={item.id}
@@ -74,7 +74,7 @@ function HomePage() {
 
                   {MoviesUpcoming.data &&
                     <>
-                    {MoviesUpcoming.data.results.map((item) => (
+                    {MoviesUpcoming.data.results.map((item: { id: Key | null | undefined; vote_average: number | undefined; poster_path: string | undefined; title: string | undefined; release_date: string; }) => (
                       <Link to={`/releases/details/${item.id}`}>
                         <CardItem
                           key={item.id}
@@ -101,7 +101,7 @@ function HomePage() {
 
                   {SeriesPopulares.data &&
                     <>
-                      {SeriesPopulares.data.results.map((item) => (
+                      {SeriesPopulares.data.results.map((item: { id: Key | null | undefined; vote_average: number | undefined; poster_path: string | undefined; title: string | undefined; release_date: string; }) => (
                         <Link to={`/series/details/${item.id}`}>
                           <CardItem
                             key={item.id}

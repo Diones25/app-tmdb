@@ -1,4 +1,4 @@
-import { MovieDetail } from "@/types/MovieDetail";
+import { Genre, MovieDetail } from "@/types/MovieDetail";
 import axios from "axios";
 
 const baseURL = "https://api.themoviedb.org/3";
@@ -52,11 +52,16 @@ export const getMovieDetails = async (id: number): Promise<MovieDetail> => {
         vote_average: parsedData.vote_average,
         tagline: parsedData.tagline,
         overview: parsedData.overview,
-        genres: parsedData.genres.map(item => item.name)
+        genres: parsedData.genres.map((item: Genre) => item.name)
       }
     }]
   });
   return response.data;
+}
+
+export const getMovieVideos = async (id: number) => {
+  const response = await api.get(`/movie/${id}/videos`);
+  return response.data.results;
 }
 
 export const geMoviesUpcoming = async () => {

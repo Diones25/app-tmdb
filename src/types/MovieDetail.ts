@@ -10,3 +10,7 @@ export type MovieDetail = {
   overview: string;
   genres: string[]
 }
+
+export type Genre = {
+  name: string;
+}
