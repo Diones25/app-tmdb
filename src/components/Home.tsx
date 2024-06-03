@@ -74,7 +74,8 @@ function HomePage() {
 
                   {MoviesUpcoming.data &&
                     <>
-                      {MoviesUpcoming.data.results.map((item) => (
+                    {MoviesUpcoming.data.results.map((item) => (
+                      <Link to={`/releases/details/${item.id}`}>
                         <CardItem
                           key={item.id}
                           vote_average={item.vote_average}
@@ -82,6 +83,7 @@ function HomePage() {
                           title={item.title}
                           release_date={formateDate(item.release_date)}
                         />
+                      </Link>
                       ))}
                     </>
 
@@ -100,13 +102,15 @@ function HomePage() {
                   {SeriesPopulares.data &&
                     <>
                       {SeriesPopulares.data.results.map((item) => (
-                        <CardItem
-                          key={item.id}
-                          vote_average={item.vote_average}
-                          poster_path={item.poster_path}
-                          title={item.title}
-                          release_date={formateDate(item.release_date)}
-                        />
+                        <Link to={`/series/details/${item.id}`}>
+                          <CardItem
+                            key={item.id}
+                            vote_average={item.vote_average}
+                            poster_path={item.poster_path}
+                            title={item.title}
+                            release_date={formateDate(item.release_date)}
+                          />
+                        </Link>
                       ))}
                     </>
 

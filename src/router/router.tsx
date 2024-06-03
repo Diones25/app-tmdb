@@ -18,7 +18,24 @@ export const Router = createBrowserRouter([
         <MoviesDetails />
       )
     }
+  },
+  {
+    path: '/releases/details/:id',
+    Component() {
+      return (
+        <MoviesDetails />
+      )
+    }
+  },
+  {
+    path: '/series/details/:id',
+    Component() {
+      return (
+        <MoviesDetails />
+      )
+    }
   }
+  
 ]);
 
 export default Router;
