@@ -1,3 +1,4 @@
+import { MovieDetail } from "@/types/MovieDetail";
 import axios from "axios";
 
 const baseURL = "https://api.themoviedb.org/3";
@@ -30,6 +31,28 @@ export const getMoviesPopulares = async () => {
         page: parsedData.page,
         total_pages: parsedData.total_pages,
         total_results: parsedData.total_results,
+      }
+    }]
+  });
+  return response.data;
+}
+
+export const getMovieDetails = async (id: number): Promise<MovieDetail> => {
+  const response = await api.get(`/movie/${id}`, {
+    transformResponse: [function (data) {
+      const parsedData = JSON.parse(data);
+
+      return {
+        id: parsedData.id,
+        title: parsedData.title,
+        backdrop_path: parsedData.backdrop_path,
+        poster_path: parsedData.poster_path,
+        release_date: parsedData.release_date,
+        runtime: parsedData.runtime,
+        vote_average: parsedData.vote_average,
+        tagline: parsedData.tagline,
+        overview: parsedData.overview,
+        genres: parsedData.genres.map(item => item.name)
       }
     }]
   });

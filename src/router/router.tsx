@@ -12,7 +12,7 @@ export const Router = createBrowserRouter([
     }
   },
   {
-    path: '/details',
+    path: '/details/:id',
     Component() {
       return (
         <MoviesDetails />

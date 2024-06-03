@@ -7,6 +7,7 @@ import {
 import CardItem from "./Card";
 import Banner from "./Banner";
 import { Key, useState } from "react";
+import { Link } from "react-router-dom"
 import { useMoviesPopilares, useMoviesUpcoming, usePersonsPopulares, useSeriesPopulares } from "@/utils/queries";
 import { formateDate } from "@/lib/utils";
 import CardPerson from "./CardPerson";
@@ -45,7 +46,8 @@ function HomePage() {
 
                   {moviesPopulares.data &&
                     <>
-                      {moviesPopulares.data.results.map((item) => (
+                    {moviesPopulares.data.results.map((item) => (
+                      <Link to={`/details/${item.id}`}>
                         <CardItem
                           key={item.id}
                           vote_average={item.vote_average}
@@ -53,6 +55,7 @@ function HomePage() {
                           title={item.title}
                           release_date={formateDate(item.release_date)}
                         />  
+                      </Link>
                       ))}
                     </>
                   

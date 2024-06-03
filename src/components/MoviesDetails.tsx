@@ -1,44 +1,77 @@
-import { Play } from "lucide-react"
-import CardImage from "./CardImage"
+import { Play } from "lucide-react";
+import CardImage from "./CardImage";
+import VoteAveregeItem from "./VoteAveregeItem";
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { getMovieDetails } from "@/utils/api";
+import { MovieDetail } from "@/types/MovieDetail";
+import { formateDateDetails, formateDuration, formateYear } from "@/lib/utils";
 
 const MoviesDetails = () => {
+  const { id } = useParams();
+  const [movie, setMovie] = useState<MovieDetail>({});
+  
+  useEffect(() => {
+    (async () => {
+      const res = await getMovieDetails(Number(id));
+      console.log(res)
+      setMovie(res);
+    })()
+  }, []);
+
   return (
     <>
       <div className="min-h-screen mt-3 text-white">
         <div
-          className="bg-[url('https://www.themoviedb.org/t/p/w1920_and_h800_face//dzDK2TMXsxrolGVdZwNGcOlZqrF.jpg')] bg-no-repeat bg-cover bg-center"
+          style={{
+            backgroundImage: `url(${`https://image.tmdb.org/t/p/w1920_and_h800_face/`}.${movie.backdrop_path})`,
+          }}        
+          className="bg-no-repeat bg-cover bg-center"
         >
           <div className='bg-[rgba(0,0,0,0.6)]'>
             <div className="container">                          
               <div className="flex flex-col lg:flex-row items-center py-7">
                 <CardImage
-                  poster_path="https://image.tmdb.org/t/p/w600_and_h900_bestv2/dzDK2TMXsxrolGVdZwNGcOlZqrF.jpg"
+                  poster_path={`https://image.tmdb.org/t/p/w600_and_h900_bestv2/${movie.poster_path}`}                  
                 /> 
 
                 <div className="ml-9 mt-3 text-center lg:text-left">
-                  <h2 className="text-white text-4xl font-bold">Planeta dos Macacos: O Reinado <span className="font-normal">(2024)</span></h2>
+                  <h2 className="text-white text-4xl font-bold">{movie.title}<span className="font-normal">({formateYear(movie.release_date)})</span></h2>
                   <p>
                     <span className="border px-1 mr-1">14</span>
-                    <span className="mr-1">09/05/2024</span>
+                    <span className="mr-1">{formateDateDetails(movie.release_date) }</span>
                     <span className="font-bold">.</span>
-                    <span className="mx-1">Ficção científica, Aventura, Ação</span>
+                    <span className="mx-1">
+                      {movie.genres+","}                      
+                    </span>
                     <span className="font-bold">.</span>
-                    <span className="ml-1">2h 25m</span>
+                    <span className="ml-1">{ formateDuration(movie.runtime) }</span>
                   </p>
-                  <div className="flex m-auto lg:ml-0 my-6 w-44 cursor-pointer">
+
+                  <div className="flex justify-center lg:justify-start mt-5">
+                    <div>
+                      <div className="flex items-center">
+                        <VoteAveregeItem
+                          vote_average={movie.vote_average}
+                        />
+                        <div className="ml-2 text-left font-bold">
+                          <p>Avaliação</p>
+                          <p>dos</p>
+                          <p>usuários</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex justify-center m-auto lg:ml-0 my-6 py-1 px-1 w-44 cursor-pointer rounded-sm hover:bg-gray-500 ">
                     <Play />
                     <span className="font-semibold">Reproduzir trailer</span>
                   </div>
                   
                   <div className="">
-                    <p>Ninguém pode parar o reinado.</p>
+                    <p>{ movie.tagline }</p>
                     <h2 className="font-semibold text-2xl my-2">Sinopse</h2>
-                    <p>Várias gerações no futuro, após o reinado de César, os macacos são agora a espécie dominante e
-                      vivem harmoniosamente, enquanto os humanos foram reduzidos a viver nas sombras. À medida que um novo
-                      líder símio tirânico constrói o seu império, um jovem macaco empreende uma jornada angustiante que o
-                      levará a questionar tudo o que sabia sobre o passado e a fazer escolhas que definirão um futuro tanto
-                      para os macacos como para os humanos.
-                    </p>
+                    <p>{ movie.overview }</p>
                   </div>
                 </div>
               </div>             
