@@ -37,8 +37,7 @@ const MoviesDetails = () => {
 
                 <div className="ml-9 mt-3 text-center lg:text-left">
                   <h2 className="text-white text-4xl font-bold">{movie.title}<span className="font-normal">({formateYear(movie.release_date)})</span></h2>
-                  <p>
-                    <span className="border px-1 mr-1">14</span>
+                  <p>                    
                     <span className="mr-1">{formateDateDetails(movie.release_date) }</span>
                     <span className="font-bold">.</span>
                     <span className="mx-1">
