@@ -164,6 +164,7 @@ const MoviesDetails = () => {
             </div>
 
             <div className='sm:col-span-3 md:col-auto bg-blue-500'>
+
               <div className="flex mt-1">
                 <TooltipProvider>
                   <Tooltip>
@@ -216,6 +217,40 @@ const MoviesDetails = () => {
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>                
+              </div>
+
+              <div className="text-black mt-6">
+
+                <div className="mb-4">
+                  <p className="font-semibold">Titulo original</p>
+                  <p>{ movie.original_title }</p>
+                </div>
+
+                <div className="mb-4">
+                  <p className="font-semibold">Situação</p>
+                  <p>{movie.status === "Released" ? "Lançado" : "" }</p>
+                </div>
+
+                <div className="mb-4">
+                  <p className="font-semibold">Idioma original</p>
+                  <p>{ movie.original_language === "en" ? "Inglês" : "" }</p>
+                </div>
+
+                <div className="mb-4">
+                  <p className="font-semibold">Orçamento</p>
+                  <p>{ movie.budget }</p>
+                </div>
+
+                <div className="mb-6">
+                  <p className="font-semibold">Receita</p>
+                  <p>{ movie.revenue }</p>
+                </div>
+                
+                <div className="mb-4">
+                  <p className="font-semibold">Palavras chave</p>
+                  <p>{""}</p>
+                </div>
+
               </div>
             </div>
           </div>

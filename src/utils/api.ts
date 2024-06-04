@@ -53,6 +53,11 @@ export const getMovieDetails = async (id: number): Promise<MovieDetail> => {
         vote_average: parsedData.vote_average,
         tagline: parsedData.tagline,
         overview: parsedData.overview,
+        original_title: parsedData.original_title,
+        status: parsedData.status,
+        original_language: parsedData.original_language,
+        budget: parsedData.budget,
+        revenue: parsedData.revenue,
         genres: parsedData.genres.map((item: Genre) => item.name)
       }
     }]
