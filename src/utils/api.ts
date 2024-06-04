@@ -1,3 +1,4 @@
+import { ExternalId } from "@/types/ExternalId";
 import { Genre, MovieDetail } from "@/types/MovieDetail";
 import axios from "axios";
 
@@ -67,6 +68,11 @@ export const getMovieVideos = async (id: number) => {
 export const getMovieCredits = async (id: number) => {
   const response = await api.get(`/movie/${id}/credits`);
   return response.data.cast;
+}
+
+export const getMovieExternalIds = async (id: number): Promise<ExternalId> => {
+  const response = await api.get(`/movie/${id}/external_ids`);  
+  return response.data;
 }
 
 export const geMoviesUpcoming = async () => {

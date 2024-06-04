@@ -1,9 +1,9 @@
 import { Play } from "lucide-react";
 import CardImage from "./CardImage";
 import VoteAveregeItem from "./VoteAveregeItem";
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
-import { getMovieCredits, getMovieDetails, getMovieVideos } from "@/utils/api";
+import { getMovieCredits, getMovieDetails, getMovieExternalIds, getMovieVideos } from "@/utils/api";
 import { MovieDetail } from "@/types/MovieDetail";
 import { formateDateDetails, formateDuration, formateYear } from "@/lib/utils";
 import {
@@ -13,14 +13,26 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import CardPerson from "./CardPerson";
+import { Button } from "@/components/ui/button"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 import CardPersonMovieDetail from "./CardPersonMovieDetail";
+import svgFacebook from '../assets/facebook.svg';
+import svgTwitter from '../assets/twitter.svg';
+import svgInstagram from '../assets/instagram.svg';
+import svgIMDB from '../assets/imdb.svg';
+import { ExternalId } from "@/types/ExternalId";
 
 const MoviesDetails = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState<MovieDetail>({});
   const [movieVideo, setMovieVideo] = useState([]);
   const [movieCredits, setMovieCredits] = useState([]);
+  const [externalId, setExternalId] = useState({});
   
   useEffect(() => {
     (async () => {
@@ -35,8 +47,12 @@ const MoviesDetails = () => {
 
     (async () => {
       const res = await getMovieCredits(Number(id));
-      setMovieCredits(res);
-      console.log(res)
+      setMovieCredits(res);      
+    })();
+
+    (async () => {
+      const res = await getMovieExternalIds(Number(id));
+      setExternalId(res);      
     })();
   }, []);
 
@@ -146,7 +162,62 @@ const MoviesDetails = () => {
                 }
               </div>
             </div>
-            <div className='sm:col-span-3 md:col-auto bg-blue-500'>0911111111111aaaaaaa</div>
+
+            <div className='sm:col-span-3 md:col-auto bg-blue-500'>
+              <div className="flex mt-1">
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Link to={`https://www.facebook.com/${externalId.facebook_id}`}>
+                        <img src={svgFacebook} alt="facebook" className="w-9 mr-1" />
+                      </Link>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Visitar Facebook</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Link to={`https://twitter.com/${externalId.twitter_id}`}>
+                        <img src={svgTwitter} alt="twitter" className="w-9 ml-1" />
+                      </Link>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Visitar Twitter</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Link to={`https://instagram.com/${externalId.instagram_id}`}>
+                        <img src={svgInstagram} alt="instagram" className="w-9 mr-1" />
+                      </Link>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Visitar Instagram</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>                
+
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Link to={`https://www.imdb.com/title/${externalId.imdb_id}`}>
+                        <img src={svgIMDB} alt="imdb" className="w-9 ml-1" />
+                      </Link>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Visitar IMDB</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>                
+              </div>
+            </div>
           </div>
         </div>
       </div> 
