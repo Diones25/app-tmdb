@@ -3,7 +3,7 @@ import CardImage from "./CardImage";
 import VoteAveregeItem from "./VoteAveregeItem";
 import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
-import { getMovieCredits, getMovieDetails, getMovieExternalIds, getMovieVideos } from "@/utils/api";
+import { getMovieCredits, getMovieDetails, getMovieExternalIds, getMovieKeywords, getMovieVideos } from "@/utils/api";
 import { MovieDetail } from "@/types/MovieDetail";
 import { formateDateDetails, formateDuration, formateYear } from "@/lib/utils";
 import {
@@ -26,6 +26,7 @@ import svgTwitter from '../assets/twitter.svg';
 import svgInstagram from '../assets/instagram.svg';
 import svgIMDB from '../assets/imdb.svg';
 import { ExternalId } from "@/types/ExternalId";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "./ui/breadcrumb";
 
 const MoviesDetails = () => {
   const { id } = useParams();
@@ -33,6 +34,7 @@ const MoviesDetails = () => {
   const [movieVideo, setMovieVideo] = useState([]);
   const [movieCredits, setMovieCredits] = useState([]);
   const [externalId, setExternalId] = useState({});
+  const [keyword, setKeyword] = useState([]);
   
   useEffect(() => {
     (async () => {
@@ -53,6 +55,11 @@ const MoviesDetails = () => {
     (async () => {
       const res = await getMovieExternalIds(Number(id));
       setExternalId(res);      
+    })();
+
+    (async () => {
+      const res = await getMovieKeywords(Number(id));
+      setKeyword(res);
     })();
   }, []);
 
@@ -144,8 +151,8 @@ const MoviesDetails = () => {
         
         <div className="container">
           <div className='grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6'>
-            <div className='sm:col-span-3 md:col-span-2'>
-              <h1 className="text-black text-2xl font-bold">Elenco principal</h1>
+            <div className='sm:col-span-3 md:col-span-2 bg-green-300'>
+              <h1 className="text-black text-2xl font-semibold">Elenco principal</h1>
               <div className="flex overflow-x-scroll overflow-y-hidden gap-4 pb-6 mt-4">
                 {movieCredits &&
                   <>
@@ -161,9 +168,14 @@ const MoviesDetails = () => {
 
                 }
               </div>
+
+              <div className="flex items-center mt-6">
+                <h1 className="text-black text-2xl font-semibold mr-10">Mídia</h1>
+                
+              </div>
             </div>
 
-            <div className='sm:col-span-3 md:col-auto bg-blue-500'>
+            <div className='sm:col-span-3 md:col-auto bg-orange-300'>
 
               <div className="flex mt-1">
                 <TooltipProvider>
@@ -247,8 +259,16 @@ const MoviesDetails = () => {
                 </div>
                 
                 <div className="mb-4">
-                  <p className="font-semibold">Palavras chave</p>
-                  <p>{""}</p>
+                  <p className="font-semibold">Palavras-chave</p>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-1 mt-2">
+                    {keyword.map(item => (
+                      <div key={item.id}>
+                        <p className="bg-gray-200 text-center rounded-sm py-1">{ item.name }</p>
+                      </div>
+                    ))}
+                  </div>
+
                 </div>
 
               </div>

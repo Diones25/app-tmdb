@@ -1,4 +1,5 @@
 import { ExternalId } from "@/types/ExternalId";
+import { Keyword } from "@/types/Keyword";
 import { Genre, MovieDetail } from "@/types/MovieDetail";
 import axios from "axios";
 
@@ -78,6 +79,11 @@ export const getMovieCredits = async (id: number) => {
 export const getMovieExternalIds = async (id: number): Promise<ExternalId> => {
   const response = await api.get(`/movie/${id}/external_ids`);  
   return response.data;
+}
+
+export const getMovieKeywords = async (id: number): Promise<Keyword> => {
+  const response = await api.get(`/movie/${id}/keywords`);
+  return response.data.keywords;
 }
 
 export const geMoviesUpcoming = async () => {
