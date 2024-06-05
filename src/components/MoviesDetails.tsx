@@ -225,14 +225,13 @@ const MoviesDetails = () => {
                   </TabsContent>
 
                   <TabsContent value="imagens">
-                    {/* <div>
+                    <div className="flex">
                       {movieImages.map(item => (
-                        <div>
-                          <img src={`https://media.themoviedb.org/t/p/w533_and_h300_bestv2${item.file_path}`} alt="" />
-                          {`https://media.themoviedb.org/t/p/w533_and_h300_bestv2${item.file_path}`}
+                        <div className="w-[533px] h-[300px]">
+                          <img src={`https://media.themoviedb.org/t/p/w533_and_h300_bestv2${item.file_path}`} alt="" />                          
                         </div>
                       ))}                      
-                    </div> */}
+                    </div>
                   </TabsContent>
 
                 </Tabs> 
@@ -245,7 +244,7 @@ const MoviesDetails = () => {
                   {movieRecommended &&
                     <>
                       {movieRecommended.map(item => (                          
-                        <a href={`/details/${item.id}`}>
+                        <a href={`/details/${item.id}`} key={item.id}>
                           <MoviesRecommended
                             backdrop_path={`https://media.themoviedb.org/t/p/w250_and_h141_face/${item.backdrop_path}`}
                             title={item.title}

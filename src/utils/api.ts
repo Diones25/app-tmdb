@@ -4,7 +4,8 @@ import { Genre, MovieDetail } from "@/types/MovieDetail";
 import axios from "axios";
 
 const baseURL = "https://api.themoviedb.org/3";
-const api_key = "f5a4130ffbf5af6a0dc17e45671898d0";
+const api_key = import.meta.env.VITE_APP_API_KEY;
+const token = import.meta.env.VITE_APP_TOKEN;
 const language = "pt-BR"
 
 const api = axios.create({
@@ -12,6 +13,9 @@ const api = axios.create({
   params: {
     api_key: api_key,
     language: language
+  },
+  headers: {    
+    Authorization: token
   }
 });
 
@@ -72,15 +76,26 @@ export const getMovieDetailsVideos = async (id: number) => {
 }
 
 export const getMovieDetailsImages = async (id: number) => {
-  const response = await api.get(`/movie/${id}/images`);
-  //https://api.themoviedb.org/3/movie/{movie_id}/images
-  
-  return response.data.backdrops;
+  const url = 'https://api.themoviedb.org/3/movie/823464/images';
+  const options = {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmNWE0MTMwZmZiZjVhZjZhMGRjMTdlNDU2NzE4OThkMCIsInN1YiI6IjYxMzdhZTg3MDdhODA4MDA2MTQ1ZjdjNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.gJVXz5HjXwJ_ob0dyjxlCXuvIhoPITmPUSWfqX_q-qg'
+    }
+  };
+
+  const response = await axios.get(url, options);
+  const data = response.data.backdrops.map(item => {
+    return {
+      file_path: item.file_path
+    }
+  });
+  return data;
 }
 
 export const getMovieRecommended = async (id: number) => {
   const response = await api.get(`/movie/${id}/recommendations`);
-  console.log(response.data.results)
   return response.data.results;
 }
 
