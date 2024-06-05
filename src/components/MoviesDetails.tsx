@@ -1,9 +1,17 @@
 import { Play } from "lucide-react";
 import CardImage from "./CardImage";
 import VoteAveregeItem from "./VoteAveregeItem";
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from "react";
-import { getMovieCredits, getMovieDetails, getMovieExternalIds, getMovieKeywords, getMovieVideos } from "@/utils/api";
+import {
+  getMovieCredits,
+  getMovieDetails,
+  getMovieDetailsImages,
+  getMovieDetailsVideos,
+  getMovieExternalIds,
+  getMovieKeywords,
+  getMovieRecommended
+} from "@/utils/api";
 import { MovieDetail } from "@/types/MovieDetail";
 import { formateDateDetails, formateDuration, formateYear } from "@/lib/utils";
 import {
@@ -13,7 +21,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button"
 import {
   Tooltip,
   TooltipContent,
@@ -25,16 +32,18 @@ import svgFacebook from '../assets/facebook.svg';
 import svgTwitter from '../assets/twitter.svg';
 import svgInstagram from '../assets/instagram.svg';
 import svgIMDB from '../assets/imdb.svg';
-import { ExternalId } from "@/types/ExternalId";
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "./ui/breadcrumb";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
+import MoviesRecommended from "./MoviesRecommended";
 
 const MoviesDetails = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState<MovieDetail>({});
   const [movieVideo, setMovieVideo] = useState([]);
+  const [movieImages, setMovieImages] = useState([]);
   const [movieCredits, setMovieCredits] = useState([]);
   const [externalId, setExternalId] = useState({});
   const [keyword, setKeyword] = useState([]);
+  const [movieRecommended, setMovieRecommended] = useState([]);
   
   useEffect(() => {
     (async () => {
@@ -43,7 +52,7 @@ const MoviesDetails = () => {
     })();
 
     (async () => {
-      const res = await getMovieVideos(Number(id));
+      const res = await getMovieDetailsVideos(Number(id));
       setMovieVideo(res[0]);            
     })();
 
@@ -60,6 +69,17 @@ const MoviesDetails = () => {
     (async () => {
       const res = await getMovieKeywords(Number(id));
       setKeyword(res);
+    })();
+
+    (async () => {
+      const res = await getMovieDetailsImages(Number(id));
+      
+      setMovieImages(res);
+    })();
+
+    (async () => {
+      const res = await getMovieRecommended(Number(id));
+      setMovieRecommended(res);
     })();
   }, []);
 
@@ -169,9 +189,72 @@ const MoviesDetails = () => {
                 }
               </div>
 
-              <div className="flex items-center mt-6">
-                <h1 className="text-black text-2xl font-semibold mr-10">Mídia</h1>
-                
+              <div className="flex overflow-x-scroll overflow-y-hidden gap-4 pb-6 mt-6">
+                <Tabs defaultValue="videos">
+                  <div className="flex items-center text-black mt-2">
+                    <h1 className="text-black text-2xl font-semibold mr-10">Mídia</h1>
+                    <TabsList className="bg-transparent">
+                      <TabsTrigger value="videos" className="mr-6">Vídeos</TabsTrigger>
+                      <TabsTrigger value="imagens" className="">Imagens de fundo</TabsTrigger>
+                    </TabsList>
+                  </div>
+
+                  <TabsContent value="videos">
+                    <div className="flex">
+                      <iframe
+                        className="w-[33rem] h-[19rem]"
+                        src={`https://www.youtube.com/embed/${movieVideo?.key}`}
+                        title="YouTube video player"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerPolicy="strict-origin-when-cross-origin"
+                        allowFullScreen
+                      >
+                      </iframe>
+                      <iframe
+                        className="w-[33rem] h-[19rem]"
+                        src={`https://www.youtube.com/embed/${movieVideo?.key}`}
+                        title="YouTube video player"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerPolicy="strict-origin-when-cross-origin"
+                        allowFullScreen
+                      >
+                      </iframe>
+                    </div>
+                  </TabsContent>
+
+                  <TabsContent value="imagens">
+                    {/* <div>
+                      {movieImages.map(item => (
+                        <div>
+                          <img src={`https://media.themoviedb.org/t/p/w533_and_h300_bestv2${item.file_path}`} alt="" />
+                          {`https://media.themoviedb.org/t/p/w533_and_h300_bestv2${item.file_path}`}
+                        </div>
+                      ))}                      
+                    </div> */}
+                  </TabsContent>
+
+                </Tabs> 
+              </div> 
+              
+              <div className="mt-6">
+                <h1 className="text-black text-2xl font-semibold">Recomendações</h1>
+                <div className="flex overflow-x-scroll overflow-y-hidden gap-4 pb-6 mt-4">
+
+                  {movieRecommended &&
+                    <>
+                      {movieRecommended.map(item => (                          
+                        <MoviesRecommended 
+                          backdrop_path={`https://media.themoviedb.org/t/p/w250_and_h141_face/${item.backdrop_path}`}
+                          title={item.title}
+                          vote_average={item.vote_average}
+                        />                        
+                      ))}
+                    </>
+                  }
+                  
+                </div>
               </div>
             </div>
 

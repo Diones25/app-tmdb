@@ -66,8 +66,21 @@ export const getMovieDetails = async (id: number): Promise<MovieDetail> => {
   return response.data;
 }
 
-export const getMovieVideos = async (id: number) => {
-  const response = await api.get(`/movie/${id}/videos`);
+export const getMovieDetailsVideos = async (id: number) => {
+  const response = await api.get(`/movie/${id}/videos`);  
+  return response.data.results;
+}
+
+export const getMovieDetailsImages = async (id: number) => {
+  const response = await api.get(`/movie/${id}/images`);
+  //https://api.themoviedb.org/3/movie/{movie_id}/images
+  
+  return response.data.backdrops;
+}
+
+export const getMovieRecommended = async (id: number) => {
+  const response = await api.get(`/movie/${id}/recommendations`);
+  console.log(response.data.results)
   return response.data.results;
 }
 
