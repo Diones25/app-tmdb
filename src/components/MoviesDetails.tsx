@@ -245,11 +245,13 @@ const MoviesDetails = () => {
                   {movieRecommended &&
                     <>
                       {movieRecommended.map(item => (                          
-                        <MoviesRecommended 
-                          backdrop_path={`https://media.themoviedb.org/t/p/w250_and_h141_face/${item.backdrop_path}`}
-                          title={item.title}
-                          vote_average={item.vote_average}
-                        />                        
+                        <a href={`/details/${item.id}`}>
+                          <MoviesRecommended
+                            backdrop_path={`https://media.themoviedb.org/t/p/w250_and_h141_face/${item.backdrop_path}`}
+                            title={item.title}
+                            vote_average={item.vote_average}
+                          /> 
+                        </a>                       
                       ))}
                     </>
                   }
