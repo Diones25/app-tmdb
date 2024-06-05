@@ -171,7 +171,7 @@ const MoviesDetails = () => {
         
         <div className="container">
           <div className='grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6'>
-            <div className='sm:col-span-3 md:col-span-2 bg-green-300'>
+            <div className='sm:col-span-3 md:col-span-2'>
               <h1 className="text-black text-2xl font-semibold">Elenco principal</h1>
               <div className="flex overflow-x-scroll overflow-y-hidden gap-4 pb-6 mt-4">
                 {movieCredits &&
@@ -259,9 +259,9 @@ const MoviesDetails = () => {
               </div>
             </div>
 
-            <div className='sm:col-span-3 md:col-auto bg-orange-300'>
+            <div className='sm:col-span-3 md:col-auto mt-4'>
 
-              <div className="flex mt-1">
+              <div className="flex justify-center md:justify-start mt-1">
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
@@ -315,7 +315,7 @@ const MoviesDetails = () => {
                 </TooltipProvider>                
               </div>
 
-              <div className="text-black mt-6">
+              <div className="text-black text-center md:text-left mt-6">
 
                 <div className="mb-4">
                   <p className="font-semibold">Titulo original</p>
@@ -345,7 +345,7 @@ const MoviesDetails = () => {
                 <div className="mb-4">
                   <p className="font-semibold">Palavras-chave</p>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-1 mt-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-1 mt-2">
                     {keyword.map(item => (
                       <div key={item.id}>
                         <p className="bg-gray-200 text-center rounded-sm py-1">{ item.name }</p>
