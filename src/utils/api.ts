@@ -110,8 +110,34 @@ export const getMovieExternalIds = async (id: number): Promise<ExternalId> => {
 }
 
 export const getMovieKeywords = async (id: number): Promise<Keyword> => {
-  const response = await api.get(`/movie/${id}/keywords`);
+  const response = await api.get(`/movie/${id}/keywords`);  
   return response.data.keywords;
+}
+
+export const getAllMoviesKeywords = async (id: number) => {
+  const response = await api.get(`/keyword/${id}/movies`, {
+    transformResponse: [function (data) {
+      const parsedData = JSON.parse(data);
+
+      return {
+        results: parsedData.results.map((item) => {
+          return {
+            id: item.id,
+            poster_path: `https://media.themoviedb.org/t/p/w94_and_h141_bestv2/${item.poster_path}`,
+            title: item.title,
+            original_title: item.original_title,
+            release_date: item.release_date,
+            overview: item.overview
+          }
+        }),
+        page: parsedData.page,
+        total_pages: parsedData.total_pages,
+        total_results: parsedData.total_results,
+      }
+    }]
+  });  
+  console.log("Console da API ===> ",response.data)
+  return response.data;
 }
 
 export const geMoviesUpcoming = async () => {

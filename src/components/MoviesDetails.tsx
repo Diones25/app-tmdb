@@ -1,7 +1,7 @@
 import { Play } from "lucide-react";
 import CardImage from "./CardImage";
 import VoteAveregeItem from "./VoteAveregeItem";
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import {
   getMovieCredits,
@@ -347,9 +347,11 @@ const MoviesDetails = () => {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-1 mt-2">
                     {keyword.map(item => (
-                      <div key={item.id}>
-                        <p className="bg-gray-200 text-center rounded-sm py-1">{ item.name }</p>
-                      </div>
+                      <Link to={`/keyword/${item.id}/movie`}>
+                        <div key={item.id}>
+                          <p className="bg-gray-200 text-center rounded-sm py-1">{ item.name }</p>
+                        </div>                      
+                      </Link>
                     ))}
                   </div>
 
