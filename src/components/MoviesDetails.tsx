@@ -177,19 +177,21 @@ const MoviesDetails = () => {
                 {movieCredits &&
                   <>
                   {movieCredits.map((item) => (
+                    <Link to={`/person/details/${item.id}`}>
                       <CardPersonMovieDetail
                         key={item.id}
                         poster_path={`https://media.themoviedb.org/t/p/w300_and_h450_bestv2${item.profile_path}`}
                         title={item.name}
                         character={item.character}
                       />
+                    </Link>
                     ))}
                   </>
 
                 }
               </div>
 
-              <div className="flex overflow-x-scroll overflow-y-hidden gap-4 pb-6 mt-6">
+              <div className="flex pb-6 mt-6">
                 <Tabs defaultValue="videos">
                   <div className="flex items-center text-black mt-2">
                     <h1 className="text-black text-2xl font-semibold mr-10">Mídia</h1>
@@ -199,40 +201,44 @@ const MoviesDetails = () => {
                     </TabsList>
                   </div>
 
-                  <TabsContent value="videos">
-                    <div className="flex">
-                      <iframe
-                        className="w-[33rem] h-[19rem]"
-                        src={`https://www.youtube.com/embed/${movieVideo?.key}`}
-                        title="YouTube video player"
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        referrerPolicy="strict-origin-when-cross-origin"
-                        allowFullScreen
-                      >
-                      </iframe>
-                      <iframe
-                        className="w-[33rem] h-[19rem]"
-                        src={`https://www.youtube.com/embed/${movieVideo?.key}`}
-                        title="YouTube video player"
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        referrerPolicy="strict-origin-when-cross-origin"
-                        allowFullScreen
-                      >
-                      </iframe>
-                    </div>
-                  </TabsContent>
-
-                  <TabsContent value="imagens">
-                    <div className="flex">
-                      {movieImages.map(item => (
-                        <div className="w-[533px] h-[300px]">
-                          <img src={`https://media.themoviedb.org/t/p/w533_and_h300_bestv2${item.file_path}`} alt="" />                          
+                  <div className="">
+                    <div className="w-[55rem] overflow-x-scroll overflow-y-hidden">
+                      <TabsContent value="videos">
+                        <div className="flex">
+                          <iframe
+                            className="w-[33rem] h-[19rem]"
+                            src={`https://www.youtube.com/embed/${movieVideo?.key}`}
+                            title="YouTube video player"
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerPolicy="strict-origin-when-cross-origin"
+                            allowFullScreen
+                          >
+                          </iframe>
+                          <iframe
+                            className="w-[33rem] h-[19rem]"
+                            src={`https://www.youtube.com/embed/${movieVideo?.key}`}
+                            title="YouTube video player"
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerPolicy="strict-origin-when-cross-origin"
+                            allowFullScreen
+                          >
+                          </iframe>
                         </div>
-                      ))}                      
+                      </TabsContent>
+
+                      <TabsContent value="imagens">
+                        <div className="flex">
+                          {movieImages.map(item => (
+                            <div className="min-w-[533px] h-[300px]">
+                              <img src={`https://media.themoviedb.org/t/p/w533_and_h300_bestv2${item.file_path}`} alt="" />
+                            </div>
+                          ))}
+                        </div>
+                      </TabsContent>
                     </div>
-                  </TabsContent>
+                  </div>
 
                 </Tabs> 
               </div> 
