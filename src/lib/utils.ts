@@ -1,6 +1,7 @@
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 import moment from "moment";
+import { differenceInYears } from "date-fns";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -27,4 +28,11 @@ export const formateDuration = (duration: string) => {
   let hora = Number(runtime) / 60;
   let minutos = Number(runtime) % 60;
   return `${Math.floor(hora)}h${minutos}m`
+}
+
+export const returnAge = (oldDate: string) => {
+  const dataAtual = new Date();
+  const dataAntiga = new Date(oldDate);
+  const age = differenceInYears(dataAtual, dataAntiga);
+  return age;
 }

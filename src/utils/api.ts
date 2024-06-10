@@ -135,8 +135,7 @@ export const getAllMoviesKeywords = async (id: number) => {
         total_results: parsedData.total_results,
       }
     }]
-  });  
-  console.log("Console da API ===> ",response.data)
+  });    
   return response.data;
 }
 
@@ -191,4 +190,28 @@ export const getSeriesPopulares = async () => {
 export const getPersonsPopulares = async () => {
   const response = await api.get('/person/popular');
   return response.data;
+}
+
+export const getPersonDetails = async (id: number): Promise<MovieDetail> => {
+  const response = await api.get(`/person/${id}`);  
+  return response.data;
+}
+
+export const getPersonCredits = async (id: number): Promise<MovieDetail> => {
+  const response = await api.get(`/person/${id}/movie_credits`, {
+    transformResponse: [function (data) {
+      const parsedData = JSON.parse(data);
+
+      return {
+        results: parsedData.cast.map((item) => {
+          return {
+            id: item.id,
+            poster_path: `https://media.themoviedb.org/t/p/w150_and_h225_bestv2${item.poster_path}`,
+            title: item.title
+          }
+        })
+      }
+    }]
+  });  
+  return response.data.results;
 }
