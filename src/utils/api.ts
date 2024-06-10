@@ -229,6 +229,5 @@ export const getPersonExternalIDs = async (id: number): Promise<MovieDetail> => 
       }
     }]
   });
-  console.log("Console da API getPersonExternalIDs ===> ",response.data)
   return response.data;
 }
