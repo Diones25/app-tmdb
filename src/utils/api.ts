@@ -71,7 +71,19 @@ export const getMovieDetails = async (id: number): Promise<MovieDetail> => {
 }
 
 export const getMovieDetailsVideos = async (id: number) => {
-  const response = await api.get(`/movie/${id}/videos`);  
+  const response = await api.get(`/movie/${id}/videos`, {
+    transformResponse: [function (data) {
+      const parsedData = JSON.parse(data);
+
+      return {
+        results: parsedData.results.map((item) => {
+          return {            
+            key: item.key
+          }
+        })
+      }
+    }]
+  }); 
   return response.data.results;
 }
 

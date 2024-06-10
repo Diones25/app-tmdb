@@ -32,6 +32,7 @@ import svgFacebook from '../assets/facebook.svg';
 import svgTwitter from '../assets/twitter.svg';
 import svgInstagram from '../assets/instagram.svg';
 import svgIMDB from '../assets/imdb.svg';
+import noVideoAvaible from '../assets/no-video-available.jpg';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import MoviesRecommended from "./MoviesRecommended";
 
@@ -195,8 +196,8 @@ const MoviesDetails = () => {
                   <div className="flex items-center text-black mt-2">
                     <h1 className="text-black text-2xl font-semibold mr-10">Mídia</h1>
                     <TabsList className="bg-transparent">
-                      <TabsTrigger value="videos" className="mr-6">Vídeos</TabsTrigger>
-                      <TabsTrigger value="imagens" className="">Imagens de fundo</TabsTrigger>
+                      <TabsTrigger value="videos" className="mr-6">Vídeos <span className="text-gray-500">{movieVideo.length}</span></TabsTrigger>
+                      <TabsTrigger value="imagens" className="">Imagens de fundo <span className="text-gray-500">{movieImages.length}</span></TabsTrigger>
                     </TabsList>
                   </div>
 
@@ -204,7 +205,9 @@ const MoviesDetails = () => {
                     <div className="w-[55rem] overflow-x-scroll overflow-y-hidden">
                       <TabsContent value="videos">
                         <div className="flex">
-                          {movieVideo &&
+                          
+
+                          {movieVideo.length > 0 ? (
                             <>
                               {movieVideo.map(item => (
                                 <iframe
@@ -216,10 +219,12 @@ const MoviesDetails = () => {
                                   referrerPolicy="strict-origin-when-cross-origin"
                                   allowFullScreen
                                 >
-                                </iframe>  
-                              ))}  
+                                </iframe>
+                              ))} 
                             </>
-                          }
+                          ) : (
+                              <img src={ noVideoAvaible } alt="" />
+                          )}
                           
                         </div>
                       </TabsContent>
@@ -227,7 +232,7 @@ const MoviesDetails = () => {
                       <TabsContent value="imagens">
                         <div className="flex">
                           {movieImages.map(item => (
-                            <div className="min-w-[533px] h-[300px]">
+                            <div className="min-w-[533px] h-[19rem]">
                               <img src={`https://media.themoviedb.org/t/p/w533_and_h300_bestv2${item.file_path}`} alt="" />
                             </div>
                           ))}
