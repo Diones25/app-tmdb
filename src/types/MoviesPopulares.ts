@@ -9,7 +9,7 @@ export type MoviesPopulares = {
 export type Results = {
   id: number;
   poster_path: string;
-  vote_average: string;
+  vote_average: number;
   title: string;
   release_date: string;
 }

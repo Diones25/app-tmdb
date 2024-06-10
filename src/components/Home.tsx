@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/tabs"
 import CardItem from "./Card";
 import Banner from "./Banner";
-import { Key, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom"
 import { useMoviesPopilares, useMoviesUpcoming, usePersonsPopulares, useSeriesPopulares } from "@/utils/queries";
 import { formateDate } from "@/lib/utils";
@@ -46,7 +46,7 @@ function HomePage() {
 
                   {moviesPopulares.data && 
                     <>
-                    {moviesPopulares.data.results.map((item: { id: Key | null | undefined; vote_average: number | undefined; poster_path: string | undefined; title: string | undefined; release_date: string; }) => (
+                    {moviesPopulares.data.results.map((item) => (
                       <Link to={`/details/${item.id}`}>
                         <CardItem
                           key={item.id}
@@ -74,7 +74,7 @@ function HomePage() {
 
                   {MoviesUpcoming.data &&
                     <>
-                    {MoviesUpcoming.data.results.map((item: { id: Key | null | undefined; vote_average: number | undefined; poster_path: string | undefined; title: string | undefined; release_date: string; }) => (
+                    {MoviesUpcoming.data.results.map((item) => (
                       <Link to={`/releases/details/${item.id}`}>
                         <CardItem
                           key={item.id}
@@ -101,7 +101,7 @@ function HomePage() {
 
                   {SeriesPopulares.data &&
                     <>
-                      {SeriesPopulares.data.results.map((item: { id: Key | null | undefined; vote_average: number | undefined; poster_path: string | undefined; title: string | undefined; release_date: string; }) => (
+                      {SeriesPopulares.data.results.map((item) => (
                         <Link to={`/series/details/${item.id}`}>
                           <CardItem
                             key={item.id}

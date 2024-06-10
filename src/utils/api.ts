@@ -7,7 +7,7 @@ import { MovieCredits } from "@/types/MovieCredits";
 import { Genre, MovieDetail } from "@/types/MovieDetail";
 import { MovieRecommended } from "@/types/MovieRecommended";
 import { MoviesPopulares, Results } from "@/types/MoviesPopulares";
-import { MoviesUpcoming } from "@/types/MoviesUpcoming";
+import { MoviesUpcoming, ResultsUpcoming } from "@/types/MoviesUpcoming";
 import { PersonCredits } from "@/types/PersonCredits";
 import { PersonDetails } from "@/types/PersonDetails";
 import { PersonExternalIDs } from "@/types/PersonExternalIDs";
@@ -199,11 +199,11 @@ export const geMoviesUpcoming = async (): Promise<MoviesUpcoming> => {
       const parsedData = JSON.parse(data);
 
       return {
-        results: parsedData.results.map((item: MoviesUpcoming) => {
+        results: parsedData.results.map((item: ResultsUpcoming) => {
           return {
             id: item.id,
             poster_path: `https://www.themoviedb.org/t/p/w220_and_h330_face${item.poster_path}`,
-            vote_average: item.vote_average,
+            vote_average: Number(item.vote_average),
             title: item.title,
             release_date: item.release_date
           }
