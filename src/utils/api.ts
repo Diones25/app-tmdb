@@ -1,4 +1,4 @@
-import { AllMoviesKeywords } from "@/types/AllMoviesKeywords";
+import { ResultsAllMoviesKeywords, TypeAllMoviesKeywords } from "@/types/AllMoviesKeywords";
 import { ExternalId } from "@/types/ExternalId";
 import { FilePath } from "@/types/FilePath";
 import { Key } from "@/types/Key";
@@ -168,13 +168,13 @@ export const getMovieKeywords = async (id: number): Promise<Keyword> => {
   return response.data.keywords;
 }
 
-export const getAllMoviesKeywords = async (id: number): Promise<AllMoviesKeywords> => {
+export const getAllMoviesKeywords = async (id: number): Promise<TypeAllMoviesKeywords> => {
   const response = await api.get(`/keyword/${id}/movies`, {
     transformResponse: [function (data) {
       const parsedData = JSON.parse(data);
 
       return {
-        results: parsedData.results.map((item: AllMoviesKeywords) => {
+        results: parsedData.results.map((item: ResultsAllMoviesKeywords) => {
           return {
             id: item.id,
             poster_path: `https://media.themoviedb.org/t/p/w94_and_h141_bestv2/${item.poster_path}`,

@@ -3,10 +3,11 @@ import { Button } from "./ui/button"
 import { useEffect, useState } from 'react';
 import { getAllMoviesKeywords } from '@/utils/api';
 import CardKeywordMovies from './CardKeywordMovies';
+import { TypeAllMoviesKeywords } from '@/types/AllMoviesKeywords';
 
 const AllMoviesKeywords = () => {
   const { id } = useParams();
-  const [keywordsMovies, setKeywordsMovies] = useState();
+  const [keywordsMovies, setKeywordsMovies] = useState<TypeAllMoviesKeywords>();
 
   useEffect(() => {
     (async () => {
