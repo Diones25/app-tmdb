@@ -76,7 +76,7 @@ export const getMovieDetailsVideos = async (id: number) => {
 }
 
 export const getMovieDetailsImages = async (id: number) => {
-  const url = 'https://api.themoviedb.org/3/movie/823464/images';
+  const url = `https://api.themoviedb.org/3/movie/${id}/images`;
   const options = {
     method: 'GET',
     headers: {

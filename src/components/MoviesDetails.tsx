@@ -72,8 +72,7 @@ const MoviesDetails = () => {
     })();
 
     (async () => {
-      const res = await getMovieDetailsImages(Number(id));
-      
+      const res = await getMovieDetailsImages(Number(id));      
       setMovieImages(res);
     })();
 
