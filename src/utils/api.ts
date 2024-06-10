@@ -123,13 +123,27 @@ export const getMovieRecommended = async (id: number) => {
       }
     }]
   });
-  console.log("console da api getMovieRecommended ==> ", response.data.results)
   return response.data.results;
 }
 
 export const getMovieCredits = async (id: number) => {
-  const response = await api.get(`/movie/${id}/credits`);
-  return response.data.cast;
+  const response = await api.get(`/movie/${id}/credits`, {
+    transformResponse: [function (data) {
+      const parsedData = JSON.parse(data);
+
+      return {
+        results: parsedData.cast.map((item) => {
+          return {
+            id: item.id,
+            profile_path: item.profile_path,
+            name: item.name,
+            character: item.character
+          }
+        })
+      }
+    }]
+  });
+  return response.data.results;
 }
 
 export const getMovieExternalIds = async (id: number): Promise<ExternalId> => {

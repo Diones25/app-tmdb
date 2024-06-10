@@ -59,6 +59,7 @@ const MoviesDetails = () => {
 
     (async () => {
       const res = await getMovieCredits(Number(id));
+      console.log(movieCredits)
       setMovieCredits(res);      
     })();
 
@@ -180,8 +181,8 @@ const MoviesDetails = () => {
                     <Link to={`/person/details/${item.id}`}>
                       <CardPersonMovieDetail
                         key={item.id}
-                        poster_path={`https://media.themoviedb.org/t/p/w300_and_h450_bestv2${item.profile_path}`}
-                        title={item.name}
+                        profile_path={`https://media.themoviedb.org/t/p/w300_and_h450_bestv2${item.profile_path}`}
+                        name={item.name}
                         character={item.character}
                       />
                     </Link>
