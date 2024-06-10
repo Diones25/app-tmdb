@@ -1,4 +1,4 @@
-export type PersonDetails = {
+export type TypePersonDetails = {
   id: number;
   profile_path: string;
   name: string;

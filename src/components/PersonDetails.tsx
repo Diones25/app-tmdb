@@ -7,12 +7,15 @@ import svgInstagram from '../assets/instagram.svg';
 import { useEffect, useState } from "react";
 import { getPersonCredits, getPersonDetails, getPersonExternalIDs } from "@/utils/api";
 import { formateDate, returnAge } from "@/lib/utils";
+import { TypePersonDetails } from "@/types/PersonDetails";
+import { PersonExternalIDs } from "@/types/PersonExternalIDs";
+import { PersonCredits } from "@/types/PersonCredits";
 
 const PersonDetails = () => {
   const { id } = useParams();
-  const [personDetails, setPersonDetails] = useState({});
-  const [personCredits, setPersonCredits] = useState([]);
-  const [personExternalID, setPersonExternalID] = useState({});
+  const [personDetails, setPersonDetails] = useState<TypePersonDetails>();
+  const [personCredits, setPersonCredits] = useState<PersonCredits[]>([]);
+  const [personExternalID, setPersonExternalID] = useState<PersonExternalIDs>();
 
   useEffect(() => {
     (async () => {
@@ -38,14 +41,14 @@ const PersonDetails = () => {
 
           <div className="m-auto sm:m-auto md:m-auto lg:ml-0">
             <div className="min-w-[18.8rem] h-[450px] mr-7">
-              <img className="rounded-sm" src={`https://media.themoviedb.org/t/p/w300_and_h450_bestv2/${personDetails.profile_path}`} alt="" />
+              <img className="rounded-sm" src={`https://media.themoviedb.org/t/p/w300_and_h450_bestv2/${personDetails?.profile_path}`} alt="" />
             </div>
 
             <div className="flex justify-center sm:justify-center md:justify-center lg:justify-start mt-8 ">
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Link to={`https://www.facebook.com/${personExternalID.facebook_id}`}>
+                    <Link to={`https://www.facebook.com/${personExternalID?.facebook_id}`}>
                       <img src={svgFacebook} alt="facebook" className="w-9 mr-2" />
                     </Link>
                   </TooltipTrigger>
@@ -58,7 +61,7 @@ const PersonDetails = () => {
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Link to={`https://twitter.com/${personExternalID.twitter_id}`}>
+                    <Link to={`https://twitter.com/${personExternalID?.twitter_id}`}>
                       <img src={svgTwitter} alt="twitter" className="w-9 ml-2 mr-2" />
                     </Link>
                   </TooltipTrigger>
@@ -71,7 +74,7 @@ const PersonDetails = () => {
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Link to={`https://instagram.com/${personExternalID.instagram_id}`}>
+                    <Link to={`https://instagram.com/${personExternalID?.instagram_id}`}>
                       <img src={svgInstagram} alt="instagram" className="w-9 mr-2" />
                     </Link>
                   </TooltipTrigger>
@@ -84,12 +87,12 @@ const PersonDetails = () => {
           </div>
 
           <div>
-            <h1 className="font-bold text-4xl text-center sm:text-center md:text-center lg:text-left">{ personDetails.name }</h1>
+            <h1 className="font-bold text-4xl text-center sm:text-center md:text-center lg:text-left">{ personDetails?.name }</h1>
 
             <div className="my-4">
               <p className="font-semibold text-xl">Biografia</p>
               <p className="mt-2">
-                {personDetails.biography}
+                {personDetails?.biography}
               </p>
             </div>
 
@@ -123,23 +126,23 @@ const PersonDetails = () => {
         <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 mt-3 mb-2">         
           <div className="mb-3 text-center sm:text-center md:text-left lg:text-left">
             <p className="font-semibold">Conhecido(a) por</p>
-            <p>{personDetails.known_for_department === 'Acting' ? 'Atuação' : '' }</p>
+            <p>{personDetails?.known_for_department === 'Acting' ? 'Atuação' : '' }</p>
           </div>
 
           <div className="mb-3 text-center sm:text-center md:text-left lg:text-left">
             <p className="font-semibold">Gênero</p>
-            <p>{ personDetails.gender === 2 ? 'Masculino' : 'Feminino' }</p>
-            <p>{ personDetails.gender === 3 ? 'Não binário' : '' }</p>
+            <p>{ Number(personDetails?.gender) === 2 ? 'Masculino' : 'Feminino' }</p>
+            <p>{ Number(personDetails?.gender) === 3 ? 'Não binário' : '' }</p>
           </div>
         
           <div className="mb-3 text-center sm:text-center md:text-left lg:text-left">
             <p className="font-semibold">Nascimento</p>
-            <p>{formateDate(personDetails.birthday)} ({returnAge(personDetails.birthday) } de Idade)</p>
+            <p>{formateDate(personDetails.birthday)} ({returnAge(personDetails?.birthday) } de Idade)</p>
           </div>
 
           <div className="mb-3 text-center sm:text-center md:text-left lg:text-left">
             <p className="font-semibold">Local de nascimento (em inglês)</p>
-            <p>{ personDetails.place_of_birth }</p>
+            <p>{ personDetails?.place_of_birth }</p>
           </div>
         </div>
       </div>

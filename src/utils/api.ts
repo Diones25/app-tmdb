@@ -9,7 +9,7 @@ import { MovieRecommended } from "@/types/MovieRecommended";
 import { MoviesPopulares, Results } from "@/types/MoviesPopulares";
 import { MoviesUpcoming, ResultsUpcoming } from "@/types/MoviesUpcoming";
 import { PersonCredits } from "@/types/PersonCredits";
-import { PersonDetails } from "@/types/PersonDetails";
+import { TypePersonDetails } from "@/types/PersonDetails";
 import { PersonExternalIDs } from "@/types/PersonExternalIDs";
 import { PersonsPopulares, ResultsPerson } from "@/types/PersonsPopulares";
 import { SeriesPopulares } from "@/types/SeriesPopulares";
@@ -263,7 +263,7 @@ export const getPersonsPopulares = async (): Promise<PersonsPopulares> => {
   return response.data;
 }
 
-export const getPersonDetails = async (id: number): Promise<PersonDetails> => {
+export const getPersonDetails = async (id: number): Promise<TypePersonDetails> => {
   const response = await api.get(`/person/${id}`, {
     transformResponse: [function (data) {
       const parsedData = JSON.parse(data);
@@ -284,13 +284,13 @@ export const getPersonDetails = async (id: number): Promise<PersonDetails> => {
   return response.data;
 }
 
-export const getPersonCredits = async (id: number): Promise<PersonCredits> => {
+export const getPersonCredits = async (id: number): Promise<PersonCredits[]> => {
   const response = await api.get(`/person/${id}/movie_credits`, {
     transformResponse: [function (data) {
       const parsedData = JSON.parse(data);
 
       return {
-        results: parsedData.cast.map((item: { id: any; poster_path: any; title: any; }) => {
+        results: parsedData.cast.map((item: PersonCredits) => {
           return {
             id: item.id,
             poster_path: `https://media.themoviedb.org/t/p/w150_and_h225_bestv2${item.poster_path}`,
