@@ -230,7 +230,24 @@ export const getSeriesPopulares = async () => {
 }
 
 export const getPersonsPopulares = async () => {
-  const response = await api.get('/person/popular');
+  const response = await api.get('/person/popular', {
+    transformResponse: [function (data) {
+      const parsedData = JSON.parse(data);
+
+      return {
+        results: parsedData.results.map((item) => {
+          return {
+            id: item.id,
+            profile_path: item.profile_path,            
+            name: item.name
+          }
+        }),
+        page: parsedData.page,
+        total_pages: parsedData.total_pages,
+        total_results: parsedData.total_results,
+      }
+    }]
+  });
   return response.data;
 }
 
