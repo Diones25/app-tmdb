@@ -107,7 +107,23 @@ export const getMovieDetailsImages = async (id: number) => {
 }
 
 export const getMovieRecommended = async (id: number) => {
-  const response = await api.get(`/movie/${id}/recommendations`);
+  const response = await api.get(`/movie/${id}/recommendations`, {
+    transformResponse: [function (data) {
+      const parsedData = JSON.parse(data);
+
+      return {
+        results: parsedData.results.map((item) => {
+          return {
+            id: item.id,
+            backdrop_path: item.backdrop_path,
+            title: item.title,
+            vote_average: item.vote_average
+          }
+        })
+      }
+    }]
+  });
+  console.log("console da api getMovieRecommended ==> ", response.data.results)
   return response.data.results;
 }
 
