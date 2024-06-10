@@ -53,7 +53,7 @@ const MoviesDetails = () => {
 
     (async () => {
       const res = await getMovieDetailsVideos(Number(id));
-      setMovieVideo(res[0]);            
+      setMovieVideo(res);            
     })();
 
     (async () => {
@@ -141,7 +141,7 @@ const MoviesDetails = () => {
                         <div>
                           <iframe
                             className="w-full h-[28rem]"
-                            src={`https://www.youtube.com/embed/${movieVideo?.key}`}
+                            src={`https://www.youtube.com/embed/${movieVideo[0]?.key}`}
                             title="YouTube video player"
                             frameBorder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -204,26 +204,23 @@ const MoviesDetails = () => {
                     <div className="w-[55rem] overflow-x-scroll overflow-y-hidden">
                       <TabsContent value="videos">
                         <div className="flex">
-                          <iframe
-                            className="w-[33rem] h-[19rem]"
-                            src={`https://www.youtube.com/embed/${movieVideo?.key}`}
-                            title="YouTube video player"
-                            frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            referrerPolicy="strict-origin-when-cross-origin"
-                            allowFullScreen
-                          >
-                          </iframe>
-                          <iframe
-                            className="w-[33rem] h-[19rem]"
-                            src={`https://www.youtube.com/embed/${movieVideo?.key}`}
-                            title="YouTube video player"
-                            frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            referrerPolicy="strict-origin-when-cross-origin"
-                            allowFullScreen
-                          >
-                          </iframe>
+                          {movieVideo &&
+                            <>
+                              {movieVideo.map(item => (
+                                <iframe
+                                  className="min-w-[33rem] h-[19rem]"
+                                  src={`https://www.youtube.com/embed/${item?.key}`}
+                                  title="YouTube video player"
+                                  frameBorder="0"
+                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                  referrerPolicy="strict-origin-when-cross-origin"
+                                  allowFullScreen
+                                >
+                                </iframe>  
+                              ))}  
+                            </>
+                          }
+                          
                         </div>
                       </TabsContent>
 
