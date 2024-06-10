@@ -4,14 +4,13 @@ import CardMoviePerson from "./CardMoviePerson";
 import svgFacebook from '../assets/facebook.svg';
 import svgTwitter from '../assets/twitter.svg';
 import svgInstagram from '../assets/instagram.svg';
-import svgCircle from '../assets/circle.svg';
 import { useEffect, useState } from "react";
 import { getPersonCredits, getPersonDetails } from "@/utils/api";
 import { formateDate, returnAge } from "@/lib/utils";
 
 const PersonDetails = () => {
   const { id } = useParams();
-  const [personDetails, setPersonDetails] = useState([]);
+  const [personDetails, setPersonDetails] = useState({});
   const [personCredits, setPersonCredits] = useState([]);
 
   useEffect(() => {
@@ -115,107 +114,26 @@ const PersonDetails = () => {
       <div className="container mt-8">
         <p className="font-semibold text-xl text-center sm:text-center md:text-left lg:text-left">Informações pessoais</p>
 
-        <div className="mt-3 mb-2">
-          <div className="flex flex-col sm:flex-col md:flex-row justify-between text-center sm:text-center md:text-left lg:text-left">
-            <div className="mb-3">
-              <p className="font-semibold">Conhecido(a) por</p>
-              <p>{personDetails.known_for_department === 'Acting' ? 'Atuação' : '' }</p>
-            </div>
-
-            <div className="mb-3">
-              <p className="font-semibold">Creditado(a) em</p>
-              <p>172</p>
-            </div>
-
-            <div className="mb-3">
-              <p className="font-semibold">Gênero</p>
-              <p>Masculino</p>
-            </div>
+        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 mt-3 mb-2">         
+          <div className="mb-3 text-center sm:text-center md:text-left lg:text-left">
+            <p className="font-semibold">Conhecido(a) por</p>
+            <p>{personDetails.known_for_department === 'Acting' ? 'Atuação' : '' }</p>
           </div>
-        </div>
 
-        <div className="">
-          <div className="flex flex-col sm:flex-col md:flex-row justify-between text-center sm:text-center md:text-left lg:text-left">
-            <div className="mb-3">
-              <p className="font-semibold">Nascimento</p>
-              <p>{formateDate(personDetails.birthday)} ({returnAge(personDetails.birthday) } de Idade)</p>
-            </div>
-
-            <div className="mb-3">
-              <p className="font-semibold">Local de nascimento (em inglês)</p>
-              <p>New York City, New York, USA</p>
-            </div>
-
-            <div className="mb-3">
-              <p className="font-semibold">Também conhecido(a) como</p>
-              <p>Bob Downey</p>
-            </div>
+          <div className="mb-3 text-center sm:text-center md:text-left lg:text-left">
+            <p className="font-semibold">Gênero</p>
+            <p>{ personDetails.gender === 2 ? 'Masculino' : 'Feminino' }</p>
+            <p>{ personDetails.gender === 3 ? 'Não binário' : '' }</p>
           </div>
-        </div>
+        
+          <div className="mb-3 text-center sm:text-center md:text-left lg:text-left">
+            <p className="font-semibold">Nascimento</p>
+            <p>{formateDate(personDetails.birthday)} ({returnAge(personDetails.birthday) } de Idade)</p>
+          </div>
 
-      </div>
-
-      <div className="container mt-8">
-        <p className="font-semibold text-xl text-center sm:text-center md:text-left lg:text-left">Atuações</p>
-
-        <div className="mt-3 mb-2">
-          <div className="border px-4 py-2">
-
-            <div className="flex items-center my-4">
-              <p>2024</p>
-              <span className="mx-6">
-                <img className="w-3" src={svgCircle} alt="" />
-              </span>
-              <div>
-                <p className="font-semibold">Arnold & Sly: Rivals, Friends, Icons</p>
-                <p className="font-light">como Self (archive footage) (uncredited)</p>
-              </div>
-            </div>
-            
-            <div className="flex items-center my-4">
-              <p>2024</p>
-              <span className="mx-6">
-                <img className="w-3" src={svgCircle} alt="" />
-              </span>
-              <div>
-                <p className="font-semibold">Arnold & Sly: Rivals, Friends, Icons</p>
-                <p className="font-light">como Self (archive footage) (uncredited)</p>
-              </div>
-            </div>
-
-            <div className="flex items-center my-4">
-              <p>2024</p>
-              <span className="mx-6">
-                <img className="w-3" src={svgCircle} alt="" />
-              </span>
-              <div>
-                <p className="font-semibold">Arnold & Sly: Rivals, Friends, Icons</p>
-                <p className="font-light">como Self (archive footage) (uncredited)</p>
-              </div>
-            </div>
-
-            <div className="flex items-center my-4">
-              <p>2024</p>
-              <span className="mx-6">
-                <img className="w-3" src={svgCircle} alt="" />
-              </span>
-              <div>
-                <p className="font-semibold">Arnold & Sly: Rivals, Friends, Icons</p>
-                <p className="font-light">como Self (archive footage) (uncredited)</p>
-              </div>
-            </div>
-
-            <div className="flex items-center my-4">
-              <p>2024</p>
-              <span className="mx-6">
-                <img className="w-3" src={svgCircle} alt="" />
-              </span>
-              <div>
-                <p className="font-semibold">Arnold & Sly: Rivals, Friends, Icons</p>
-                <p className="font-light">como Self (archive footage) (uncredited)</p>
-              </div>
-            </div>
-
+          <div className="mb-3 text-center sm:text-center md:text-left lg:text-left">
+            <p className="font-semibold">Local de nascimento (em inglês)</p>
+            <p>{ personDetails.place_of_birth }</p>
           </div>
         </div>
       </div>
