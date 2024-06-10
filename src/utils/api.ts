@@ -1,6 +1,18 @@
+import { AllMoviesKeywords } from "@/types/AllMoviesKeywords";
 import { ExternalId } from "@/types/ExternalId";
+import { FilePath } from "@/types/FilePath";
+import { Key } from "@/types/Key";
 import { Keyword } from "@/types/Keyword";
+import { MovieCredits } from "@/types/MovieCredits";
 import { Genre, MovieDetail } from "@/types/MovieDetail";
+import { MovieRecommended } from "@/types/MovieRecommended";
+import { MoviesPopulares, Results } from "@/types/MoviesPopulares";
+import { MoviesUpcoming } from "@/types/MoviesUpcoming";
+import { PersonCredits } from "@/types/PersonCredits";
+import { PersonDetails } from "@/types/PersonDetails";
+import { PersonExternalIDs } from "@/types/PersonExternalIDs";
+import { PersonsPopulares, ResultsPerson } from "@/types/PersonsPopulares";
+import { SeriesPopulares } from "@/types/SeriesPopulares";
 import axios from "axios";
 
 const baseURL = "https://api.themoviedb.org/3";
@@ -19,13 +31,13 @@ const api = axios.create({
   }
 });
 
-export const getMoviesPopulares = async () => {
+export const getMoviesPopulares = async (): Promise<MoviesPopulares> => {
   const response = await api.get('/movie/popular', {
     transformResponse: [function (data) {
       const parsedData = JSON.parse(data);
       
       return {        
-        results: parsedData.results.map((item: { id: any; poster_path: any; vote_average: any; title: any; release_date: any; }) => {
+        results: parsedData.results.map((item: Results) => {
           return {
             id: item.id,
             poster_path: `https://www.themoviedb.org/t/p/w220_and_h330_face${item.poster_path}`,
@@ -70,13 +82,13 @@ export const getMovieDetails = async (id: number): Promise<MovieDetail> => {
   return response.data;
 }
 
-export const getMovieDetailsVideos = async (id: number) => {
+export const getMovieDetailsVideos = async (id: number): Promise<Key> => {
   const response = await api.get(`/movie/${id}/videos`, {
     transformResponse: [function (data) {
       const parsedData = JSON.parse(data);
 
       return {
-        results: parsedData.results.map((item) => {
+        results: parsedData.results.map((item: Key) => {
           return {            
             key: item.key
           }
@@ -87,7 +99,7 @@ export const getMovieDetailsVideos = async (id: number) => {
   return response.data.results;
 }
 
-export const getMovieDetailsImages = async (id: number) => {
+export const getMovieDetailsImages = async (id: number): Promise<FilePath> => {
   const url = `https://api.themoviedb.org/3/movie/${id}/images`;
   const options = {
     method: 'GET',
@@ -98,7 +110,7 @@ export const getMovieDetailsImages = async (id: number) => {
   };
 
   const response = await axios.get(url, options);
-  const data = response.data.backdrops.map(item => {
+  const data = response.data.backdrops.map((item: FilePath) => {
     return {
       file_path: item.file_path
     }
@@ -106,13 +118,13 @@ export const getMovieDetailsImages = async (id: number) => {
   return data;
 }
 
-export const getMovieRecommended = async (id: number) => {
+export const getMovieRecommended = async (id: number): Promise<MovieRecommended> => {
   const response = await api.get(`/movie/${id}/recommendations`, {
     transformResponse: [function (data) {
       const parsedData = JSON.parse(data);
 
       return {
-        results: parsedData.results.map((item) => {
+        results: parsedData.results.map((item: MovieRecommended) => {
           return {
             id: item.id,
             backdrop_path: item.backdrop_path,
@@ -126,13 +138,13 @@ export const getMovieRecommended = async (id: number) => {
   return response.data.results;
 }
 
-export const getMovieCredits = async (id: number) => {
+export const getMovieCredits = async (id: number): Promise<MovieCredits> => {
   const response = await api.get(`/movie/${id}/credits`, {
     transformResponse: [function (data) {
       const parsedData = JSON.parse(data);
 
       return {
-        results: parsedData.cast.map((item) => {
+        results: parsedData.cast.map((item: MovieCredits) => {
           return {
             id: item.id,
             profile_path: item.profile_path,
@@ -156,13 +168,13 @@ export const getMovieKeywords = async (id: number): Promise<Keyword> => {
   return response.data.keywords;
 }
 
-export const getAllMoviesKeywords = async (id: number) => {
+export const getAllMoviesKeywords = async (id: number): Promise<AllMoviesKeywords> => {
   const response = await api.get(`/keyword/${id}/movies`, {
     transformResponse: [function (data) {
       const parsedData = JSON.parse(data);
 
       return {
-        results: parsedData.results.map((item) => {
+        results: parsedData.results.map((item: AllMoviesKeywords) => {
           return {
             id: item.id,
             poster_path: `https://media.themoviedb.org/t/p/w94_and_h141_bestv2/${item.poster_path}`,
@@ -181,13 +193,13 @@ export const getAllMoviesKeywords = async (id: number) => {
   return response.data;
 }
 
-export const geMoviesUpcoming = async () => {
+export const geMoviesUpcoming = async (): Promise<MoviesUpcoming> => {
   const response = await api.get('/movie/upcoming', {
     transformResponse: [function (data) {
       const parsedData = JSON.parse(data);
 
       return {
-        results: parsedData.results.map((item: { id: any; poster_path: any; vote_average: any; title: any; release_date: any; }) => {
+        results: parsedData.results.map((item: MoviesUpcoming) => {
           return {
             id: item.id,
             poster_path: `https://www.themoviedb.org/t/p/w220_and_h330_face${item.poster_path}`,
@@ -205,13 +217,13 @@ export const geMoviesUpcoming = async () => {
   return response.data;
 }
 
-export const getSeriesPopulares = async () => {
+export const getSeriesPopulares = async (): Promise<SeriesPopulares> => {
   const response = await api.get('/tv/popular', {
     transformResponse: [function (data) {
       const parsedData = JSON.parse(data);
 
       return {
-        results: parsedData.results.map((item: { id: any; poster_path: any; vote_average: any; title: any; release_date: any; }) => {
+        results: parsedData.results.map((item: Results) => {
           return {
             id: item.id,
             poster_path: `https://www.themoviedb.org/t/p/w220_and_h330_face${item.poster_path}`,
@@ -229,13 +241,13 @@ export const getSeriesPopulares = async () => {
   return response.data;
 }
 
-export const getPersonsPopulares = async () => {
+export const getPersonsPopulares = async (): Promise<PersonsPopulares> => {
   const response = await api.get('/person/popular', {
     transformResponse: [function (data) {
       const parsedData = JSON.parse(data);
 
       return {
-        results: parsedData.results.map((item) => {
+        results: parsedData.results.map((item: ResultsPerson) => {
           return {
             id: item.id,
             profile_path: item.profile_path,            
@@ -251,7 +263,7 @@ export const getPersonsPopulares = async () => {
   return response.data;
 }
 
-export const getPersonDetails = async (id: number) => {
+export const getPersonDetails = async (id: number): Promise<PersonDetails> => {
   const response = await api.get(`/person/${id}`, {
     transformResponse: [function (data) {
       const parsedData = JSON.parse(data);
@@ -268,17 +280,17 @@ export const getPersonDetails = async (id: number) => {
       }
     }]
   }); 
-  
+
   return response.data;
 }
 
-export const getPersonCredits = async (id: number) => {
+export const getPersonCredits = async (id: number): Promise<PersonCredits> => {
   const response = await api.get(`/person/${id}/movie_credits`, {
     transformResponse: [function (data) {
       const parsedData = JSON.parse(data);
 
       return {
-        results: parsedData.cast.map((item) => {
+        results: parsedData.cast.map((item: { id: any; poster_path: any; title: any; }) => {
           return {
             id: item.id,
             poster_path: `https://media.themoviedb.org/t/p/w150_and_h225_bestv2${item.poster_path}`,
@@ -291,7 +303,7 @@ export const getPersonCredits = async (id: number) => {
   return response.data.results;
 }
 
-export const getPersonExternalIDs = async (id: number) => {
+export const getPersonExternalIDs = async (id: number): Promise<PersonExternalIDs> => {
   const response = await api.get(`/person/${id}/external_ids`, {
     transformResponse: [function (data) {
       const parsedData = JSON.parse(data);
