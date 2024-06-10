@@ -251,12 +251,28 @@ export const getPersonsPopulares = async () => {
   return response.data;
 }
 
-export const getPersonDetails = async (id: number): Promise<MovieDetail> => {
-  const response = await api.get(`/person/${id}`);  
+export const getPersonDetails = async (id: number) => {
+  const response = await api.get(`/person/${id}`, {
+    transformResponse: [function (data) {
+      const parsedData = JSON.parse(data);
+
+      return {
+        id: parsedData.id,
+        profile_path: parsedData.profile_path,
+        name: parsedData.name,
+        biography: parsedData.biography,
+        known_for_department: parsedData.known_for_department,
+        gender: parsedData.gender,
+        birthday: parsedData.birthday,
+        place_of_birth: parsedData.place_of_birth,
+      }
+    }]
+  }); 
+  
   return response.data;
 }
 
-export const getPersonCredits = async (id: number): Promise<MovieDetail> => {
+export const getPersonCredits = async (id: number) => {
   const response = await api.get(`/person/${id}/movie_credits`, {
     transformResponse: [function (data) {
       const parsedData = JSON.parse(data);
@@ -275,7 +291,7 @@ export const getPersonCredits = async (id: number): Promise<MovieDetail> => {
   return response.data.results;
 }
 
-export const getPersonExternalIDs = async (id: number): Promise<MovieDetail> => {
+export const getPersonExternalIDs = async (id: number) => {
   const response = await api.get(`/person/${id}/external_ids`, {
     transformResponse: [function (data) {
       const parsedData = JSON.parse(data);
