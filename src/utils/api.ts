@@ -215,3 +215,20 @@ export const getPersonCredits = async (id: number): Promise<MovieDetail> => {
   });  
   return response.data.results;
 }
+
+export const getPersonExternalIDs = async (id: number): Promise<MovieDetail> => {
+  const response = await api.get(`/person/${id}/external_ids`, {
+    transformResponse: [function (data) {
+      const parsedData = JSON.parse(data);
+
+      return {
+        id: parsedData.id,
+        facebook_id: parsedData.facebook_id,
+        twitter_id: parsedData.twitter_id,
+        instagram_id: parsedData.instagram_id
+      }
+    }]
+  });
+  console.log("Console da API getPersonExternalIDs ===> ",response.data)
+  return response.data;
+}

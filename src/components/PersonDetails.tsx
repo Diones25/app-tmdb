@@ -5,13 +5,14 @@ import svgFacebook from '../assets/facebook.svg';
 import svgTwitter from '../assets/twitter.svg';
 import svgInstagram from '../assets/instagram.svg';
 import { useEffect, useState } from "react";
-import { getPersonCredits, getPersonDetails } from "@/utils/api";
+import { getPersonCredits, getPersonDetails, getPersonExternalIDs } from "@/utils/api";
 import { formateDate, returnAge } from "@/lib/utils";
 
 const PersonDetails = () => {
   const { id } = useParams();
   const [personDetails, setPersonDetails] = useState({});
   const [personCredits, setPersonCredits] = useState([]);
+  const [personExternalID, setPersonExternalID] = useState({});
 
   useEffect(() => {
     (async () => {
@@ -22,6 +23,11 @@ const PersonDetails = () => {
     (async () => {
       const res = await getPersonCredits(Number(id));
       setPersonCredits(res);
+    })();
+
+    (async () => {
+      const res = await getPersonExternalIDs(Number(id));
+      setPersonExternalID(res);
     })();
   }, []);
 
@@ -39,7 +45,7 @@ const PersonDetails = () => {
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Link to={`https://www.facebook.com/`}>
+                    <Link to={`https://www.facebook.com/${personExternalID.facebook_id}`}>
                       <img src={svgFacebook} alt="facebook" className="w-9 mr-2" />
                     </Link>
                   </TooltipTrigger>
@@ -52,7 +58,7 @@ const PersonDetails = () => {
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Link to={`https://twitter.com/`}>
+                    <Link to={`https://twitter.com/${personExternalID.twitter_id}`}>
                       <img src={svgTwitter} alt="twitter" className="w-9 ml-2 mr-2" />
                     </Link>
                   </TooltipTrigger>
@@ -65,7 +71,7 @@ const PersonDetails = () => {
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Link to={`https://instagram.com/`}>
+                    <Link to={`https://instagram.com/${personExternalID.instagram_id}`}>
                       <img src={svgInstagram} alt="instagram" className="w-9 mr-2" />
                     </Link>
                   </TooltipTrigger>
