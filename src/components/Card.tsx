@@ -5,14 +5,13 @@ import {
 import VoteAveregeItem from "./VoteAveregeItem";
 
 type Props = {
-  id?: number;
   poster_path?: string;
-  vote_average?: number;
+  vote_average: number;
   title?: string;
   release_date?: string
 }
 
-function CardItem({ id, poster_path, vote_average, title, release_date }: Props) {
+function CardItem({ poster_path, vote_average, title, release_date }: Props) {
   return (
     <>
       <Card className="w-[200px] hover:drop-shadow-2xl cursor-pointer">
