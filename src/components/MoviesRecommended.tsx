@@ -1,12 +1,11 @@
 
 type Props = {
-  id?: number;
   backdrop_path: string;
   title: string;
   vote_average: number;
 }
 
-const MoviesRecommended = ({ id, backdrop_path, title, vote_average }: Props) => {
+const MoviesRecommended = ({ backdrop_path, title, vote_average }: Props) => {
   return (
     <>
       <div className="">
