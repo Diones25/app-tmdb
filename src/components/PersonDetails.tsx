@@ -137,7 +137,7 @@ const PersonDetails = () => {
         
           <div className="mb-3 text-center sm:text-center md:text-left lg:text-left">
             <p className="font-semibold">Nascimento</p>
-            <p>{formateDate(personDetails.birthday)} ({returnAge(personDetails?.birthday) } de Idade)</p>
+            <p>{formateDate(personDetails?.birthday)} ({returnAge(personDetails?.birthday) } de Idade)</p>
           </div>
 
           <div className="mb-3 text-center sm:text-center md:text-left lg:text-left">
