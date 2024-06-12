@@ -79,19 +79,16 @@ export const getMovieDetails = async (id: number): Promise<MovieDetail> => {
       }
     }]
   });
-  console.log("Console da API ===>", response.data)
   return response.data;
 }
 
-getMovieDetails(823464)
-
-export const getMovieDetailsVideos = async (id: number): Promise<Key> => {
+export const getMovieDetailsVideos = async (id: number): Promise<Key[]> => {
   const response = await api.get(`/movie/${id}/videos`, {
     transformResponse: [function (data) {
       const parsedData = JSON.parse(data);
 
       return {
-        results: parsedData.results.map((item: Key) => {
+        results: parsedData.results.map((item: Key[]) => {
           return {            
             key: item.key
           }

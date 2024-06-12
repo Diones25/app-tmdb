@@ -34,14 +34,13 @@ import svgIMDB from '../assets/imdb.svg';
 import noVideoAvaible from '../assets/no-video-available.jpg';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import MoviesRecommended from "./MoviesRecommended";
-import { useMoviesDetails } from "@/utils/queries";
+import { useMovieDetailsVideos, useMoviesDetails } from "@/utils/queries";
 
 const MoviesDetails = () => {
   const { id } = useParams();
   const moviesDetails = useMoviesDetails(Number(id));
+  const movieVideo = useMovieDetailsVideos(Number(id));
 
-
-  const [movieVideo, setMovieVideo] = useState([]);
   const [movieImages, setMovieImages] = useState([]);
   const [movieCredits, setMovieCredits] = useState([]);
   const [externalId, setExternalId] = useState({});
@@ -49,12 +48,6 @@ const MoviesDetails = () => {
   const [movieRecommended, setMovieRecommended] = useState([]);
   
   useEffect(() => {
-    
-
-    (async () => {
-      const res = await getMovieDetailsVideos(Number(id));
-      setMovieVideo(res);            
-    })();
 
     (async () => {
       const res = await getMovieCredits(Number(id));
@@ -142,7 +135,7 @@ const MoviesDetails = () => {
                         <div>
                           <iframe
                             className="w-full h-[28rem]"
-                            src={`https://www.youtube.com/embed/${movieVideo[0]?.key}`}
+                            src={`https://www.youtube.com/embed/${movieVideo.data[0].key}`}
                             title="YouTube video player"
                             frameBorder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -196,7 +189,7 @@ const MoviesDetails = () => {
                   <div className="flex items-center text-black mt-2">
                     <h1 className="text-black text-2xl font-semibold mr-10">Mídia</h1>
                     <TabsList className="bg-transparent">
-                      <TabsTrigger value="videos" className="mr-6">Vídeos <span className="text-gray-500">{movieVideo.length}</span></TabsTrigger>
+                      <TabsTrigger value="videos" className="mr-6">Vídeos <span className="text-gray-500">{movieVideo.data?.length}</span></TabsTrigger>
                       <TabsTrigger value="imagens" className="">Imagens de fundo <span className="text-gray-500">{movieImages.length}</span></TabsTrigger>
                     </TabsList>
                   </div>
@@ -207,9 +200,9 @@ const MoviesDetails = () => {
                         <div className="flex">
                           
 
-                          {movieVideo.length > 0 ? (
+                          {movieVideo.data?.length > 0 ? (
                             <>
-                              {movieVideo.map(item => (
+                              {movieVideo.data.map(item => (
                                 <iframe
                                   className="min-w-[33rem] h-[19rem]"
                                   src={`https://www.youtube.com/embed/${item?.key}`}
