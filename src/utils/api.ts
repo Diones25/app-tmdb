@@ -79,8 +79,11 @@ export const getMovieDetails = async (id: number): Promise<MovieDetail> => {
       }
     }]
   });
+  console.log("Console da API ===>", response.data)
   return response.data;
 }
+
+getMovieDetails(823464)
 
 export const getMovieDetailsVideos = async (id: number): Promise<Key> => {
   const response = await api.get(`/movie/${id}/videos`, {

@@ -8,6 +8,11 @@ export type MovieDetail = {
   vote_average: number;
   tagline: string;
   overview: string;
+  original_title: string;
+  status: string;
+  original_language: string;
+  budget: string;
+  revenue: string;
   genres: string[]
 }
 

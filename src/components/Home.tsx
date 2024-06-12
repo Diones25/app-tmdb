@@ -8,13 +8,13 @@ import CardItem from "./Card";
 import Banner from "./Banner";
 import { useState } from "react";
 import { Link } from "react-router-dom"
-import { useMoviesPopilares, useMoviesUpcoming, usePersonsPopulares, useSeriesPopulares } from "@/utils/queries";
+import { useMoviesPopulares, useMoviesUpcoming, usePersonsPopulares, useSeriesPopulares } from "@/utils/queries";
 import { formateDate } from "@/lib/utils";
 import CardPerson from "./CardPerson";
 
 function HomePage() {
   const [activeTab, setActiveTab] = useState('populares');
-  const moviesPopulares = useMoviesPopilares();
+  const moviesPopulares = useMoviesPopulares();
   const MoviesUpcoming = useMoviesUpcoming();
   const SeriesPopulares = useSeriesPopulares();
   const PersonsPopulares = usePersonsPopulares();

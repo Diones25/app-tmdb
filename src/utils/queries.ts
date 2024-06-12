@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query"
-import { geMoviesUpcoming, getMoviesPopulares, getPersonsPopulares, getSeriesPopulares } from "./api";
+import { geMoviesUpcoming, getMovieDetails, getMoviesPopulares, getPersonsPopulares, getSeriesPopulares } from "./api";
+import { MovieDetail } from "@/types/MovieDetail";
 
-export const useMoviesPopilares = () => {
+export const useMoviesPopulares = () => {
   const query = useQuery({
     queryKey: ['moviesPopulares'],
     queryFn: getMoviesPopulares
@@ -32,6 +33,15 @@ export const usePersonsPopulares = () => {
   const query = useQuery({
     queryKey: ['personsPopulares'],
     queryFn: getPersonsPopulares
+  });
+
+  return query;
+}
+
+export const useMoviesDetails = (id: number) => {
+  const query = useQuery({
+    queryKey: ['movieDetails', id],
+    queryFn: (): Promise<MovieDetail> => getMovieDetails(id)
   });
 
   return query;
