@@ -132,6 +132,8 @@ export const getMovieDetailsImages = async (id: number): Promise<FilePath> => {
       file_path: item.file_path
     }
   });
+
+  console.log("console da API getMovieDetailsImages ==>", data)
   return data;
 }
 

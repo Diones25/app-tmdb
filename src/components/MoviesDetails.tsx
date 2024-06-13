@@ -2,7 +2,7 @@ import { Play } from "lucide-react";
 import CardImage from "./CardImage";
 import VoteAveregeItem from "./VoteAveregeItem";
 import { Link, useParams } from 'react-router-dom';
-import { useEffect, useState } from "react";
+import { Key, useEffect, useState } from "react";
 import {
   getMovieCredits,
   getMovieDetailsImages,
@@ -34,15 +34,17 @@ import svgIMDB from '../assets/imdb.svg';
 import noVideoAvaible from '../assets/no-video-available.jpg';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import MoviesRecommended from "./MoviesRecommended";
-import { useMovieDetailsVideoTrailer, useMovieDetailsVideos, useMoviesDetails } from "@/utils/queries";
+import { useMovieDetailsImages, useMovieDetailsVideoTrailer, useMovieDetailsVideos, useMoviesDetails } from "@/utils/queries";
+import { file_path } from "@/types/FilePath";
 
 const MoviesDetails = () => {
   const { id } = useParams();
   const moviesDetails = useMoviesDetails(Number(id));
   const movieVideo = useMovieDetailsVideos(Number(id));
   const movieVideoTrailer = useMovieDetailsVideoTrailer(Number(id));
+  const movieImages = useMovieDetailsImages(Number(id));
 
-  const [movieImages, setMovieImages] = useState([]);
+
   const [movieCredits, setMovieCredits] = useState([]);
   const [externalId, setExternalId] = useState({});
   const [keyword, setKeyword] = useState([]);
@@ -65,10 +67,7 @@ const MoviesDetails = () => {
       setKeyword(res);
     })();
 
-    (async () => {
-      const res = await getMovieDetailsImages(Number(id));      
-      setMovieImages(res);
-    })();
+
 
     (async () => {
       const res = await getMovieRecommended(Number(id));
@@ -190,7 +189,7 @@ const MoviesDetails = () => {
                     <h1 className="text-black text-2xl font-semibold mr-10">Mídia</h1>
                     <TabsList className="bg-transparent">
                       <TabsTrigger value="videos" className="mr-6">Vídeos <span className="text-gray-500">{movieVideo.data?.length}</span></TabsTrigger>
-                      <TabsTrigger value="imagens" className="">Imagens de fundo <span className="text-gray-500">{movieImages.length}</span></TabsTrigger>
+                      <TabsTrigger value="imagens" className="">Imagens de fundo <span className="text-gray-500">{movieImages.data?.length}</span></TabsTrigger>
                     </TabsList>
                   </div>
 
@@ -225,8 +224,8 @@ const MoviesDetails = () => {
 
                       <TabsContent value="imagens">
                         <div className="flex">
-                          {movieImages.map(item => (
-                            <div className="min-w-[533px] h-[19rem]">
+                          {movieImages.data?.map((item: file_path, index: Key | null) => (
+                            <div key={index} className="min-w-[533px] h-[19rem]">
                               <img src={`https://media.themoviedb.org/t/p/w533_and_h300_bestv2${item.file_path}`} alt="" />
                             </div>
                           ))}
