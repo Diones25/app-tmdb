@@ -201,7 +201,7 @@ const MoviesDetails = () => {
 
                           {movieVideo.data?.length > 0 ? (
                             <>
-                              {movieVideo.data.map((item, index) => (
+                              {movieVideo.data?.map((item, index) => (
                                 <iframe
                                   key={index}
                                   className="min-w-[33rem] h-[19rem]"
