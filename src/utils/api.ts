@@ -116,7 +116,7 @@ export const getMovieDetailsVideoTrailer = async (id: number): Promise<Key> => {
   return response.data.results;
 }
 
-export const getMovieDetailsImages = async (id: number): Promise<FilePath> => {
+export const getMovieDetailsImages = async (id: number): Promise<FilePath[]> => {
   const url = `https://api.themoviedb.org/3/movie/${id}/images`;
   const options = {
     method: 'GET',

@@ -70,7 +70,7 @@ export const useMovieDetailsVideoTrailer = (id: number) => {
 export const useMovieDetailsImages = (id: number) => {
   const query = useQuery({
     queryKey: ['movieDetailsImages', id],
-    queryFn: (): Promise<FilePath> => getMovieDetailsImages(id)
+    queryFn: (): Promise<FilePath[]> => getMovieDetailsImages(id)
   });
 
   return query;

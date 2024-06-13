@@ -224,7 +224,7 @@ const MoviesDetails = () => {
 
                       <TabsContent value="imagens">
                         <div className="flex">
-                          {movieImages.data?.map((item: file_path, index: Key | null) => (
+                          {movieImages.data?.map((item, index) => (
                             <div key={index} className="min-w-[533px] h-[19rem]">
                               <img src={`https://media.themoviedb.org/t/p/w533_and_h300_bestv2${item.file_path}`} alt="" />
                             </div>
