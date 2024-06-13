@@ -34,12 +34,13 @@ import svgIMDB from '../assets/imdb.svg';
 import noVideoAvaible from '../assets/no-video-available.jpg';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import MoviesRecommended from "./MoviesRecommended";
-import { useMovieDetailsVideos, useMoviesDetails } from "@/utils/queries";
+import { useMovieDetailsVideoTrailer, useMovieDetailsVideos, useMoviesDetails } from "@/utils/queries";
 
 const MoviesDetails = () => {
   const { id } = useParams();
   const moviesDetails = useMoviesDetails(Number(id));
   const movieVideo = useMovieDetailsVideos(Number(id));
+  const movieVideoTrailer = useMovieDetailsVideoTrailer(Number(id));
 
   const [movieImages, setMovieImages] = useState([]);
   const [movieCredits, setMovieCredits] = useState([]);
@@ -51,7 +52,6 @@ const MoviesDetails = () => {
 
     (async () => {
       const res = await getMovieCredits(Number(id));
-      console.log(movieCredits)
       setMovieCredits(res);      
     })();
 
@@ -95,7 +95,7 @@ const MoviesDetails = () => {
                 <div className="ml-9 mt-3 text-center lg:text-left">
                   <h2 className="text-white text-4xl font-bold">{moviesDetails.data?.title}<span className="font-normal">({formateYear(moviesDetails.data?.release_date)})</span></h2>
                   <p>                    
-                    <span className="mr-1">{formateDateDetails(moviesDetails.data?.release_date) }</span>
+                    <span className="mr-1">{formateDateDetails(moviesDetails.data?.release_date)}</span>
                     <span className="font-bold">.</span>
                     <span className="mx-1">
                       {moviesDetails.data?.genres+","}                      
@@ -135,7 +135,7 @@ const MoviesDetails = () => {
                         <div>
                           <iframe
                             className="w-full h-[28rem]"
-                            src={`https://www.youtube.com/embed/${movieVideo.data[0].key}`}
+                            src={`https://www.youtube.com/embed/${movieVideoTrailer.data?.[0].keyInitial}`}
                             title="YouTube video player"
                             frameBorder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -202,8 +202,9 @@ const MoviesDetails = () => {
 
                           {movieVideo.data?.length > 0 ? (
                             <>
-                              {movieVideo.data.map(item => (
+                              {movieVideo.data.map((item, index) => (
                                 <iframe
+                                  key={index}
                                   className="min-w-[33rem] h-[19rem]"
                                   src={`https://www.youtube.com/embed/${item?.key}`}
                                   title="YouTube video player"

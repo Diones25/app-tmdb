@@ -1,3 +1,4 @@
 export type Key = {
-  key: string[];
+  key?: string[];
+  keyInitial: string;
 }

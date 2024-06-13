@@ -88,14 +88,32 @@ export const getMovieDetailsVideos = async (id: number): Promise<Key[]> => {
       const parsedData = JSON.parse(data);
 
       return {
-        results: parsedData.results.map((item: Key[]) => {
+        results: parsedData.results.map((item: Key) => {
           return {            
             key: item.key
           }
-        })
+        }),
       }
     }]
   }); 
+  return response.data.results;
+}
+
+export const getMovieDetailsVideoTrailer = async (id: number): Promise<Key> => {
+  const response = await api.get(`/movie/${id}/videos`, {
+    transformResponse: [function (data) {
+      const parsedData = JSON.parse(data);
+
+      return {
+        results: parsedData.results.map((item: Key) => {
+          return {
+            keyInitial: parsedData.results[0].key
+          }
+        }),
+      }
+    }]
+  });
+  console.log("Console da API ==> ", response.data.results)
   return response.data.results;
 }
 
