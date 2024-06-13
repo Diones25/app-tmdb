@@ -113,7 +113,6 @@ export const getMovieDetailsVideoTrailer = async (id: number): Promise<Key> => {
       }
     }]
   });
-  console.log("Console da API ==> ", response.data.results)
   return response.data.results;
 }
 
