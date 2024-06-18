@@ -6,6 +6,7 @@ import {
   getMovieDetailsImages,
   getMovieDetailsVideoTrailer,
   getMovieDetailsVideos,
+  getMovieExternalIds,
   getMoviesPopulares,
   getPersonsPopulares,
   getSeriesPopulares
@@ -13,7 +14,8 @@ import {
 import { MovieDetail } from "@/types/MovieDetail";
 import { Key } from "@/types/Key";
 import { FilePath } from "@/types/FilePath";
-import { MovieCredits, MovieCreditsArray } from "@/types/MovieCredits";
+import { MovieCreditsArray } from "@/types/MovieCredits";
+import { ExternalId } from "@/types/ExternalId";
 
 export const useMoviesPopulares = () => {
   const query = useQuery({
@@ -91,6 +93,15 @@ export const useMovieCredits = (id: number) => {
   const query = useQuery({
     queryKey: ['movieCredits', id],
     queryFn: (): Promise<MovieCreditsArray> => getMovieCredits(id)
+  });
+
+  return query;
+}
+
+export const useMovieExternalIds = (id: number) => {
+  const query = useQuery({
+    queryKey: ['movieExternalIds', id],
+    queryFn: (): Promise<ExternalId> => getMovieExternalIds(id)
   });
 
   return query;

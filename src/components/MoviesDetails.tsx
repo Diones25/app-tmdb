@@ -4,7 +4,6 @@ import VoteAveregeItem from "./VoteAveregeItem";
 import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import {
-  getMovieExternalIds,
   getMovieKeywords,
   getMovieRecommended
 } from "@/utils/api";
@@ -36,6 +35,7 @@ import {
   useMovieDetailsImages,
   useMovieDetailsVideoTrailer,
   useMovieDetailsVideos,
+  useMovieExternalIds,
   useMoviesDetails
 } from "@/utils/queries";
 
@@ -46,20 +46,14 @@ const MoviesDetails = () => {
   const movieVideoTrailer = useMovieDetailsVideoTrailer(Number(id));
   const movieImages = useMovieDetailsImages(Number(id));
   const movieCredits = useMovieCredits(Number(id));
+  const externalId = useMovieExternalIds(Number(id));
 
 
-  
-  const [externalId, setExternalId] = useState({});
   const [keyword, setKeyword] = useState([]);
   const [movieRecommended, setMovieRecommended] = useState([]);
   
   useEffect(() => {
 
-
-    (async () => {
-      const res = await getMovieExternalIds(Number(id));
-      setExternalId(res);      
-    })();
 
     (async () => {
       const res = await getMovieKeywords(Number(id));
@@ -268,9 +262,15 @@ const MoviesDetails = () => {
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <Link to={`https://www.facebook.com/${externalId.facebook_id}`}>
+                      {externalId.data?.facebook_id !== null ? (
+                        <>
+                          <Link to={`https://www.facebook.com/${externalId.data?.facebook_id}`}>
+                            <img src={svgFacebook} alt="facebook" className="w-9 mr-1" />
+                          </Link>
+                        </>
+                      ) : (
                         <img src={svgFacebook} alt="facebook" className="w-9 mr-1" />
-                      </Link>
+                      )}
                     </TooltipTrigger>
                     <TooltipContent>
                       <p>Visitar Facebook</p>
@@ -281,9 +281,15 @@ const MoviesDetails = () => {
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <Link to={`https://twitter.com/${externalId.twitter_id}`}>
+                      {externalId.data?.twitter_id !== null ? (
+                        <>
+                          <Link to={`https://twitter.com/${externalId.data?.twitter_id}`}>
+                            <img src={svgTwitter} alt="twitter" className="w-9 ml-1" />
+                          </Link>
+                        </>
+                      ) : (
                         <img src={svgTwitter} alt="twitter" className="w-9 ml-1" />
-                      </Link>
+                      )}
                     </TooltipTrigger>
                     <TooltipContent>
                       <p>Visitar Twitter</p>
@@ -294,9 +300,15 @@ const MoviesDetails = () => {
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <Link to={`https://instagram.com/${externalId.instagram_id}`}>
+                      {externalId.data?.instagram_id !== null ? (
+                        <>
+                          <Link to={`https://instagram.com/${externalId.data?.instagram_id}`}>
+                            <img src={svgInstagram} alt="instagram" className="w-9 mr-1" />
+                          </Link>
+                        </>
+                      ) : (
                         <img src={svgInstagram} alt="instagram" className="w-9 mr-1" />
-                      </Link>
+                      )}
                     </TooltipTrigger>
                     <TooltipContent>
                       <p>Visitar Instagram</p>
@@ -307,9 +319,15 @@ const MoviesDetails = () => {
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <Link to={`https://www.imdb.com/title/${externalId.imdb_id}`}>
+                      {externalId.data?.imdb_id !== null ? (
+                        <>
+                          <Link to={`https://www.imdb.com/title/${externalId.data?.imdb_id}`}>
+                            <img src={svgIMDB} alt="imdb" className="w-9 ml-1" />
+                          </Link>
+                        </>
+                      ) : (
                         <img src={svgIMDB} alt="imdb" className="w-9 ml-1" />
-                      </Link>
+                      )} 
                     </TooltipTrigger>
                     <TooltipContent>
                       <p>Visitar IMDB</p>
