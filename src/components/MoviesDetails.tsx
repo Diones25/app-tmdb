@@ -131,18 +131,22 @@ const MoviesDetails = () => {
                           <DialogTitle>Trailer Oficial</DialogTitle>
                         </DialogHeader>
 
-                        <div>
-                          <iframe
-                            className="w-full h-[28rem]"
-                            src={`https://www.youtube.com/embed/${movieVideoTrailer.data?.[0].keyInitial}`}
-                            title="YouTube video player"
-                            frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            referrerPolicy="strict-origin-when-cross-origin"
-                            allowFullScreen
-                          >                          
-                          </iframe>
-                        </div>
+                        {movieVideoTrailer.data?.length > 0 ? (
+                          <>
+                            <iframe
+                              className="w-full h-[28rem]"
+                              src={`https://www.youtube.com/embed/${movieVideoTrailer.data?.[0].keyInitial}`}
+                              title="YouTube video player"
+                              frameBorder="0"
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                              referrerPolicy="strict-origin-when-cross-origin"
+                              allowFullScreen
+                            >
+                            </iframe>
+                          </>
+                        ) : (
+                          <p className="bg-orange-300 border border-orange-400 rounded-xl w-70 text-center text-white py-2 m-2">Não há trailer para exibição</p>
+                        )}
 
                       </DialogContent>
                     </Dialog>
