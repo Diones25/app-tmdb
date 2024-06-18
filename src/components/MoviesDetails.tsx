@@ -36,6 +36,7 @@ import {
   useMovieDetailsVideoTrailer,
   useMovieDetailsVideos,
   useMovieExternalIds,
+  useMovieKeywords,
   useMoviesDetails
 } from "@/utils/queries";
 
@@ -47,20 +48,11 @@ const MoviesDetails = () => {
   const movieImages = useMovieDetailsImages(Number(id));
   const movieCredits = useMovieCredits(Number(id));
   const externalId = useMovieExternalIds(Number(id));
+  const keyword = useMovieKeywords(Number(id));
 
-
-  const [keyword, setKeyword] = useState([]);
   const [movieRecommended, setMovieRecommended] = useState([]);
   
   useEffect(() => {
-
-
-    (async () => {
-      const res = await getMovieKeywords(Number(id));
-      setKeyword(res);
-    })();
-
-
 
     (async () => {
       const res = await getMovieRecommended(Number(id));
@@ -367,7 +359,7 @@ const MoviesDetails = () => {
                   <p className="font-semibold">Palavras-chave</p>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-1 mt-2">
-                    {keyword.map(item => (
+                    {keyword.data?.keywords.map(item => (
                       <Link to={`/keyword/${item.id}/movie`}>
                         <div key={item.id}>
                           <p className="bg-gray-200 text-center rounded-sm py-1">{ item.name }</p>

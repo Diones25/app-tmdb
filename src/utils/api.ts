@@ -182,8 +182,8 @@ export const getMovieExternalIds = async (id: number): Promise<ExternalId> => {
 }
 
 export const getMovieKeywords = async (id: number): Promise<Keyword> => {
-  const response = await api.get(`/movie/${id}/keywords`);  
-  return response.data.keywords;
+  const response = await api.get(`/movie/${id}/keywords`);
+  return response.data;
 }
 
 export const getAllMoviesKeywords = async (id: number): Promise<TypeAllMoviesKeywords> => {
