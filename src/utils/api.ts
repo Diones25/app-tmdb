@@ -3,7 +3,7 @@ import { ExternalId } from "@/types/ExternalId";
 import { FilePath } from "@/types/FilePath";
 import { Key } from "@/types/Key";
 import { Keyword } from "@/types/Keyword";
-import { MovieCredits } from "@/types/MovieCredits";
+import { MovieCredits, MovieCreditsArray } from "@/types/MovieCredits";
 import { Genre, MovieDetail } from "@/types/MovieDetail";
 import { MovieRecommended } from "@/types/MovieRecommended";
 import { MoviesPopulares, Results } from "@/types/MoviesPopulares";
@@ -156,7 +156,7 @@ export const getMovieRecommended = async (id: number): Promise<MovieRecommended>
   return response.data.results;
 }
 
-export const getMovieCredits = async (id: number): Promise<MovieCredits> => {
+export const getMovieCredits = async (id: number): Promise<MovieCreditsArray> => {
   const response = await api.get(`/movie/${id}/credits`, {
     transformResponse: [function (data) {
       const parsedData = JSON.parse(data);

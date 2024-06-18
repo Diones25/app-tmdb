@@ -2,16 +2,12 @@ import { Play } from "lucide-react";
 import CardImage from "./CardImage";
 import VoteAveregeItem from "./VoteAveregeItem";
 import { Link, useParams } from 'react-router-dom';
-import { Key, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
-  getMovieCredits,
-  getMovieDetailsImages,
-  getMovieDetailsVideos,
   getMovieExternalIds,
   getMovieKeywords,
   getMovieRecommended
 } from "@/utils/api";
-import { MovieDetail } from "@/types/MovieDetail";
 import { formateDateDetails, formateDuration, formateYear } from "@/lib/utils";
 import {
   Dialog,
@@ -32,9 +28,11 @@ import svgTwitter from '../assets/twitter.svg';
 import svgInstagram from '../assets/instagram.svg';
 import svgIMDB from '../assets/imdb.svg';
 import noVideoAvaible from '../assets/no-video-available.jpg';
+import imageNotFound from '../assets/imageNotFound.png';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import MoviesRecommended from "./MoviesRecommended";
 import {
+  useMovieCredits,
   useMovieDetailsImages,
   useMovieDetailsVideoTrailer,
   useMovieDetailsVideos,
@@ -47,19 +45,16 @@ const MoviesDetails = () => {
   const movieVideo = useMovieDetailsVideos(Number(id));
   const movieVideoTrailer = useMovieDetailsVideoTrailer(Number(id));
   const movieImages = useMovieDetailsImages(Number(id));
+  const movieCredits = useMovieCredits(Number(id));
 
 
-  const [movieCredits, setMovieCredits] = useState([]);
+  
   const [externalId, setExternalId] = useState({});
   const [keyword, setKeyword] = useState([]);
   const [movieRecommended, setMovieRecommended] = useState([]);
   
   useEffect(() => {
 
-    (async () => {
-      const res = await getMovieCredits(Number(id));
-      setMovieCredits(res);      
-    })();
 
     (async () => {
       const res = await getMovieExternalIds(Number(id));
@@ -176,11 +171,11 @@ const MoviesDetails = () => {
               <div className="flex overflow-x-scroll overflow-y-hidden gap-4 pb-6 mt-4">
                 {movieCredits &&
                   <>
-                  {movieCredits.map((item) => (
+                  {movieCredits.data?.map((item) => (
                     <Link to={`/person/details/${item.id}`}>
                       <CardPersonMovieDetail
                         key={item.id}
-                        profile_path={`https://media.themoviedb.org/t/p/w300_and_h450_bestv2${item.profile_path}`}
+                        profile_path={item.profile_path ? `https://media.themoviedb.org/t/p/w300_and_h450_bestv2${item.profile_path}` : imageNotFound}
                         name={item.name}
                         character={item.character}
                       />
