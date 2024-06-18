@@ -8,6 +8,7 @@ import {
   getMovieDetailsVideos,
   getMovieExternalIds,
   getMovieKeywords,
+  getMovieRecommended,
   getMoviesPopulares,
   getPersonsPopulares,
   getSeriesPopulares
@@ -18,6 +19,7 @@ import { FilePath } from "@/types/FilePath";
 import { MovieCreditsArray } from "@/types/MovieCredits";
 import { ExternalId } from "@/types/ExternalId";
 import { Keyword } from "@/types/Keyword";
+import { MovieRecommended } from "@/types/MovieRecommended";
 
 export const useMoviesPopulares = () => {
   const query = useQuery({
@@ -113,6 +115,15 @@ export const useMovieKeywords = (id: number) => {
   const query = useQuery({
     queryKey: ['movieKeywords', id],
     queryFn: (): Promise<Keyword> => getMovieKeywords(id)
+  });
+
+  return query;
+}
+
+export const useMovieRecommended = (id: number) => {
+  const query = useQuery({
+    queryKey: ['movieRecommended', id],
+    queryFn: (): Promise<MovieRecommended> => getMovieRecommended(id)
   });
 
   return query;

@@ -5,7 +5,7 @@ import { Key } from "@/types/Key";
 import { Keyword } from "@/types/Keyword";
 import { MovieCredits, MovieCreditsArray } from "@/types/MovieCredits";
 import { Genre, MovieDetail } from "@/types/MovieDetail";
-import { MovieRecommended } from "@/types/MovieRecommended";
+import { MovieRecommended, MovieRecommendedItem } from "@/types/MovieRecommended";
 import { MoviesPopulares, Results } from "@/types/MoviesPopulares";
 import { MoviesUpcoming, ResultsUpcoming } from "@/types/MoviesUpcoming";
 import { PersonCredits } from "@/types/PersonCredits";
@@ -142,7 +142,7 @@ export const getMovieRecommended = async (id: number): Promise<MovieRecommended>
       const parsedData = JSON.parse(data);
 
       return {
-        results: parsedData.results.map((item: MovieRecommended) => {
+        results: parsedData.results.map((item: MovieRecommendedItem) => {
           return {
             id: item.id,
             backdrop_path: item.backdrop_path,

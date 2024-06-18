@@ -37,6 +37,7 @@ import {
   useMovieDetailsVideos,
   useMovieExternalIds,
   useMovieKeywords,
+  useMovieRecommended,
   useMoviesDetails
 } from "@/utils/queries";
 
@@ -49,16 +50,7 @@ const MoviesDetails = () => {
   const movieCredits = useMovieCredits(Number(id));
   const externalId = useMovieExternalIds(Number(id));
   const keyword = useMovieKeywords(Number(id));
-
-  const [movieRecommended, setMovieRecommended] = useState([]);
-  
-  useEffect(() => {
-
-    (async () => {
-      const res = await getMovieRecommended(Number(id));
-      setMovieRecommended(res);
-    })();
-  }, []);
+  const movieRecommended = useMovieRecommended(Number(id));
 
   return (
     <>
@@ -232,14 +224,14 @@ const MoviesDetails = () => {
 
                   {movieRecommended &&
                     <>
-                      {movieRecommended.map(item => (                          
-                        <a href={`/details/${item.id}`} key={item.id}>
+                      {movieRecommended.data?.map(item => (                          
+                        <Link to={`/details/${item.id}`} key={item.id}>
                           <MoviesRecommended
                             backdrop_path={`https://media.themoviedb.org/t/p/w250_and_h141_face/${item.backdrop_path}`}
                             title={item.title}
                             vote_average={(item.vote_average * 10).toFixed(0)}
                           /> 
-                        </a>                       
+                        </Link>                       
                       ))}
                     </>
                   }

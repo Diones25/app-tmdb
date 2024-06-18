@@ -1,7 +1,7 @@
 import '../vote_average.css'
 
 type Props = {
-  vote_average: number
+  vote_average: number | any
 }
 
 const VoteAveregeItem = ({ vote_average }: Props) => {

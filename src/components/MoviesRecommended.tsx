@@ -2,7 +2,7 @@
 type Props = {
   backdrop_path: string;
   title: string;
-  vote_average: number;
+  vote_average: number | string;
 }
 
 const MoviesRecommended = ({ backdrop_path, title, vote_average }: Props) => {
