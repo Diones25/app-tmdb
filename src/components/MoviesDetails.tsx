@@ -34,8 +34,12 @@ import svgIMDB from '../assets/imdb.svg';
 import noVideoAvaible from '../assets/no-video-available.jpg';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import MoviesRecommended from "./MoviesRecommended";
-import { useMovieDetailsImages, useMovieDetailsVideoTrailer, useMovieDetailsVideos, useMoviesDetails } from "@/utils/queries";
-import { file_path } from "@/types/FilePath";
+import {
+  useMovieDetailsImages,
+  useMovieDetailsVideoTrailer,
+  useMovieDetailsVideos,
+  useMoviesDetails
+} from "@/utils/queries";
 
 const MoviesDetails = () => {
   const { id } = useParams();

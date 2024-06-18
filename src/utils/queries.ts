@@ -1,5 +1,14 @@
 import { useQuery } from "@tanstack/react-query"
-import { geMoviesUpcoming, getMovieDetails, getMovieDetailsImages, getMovieDetailsVideoTrailer, getMovieDetailsVideos, getMoviesPopulares, getPersonsPopulares, getSeriesPopulares } from "./api";
+import {
+  geMoviesUpcoming,
+  getMovieDetails,
+  getMovieDetailsImages,
+  getMovieDetailsVideoTrailer,
+  getMovieDetailsVideos,
+  getMoviesPopulares,
+  getPersonsPopulares,
+  getSeriesPopulares
+} from "./api";
 import { MovieDetail } from "@/types/MovieDetail";
 import { Key } from "@/types/Key";
 import { FilePath } from "@/types/FilePath";
