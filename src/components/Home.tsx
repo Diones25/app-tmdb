@@ -11,6 +11,7 @@ import { Link } from "react-router-dom"
 import { useMoviesPopulares, useMoviesUpcoming, usePersonsPopulares, useSeriesPopulares } from "@/utils/queries";
 import { formateDate } from "@/lib/utils";
 import CardPerson from "./CardPerson";
+import Navbar from "./Navbar";
 
 function HomePage() {
   const [activeTab, setActiveTab] = useState('populares');
@@ -21,6 +22,7 @@ function HomePage() {
 
   return (
     <>
+      <Navbar />
       <Banner />
       
       <div className="min-h-screen">

@@ -10,6 +10,7 @@ import { formateDate, returnAge } from "@/lib/utils";
 import { TypePersonDetails } from "@/types/PersonDetails";
 import { PersonExternalIDs } from "@/types/PersonExternalIDs";
 import { PersonCredits } from "@/types/PersonCredits";
+import Navbar from "./Navbar";
 
 const PersonDetails = () => {
   const { id } = useParams();
@@ -36,6 +37,8 @@ const PersonDetails = () => {
 
   return (
     <>
+      <Navbar />
+
       <div className="container">
         <div className='flex flex-col sm:flex-col md:flex-col lg:flex-row mt-8'>
 

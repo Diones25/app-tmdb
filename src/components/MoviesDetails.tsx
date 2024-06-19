@@ -2,11 +2,6 @@ import { Play } from "lucide-react";
 import CardImage from "./CardImage";
 import VoteAveregeItem from "./VoteAveregeItem";
 import { Link, useParams } from 'react-router-dom';
-import { useEffect, useState } from "react";
-import {
-  getMovieKeywords,
-  getMovieRecommended
-} from "@/utils/api";
 import { formateDateDetails, formateDuration, formateYear } from "@/lib/utils";
 import {
   Dialog,
@@ -40,6 +35,7 @@ import {
   useMovieRecommended,
   useMoviesDetails
 } from "@/utils/queries";
+import Navbar from "./Navbar";
 
 const MoviesDetails = () => {
   const { id } = useParams();
@@ -54,6 +50,12 @@ const MoviesDetails = () => {
 
   return (
     <>
+      <Navbar />
+
+      <div className="flex justify-center">
+        {moviesDetails.isLoading && "Carregando..."}
+      </div>
+
       <div className="min-h-screen mt-3 text-white">
         <div
           style={{
@@ -95,7 +97,7 @@ const MoviesDetails = () => {
                     </div>
                   </div>
 
-                  {movieVideo !== undefined &&
+                  {movieVideo.data !== undefined &&
                     <Dialog>
                       <DialogTrigger asChild>
                         <div className="flex justify-center m-auto lg:ml-0 my-3 py-1 px-1 w-44 cursor-pointer rounded-sm hover:bg-gray-500 ">
@@ -147,17 +149,20 @@ const MoviesDetails = () => {
             <div className='sm:col-span-3 md:col-span-2'>
               <h1 className="text-black text-2xl font-semibold">Elenco principal</h1>
               <div className="flex overflow-x-scroll overflow-y-hidden gap-4 pb-6 mt-4">
-                {movieCredits &&
+
+                {movieCredits.data &&
                   <>
                   {movieCredits.data?.map((item) => (
-                    <Link to={`/person/details/${item.id}`}>
-                      <CardPersonMovieDetail
-                        key={item.id}
-                        profile_path={item.profile_path ? `https://media.themoviedb.org/t/p/w300_and_h450_bestv2${item.profile_path}` : imageNotFound}
-                        name={item.name}
-                        character={item.character}
-                      />
-                    </Link>
+                    <div key={item.id}>
+                      <Link to={`/person/details/${item.id}`}>
+                        <CardPersonMovieDetail
+                          key={item.id}
+                          profile_path={item.profile_path ? `https://media.themoviedb.org/t/p/w300_and_h450_bestv2${item.profile_path}` : imageNotFound}
+                          name={item.name}
+                          character={item.character}
+                        />
+                      </Link>
+                    </div>
                     ))}
                   </>
 
@@ -165,6 +170,7 @@ const MoviesDetails = () => {
               </div>
 
               <div className="flex pb-6 mt-6">
+
                 <Tabs defaultValue="videos">
                   <div className="flex items-center text-black mt-2">
                     <h1 className="text-black text-2xl font-semibold mr-10">Mídia</h1>
@@ -222,7 +228,7 @@ const MoviesDetails = () => {
                 <h1 className="text-black text-2xl font-semibold">Recomendações</h1>
                 <div className="flex overflow-x-scroll overflow-y-hidden gap-4 pb-6 mt-4">
 
-                  {movieRecommended &&
+                  {movieRecommended.data &&
                     <>
                       {movieRecommended.data?.map(item => (                          
                         <Link to={`/details/${item.id}`} key={item.id}>
@@ -352,11 +358,13 @@ const MoviesDetails = () => {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-1 mt-2">
                     {keyword.data?.keywords.map(item => (
-                      <Link to={`/keyword/${item.id}/movie`}>
-                        <div key={item.id}>
-                          <p className="bg-gray-200 text-center rounded-sm py-1">{ item.name }</p>
-                        </div>                      
-                      </Link>
+                      <div key={item.id}>
+                        <Link to={`/keyword/${item.id}/movie`}>
+                          <div key={item.id}>
+                            <p className="bg-gray-200 text-center rounded-sm py-1">{item.name}</p>
+                          </div>
+                        </Link>
+                      </div>
                     ))}
                   </div>
 
