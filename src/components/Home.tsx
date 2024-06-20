@@ -3,19 +3,46 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@/components/ui/tabs"
+} from "@/components/ui/tabs";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 import CardItem from "./Card";
 import Banner from "./Banner";
 import { useState } from "react";
 import { Link } from "react-router-dom"
-import { useMoviesPopulares, useMoviesUpcoming, usePersonsPopulares, useSeriesPopulares } from "@/utils/queries";
+import {
+  useMoviesPopulares,
+  useMoviesUpcoming,
+  usePersonsPopulares,
+  useSeriesPopulares
+} from "@/utils/queries";
 import { formateDate } from "@/lib/utils";
 import CardPerson from "./CardPerson";
 import Navbar from "./Navbar";
 
 function HomePage() {
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
+  
+
+  const handlePrevButton = () => {
+    setPage(page === 1 ? 1 : page - 1)
+  }
+
+  const handleNextButton = () => {
+    setPage(page + 1)
+  }
+
   const [activeTab, setActiveTab] = useState('populares');
-  const moviesPopulares = useMoviesPopulares();
+  const moviesPopulares = useMoviesPopulares(page);
   const MoviesUpcoming = useMoviesUpcoming();
   const SeriesPopulares = useSeriesPopulares();
   const PersonsPopulares = usePersonsPopulares();
@@ -41,28 +68,60 @@ function HomePage() {
             </div>
 
             <TabsContent value="populares" className="mt-3">
+              {moviesPopulares.isLoading && 'Carregando...'}
               <div className="flex justify-center sm:justify-start">
-                <div className='grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
+                <div>
+                  <div>
+                    <div className='grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
 
-                  {moviesPopulares.isLoading && 'Carregando...'}
+                      {moviesPopulares.data &&
+                        <>
+                          {moviesPopulares.data.results.map((item) => (
+                            <div key={item.id}>
+                              <Link to={`/details/${item.id}`}>
+                                <CardItem
+                                  key={item.id}
+                                  vote_average={item.vote_average}
+                                  poster_path={item.poster_path}
+                                  title={item.title}
+                                  release_date={formateDate(item.release_date)}
+                                />
+                              </Link>
+                            </div>
+                          ))}
+                        </>
 
-                  {moviesPopulares.data && 
-                    <>
-                    {moviesPopulares.data.results.map((item) => (
-                      <Link to={`/details/${item.id}`}>
-                        <CardItem
-                          key={item.id}
-                          vote_average={item.vote_average}
-                          poster_path={item.poster_path}
-                          title={item.title}
-                          release_date={formateDate(item.release_date)}
-                        />  
-                      </Link>
-                      ))}
-                    </>
-                  
-                  }
+                      }
 
+                    </div>
+                  </div>
+
+                  <div className="mt-5">
+                    <Pagination>
+                      <PaginationContent>
+                        <PaginationItem>
+                          <PaginationPrevious className="cursor-pointer" onClick={handlePrevButton} />
+                        </PaginationItem>
+                        <PaginationItem>
+                          <PaginationLink href="#">1</PaginationLink>
+                        </PaginationItem>
+                        <PaginationItem>
+                          <PaginationLink href="#" isActive>
+                            2
+                          </PaginationLink>
+                        </PaginationItem>
+                        <PaginationItem>
+                          <PaginationLink href="#">3</PaginationLink>
+                        </PaginationItem>
+                        <PaginationItem>
+                          <PaginationEllipsis />
+                        </PaginationItem>
+                        <PaginationItem>
+                          <PaginationNext className="cursor-pointer" onClick={handleNextButton} />
+                        </PaginationItem>
+                      </PaginationContent>
+                    </Pagination>
+                  </div>
                 </div>
               </div>
               

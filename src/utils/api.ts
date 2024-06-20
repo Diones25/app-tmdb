@@ -31,8 +31,8 @@ const api = axios.create({
   }
 });
 
-export const getMoviesPopulares = async (): Promise<MoviesPopulares> => {
-  const response = await api.get('/movie/popular', {
+export const getMoviesPopulares = async (page: number): Promise<MoviesPopulares> => {
+  const response = await api.get(`/movie/popular?page=${page}`, {
     transformResponse: [function (data) {
       const parsedData = JSON.parse(data);
       

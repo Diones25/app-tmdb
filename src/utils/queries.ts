@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query"
+import { keepPreviousData, useQuery } from "@tanstack/react-query"
 import {
   geMoviesUpcoming,
   getMovieCredits,
@@ -21,10 +21,11 @@ import { ExternalId } from "@/types/ExternalId";
 import { Keyword } from "@/types/Keyword";
 import { MovieRecommended } from "@/types/MovieRecommended";
 
-export const useMoviesPopulares = () => {
+export const useMoviesPopulares = (page: number) => {
   const query = useQuery({
-    queryKey: ['moviesPopulares'],
-    queryFn: getMoviesPopulares
+    queryKey: ['moviesPopulares', page],
+    queryFn: () => getMoviesPopulares(page),
+    placeholderData: keepPreviousData
   });
 
   return query;
