@@ -31,10 +31,11 @@ export const useMoviesPopulares = (page: number) => {
   return query;
 }
 
-export const useMoviesUpcoming = () => {
+export const useMoviesUpcoming = (page: number) => {
   const query = useQuery({
-    queryKey: ['moviesUpcoming'],
-    queryFn: geMoviesUpcoming
+    queryKey: ['moviesUpcoming', page],
+    queryFn: () => geMoviesUpcoming(page),
+    placeholderData: keepPreviousData
   });
 
   return query;
