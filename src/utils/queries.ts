@@ -44,16 +44,18 @@ export const useMoviesUpcoming = (page: number) => {
 export const useSeriesPopulares = (page: number) => {
   const query = useQuery({
     queryKey: ['seriesPopulares', page],
-    queryFn: () => getSeriesPopulares(page)
+    queryFn: () => getSeriesPopulares(page),
+    placeholderData: keepPreviousData
   });
 
   return query;
 }
 
-export const usePersonsPopulares = () => {
+export const usePersonsPopulares = (page: number) => {
   const query = useQuery({
-    queryKey: ['personsPopulares'],
-    queryFn: getPersonsPopulares
+    queryKey: ['personsPopulares', page],
+    queryFn: () => getPersonsPopulares(page),
+    placeholderData: keepPreviousData
   });
 
   return query;

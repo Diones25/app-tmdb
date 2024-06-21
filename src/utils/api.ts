@@ -259,8 +259,8 @@ export const getSeriesPopulares = async (page: number): Promise<SeriesPopulares>
   return response.data;
 }
 
-export const getPersonsPopulares = async (): Promise<PersonsPopulares> => {
-  const response = await api.get('/person/popular', {
+export const getPersonsPopulares = async (page: number): Promise<PersonsPopulares> => {
+  const response = await api.get(`/person/popular?page=${page}`, {
     transformResponse: [function (data) {
       const parsedData = JSON.parse(data);
 

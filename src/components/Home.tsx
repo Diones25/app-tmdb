@@ -27,7 +27,7 @@ function HomePage() {
   const moviesPopulares = useMoviesPopulares(page);
   const MoviesUpcoming = useMoviesUpcoming(page);
   const SeriesPopulares = useSeriesPopulares(page);
-  const PersonsPopulares = usePersonsPopulares();
+  const PersonsPopulares = usePersonsPopulares(page);
 
   return (
     <>
@@ -173,25 +173,38 @@ function HomePage() {
 
             <TabsContent value="pessoas">
               <div className="flex justify-center sm:justify-start">
-                <div className='grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
+                <div>
+                  <div>
+                    <div className='grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
 
-                  {PersonsPopulares.isLoading && 'Carregando...'}
+                      {PersonsPopulares.isLoading && 'Carregando...'}
 
-                  {PersonsPopulares.data &&
-                    <>
-                    {PersonsPopulares.data.results.map((item) => (
-                      <Link to={`/person/details/${item.id}`}>
-                        <CardPerson
-                          key={item.id}
-                          profile_path={`https://media.themoviedb.org/t/p/w300_and_h450_bestv2${item.profile_path}`}
-                          name={item.name}                          
-                        />
-                      </Link>
-                      ))}
-                    </>
+                      {PersonsPopulares.data &&
+                        <>
+                        {PersonsPopulares.data.results.map((item) => (
+                          <Link to={`/person/details/${item.id}`}>
+                            <CardPerson
+                              key={item.id}
+                              profile_path={`https://media.themoviedb.org/t/p/w300_and_h450_bestv2${item.profile_path}`}
+                              name={item.name}                          
+                            />
+                          </Link>
+                          ))}
+                        </>
 
-                  }
+                      }
 
+                    </div>
+                  </div>
+
+                  <div className="mt-5">
+                    <PaginationComponent
+                      page={page}
+                      maxButtons={maxButtons}
+                      totalPages={moviesPopulares.data?.total_pages}
+                      setPage={setPage}
+                    />
+                  </div>
                 </div>
               </div>
             </TabsContent>
