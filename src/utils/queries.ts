@@ -41,10 +41,10 @@ export const useMoviesUpcoming = (page: number) => {
   return query;
 }
 
-export const useSeriesPopulares = () => {
+export const useSeriesPopulares = (page: number) => {
   const query = useQuery({
-    queryKey: ['seriesPopulares'],
-    queryFn: getSeriesPopulares
+    queryKey: ['seriesPopulares', page],
+    queryFn: () => getSeriesPopulares(page)
   });
 
   return query;

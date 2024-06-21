@@ -235,8 +235,8 @@ export const geMoviesUpcoming = async (page: number): Promise<MoviesUpcoming> =>
   return response.data;
 }
 
-export const getSeriesPopulares = async (): Promise<SeriesPopulares> => {
-  const response = await api.get('/tv/popular', {
+export const getSeriesPopulares = async (page: number): Promise<SeriesPopulares> => {
+  const response = await api.get(`/tv/popular?page=${page}`, {
     transformResponse: [function (data) {
       const parsedData = JSON.parse(data);
 
