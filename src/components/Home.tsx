@@ -4,15 +4,6 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
 import CardItem from "./Card";
 import Banner from "./Banner";
 import { useState } from "react";
@@ -26,20 +17,11 @@ import {
 import { formateDate } from "@/lib/utils";
 import CardPerson from "./CardPerson";
 import Navbar from "./Navbar";
+import PaginationComponent from "./PaginationComponent";
 
 function HomePage() {
   const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-
-  
-
-  const handlePrevButton = () => {
-    setPage(page === 1 ? 1 : page - 1)
-  }
-
-  const handleNextButton = () => {
-    setPage(page + 1)
-  }
+  const [maxButtons, setMaxButtons] = useState(10);
 
   const [activeTab, setActiveTab] = useState('populares');
   const moviesPopulares = useMoviesPopulares(page);
@@ -97,30 +79,12 @@ function HomePage() {
                   </div>
 
                   <div className="mt-5">
-                    <Pagination>
-                      <PaginationContent>
-                        <PaginationItem>
-                          <PaginationPrevious className="cursor-pointer" onClick={handlePrevButton} />
-                        </PaginationItem>
-                        <PaginationItem>
-                          <PaginationLink href="#">1</PaginationLink>
-                        </PaginationItem>
-                        <PaginationItem>
-                          <PaginationLink href="#" isActive>
-                            2
-                          </PaginationLink>
-                        </PaginationItem>
-                        <PaginationItem>
-                          <PaginationLink href="#">3</PaginationLink>
-                        </PaginationItem>
-                        <PaginationItem>
-                          <PaginationEllipsis />
-                        </PaginationItem>
-                        <PaginationItem>
-                          <PaginationNext className="cursor-pointer" onClick={handleNextButton} />
-                        </PaginationItem>
-                      </PaginationContent>
-                    </Pagination>
+                    <PaginationComponent
+                      page={page}
+                      maxButtons={maxButtons}
+                      totalPages={moviesPopulares.data?.total_pages}
+                      setPage={setPage}
+                    />
                   </div>
                 </div>
               </div>
