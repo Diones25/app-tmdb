@@ -105,7 +105,7 @@ export const getMovieDetailsVideoTrailer = async (id: number): Promise<Key> => {
       const parsedData = JSON.parse(data);
 
       return {
-        results: parsedData.results.map((item: Key) => {
+        results: parsedData.results.map(() => {
           return {
             keyInitial: parsedData.results[0].key
           }

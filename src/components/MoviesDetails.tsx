@@ -110,11 +110,11 @@ const MoviesDetails = () => {
                           <DialogTitle>Trailer Oficial</DialogTitle>
                         </DialogHeader>
 
-                        {movieVideoTrailer.data?.length > 0 ? (
+                        {movieVideoTrailer.data?.length as number > 0 ? (
                           <>
                             <iframe
                               className="w-full h-[28rem]"
-                              src={`https://www.youtube.com/embed/${movieVideoTrailer.data?.[0].keyInitial}`}
+                              src={`https://www.youtube.com/embed/${movieVideoTrailer.data?.[0].keyInitial as string}`}
                               title="YouTube video player"
                               frameBorder="0"
                               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -186,7 +186,7 @@ const MoviesDetails = () => {
                         <div className="flex">
                           
 
-                          {movieVideo.data?.length > 0 ? (
+                          {movieVideo.data?.length as number > 0 ? (
                             <>
                               {movieVideo.data?.map((item, index) => (
                                 <iframe
