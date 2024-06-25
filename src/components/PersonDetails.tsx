@@ -5,28 +5,21 @@ import svgFacebook from '../assets/facebook.svg';
 import svgTwitter from '../assets/twitter.svg';
 import svgInstagram from '../assets/instagram.svg';
 import { useEffect, useState } from "react";
-import { getPersonCredits, getPersonDetails, getPersonExternalIDs } from "@/utils/api";
+import { getPersonExternalIDs } from "@/utils/api";
 import { formateDate, returnAge } from "@/lib/utils";
-import { TypePersonDetails } from "@/types/PersonDetails";
 import { PersonExternalIDs } from "@/types/PersonExternalIDs";
-import { PersonCredits } from "@/types/PersonCredits";
 import Navbar from "./Navbar";
-import { usePersonDetails } from "@/utils/queries";
+import { usePersonCredits, usePersonDetails } from "@/utils/queries";
 
 const PersonDetails = () => {
   const { id } = useParams();
   const personDetails = usePersonDetails(Number(id));
+  const personCredits = usePersonCredits(Number(id));
 
-  const [personCredits, setPersonCredits] = useState<PersonCredits[]>([]);
   const [personExternalID, setPersonExternalID] = useState<PersonExternalIDs>();
 
   useEffect(() => {
 
-
-    (async () => {
-      const res = await getPersonCredits(Number(id));
-      setPersonCredits(res);
-    })();
 
     (async () => {
       const res = await getPersonExternalIDs(Number(id));
@@ -103,14 +96,16 @@ const PersonDetails = () => {
               <div className="flex overflow-x-scroll overflow-y-hidden gap-4 pb-3">
                 {personCredits &&
                   <>
-                  {personCredits.map(item => (
-                      <Link to={`/details/${item.id}`}>
-                        <CardMoviePerson
-                          key={item.id}
-                          poster_path={item.poster_path}
-                          title={item.title}
-                        />                                                             
-                      </Link>
+                  {personCredits.data?.map(item => (
+                      <div key={item.id}>
+                        <Link to={`/details/${item.id}`}>
+                          <CardMoviePerson
+                            key={item.id}
+                            poster_path={item.poster_path}
+                            title={item.title}
+                          />
+                        </Link>  
+                      </div>
                     ))}
                   </>
                 }

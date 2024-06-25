@@ -8,7 +8,7 @@ import { Genre, MovieDetail } from "@/types/MovieDetail";
 import { MovieRecommended, MovieRecommendedItem } from "@/types/MovieRecommended";
 import { MoviesPopulares, Results } from "@/types/MoviesPopulares";
 import { MoviesUpcoming, ResultsUpcoming } from "@/types/MoviesUpcoming";
-import { PersonCredits } from "@/types/PersonCredits";
+import { PersonCredits, PersonCreditsItem } from "@/types/PersonCredits";
 import { TypePersonDetails } from "@/types/PersonDetails";
 import { PersonExternalIDs } from "@/types/PersonExternalIDs";
 import { PersonsPopulares, ResultsPerson } from "@/types/PersonsPopulares";
@@ -302,13 +302,13 @@ export const getPersonDetails = async (id: number): Promise<TypePersonDetails> =
   return response.data;
 }
 
-export const getPersonCredits = async (id: number): Promise<PersonCredits[]> => {
+export const getPersonCredits = async (id: number): Promise<PersonCredits> => {
   const response = await api.get(`/person/${id}/movie_credits`, {
     transformResponse: [function (data) {
       const parsedData = JSON.parse(data);
 
       return {
-        results: parsedData.cast.map((item: PersonCredits) => {
+        results: parsedData.cast.map((item: PersonCreditsItem) => {
           return {
             id: item.id,
             poster_path: `https://media.themoviedb.org/t/p/w150_and_h225_bestv2${item.poster_path}`,
@@ -317,7 +317,8 @@ export const getPersonCredits = async (id: number): Promise<PersonCredits[]> => 
         })
       }
     }]
-  });  
+  }); 
+  console.log("Console da API getPersonCredits ==> ", response.data);
   return response.data.results;
 }
 
