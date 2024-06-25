@@ -311,14 +311,14 @@ export const getPersonCredits = async (id: number): Promise<PersonCredits> => {
         results: parsedData.cast.map((item: PersonCreditsItem) => {
           return {
             id: item.id,
-            poster_path: `https://media.themoviedb.org/t/p/w150_and_h225_bestv2${item.poster_path}`,
+            poster_path: item.poster_path,
             title: item.title
           }
         })
       }
     }]
   }); 
-  console.log("Console da API getPersonCredits ==> ", response.data);
+
   return response.data.results;
 }
 

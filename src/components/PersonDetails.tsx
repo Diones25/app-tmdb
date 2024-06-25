@@ -9,6 +9,7 @@ import { getPersonExternalIDs } from "@/utils/api";
 import { formateDate, returnAge } from "@/lib/utils";
 import { PersonExternalIDs } from "@/types/PersonExternalIDs";
 import Navbar from "./Navbar";
+import imageNotFound from '../assets/imageNotFound.png';
 import { usePersonCredits, usePersonDetails } from "@/utils/queries";
 
 const PersonDetails = () => {
@@ -43,9 +44,15 @@ const PersonDetails = () => {
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Link to={`https://www.facebook.com/${personExternalID?.facebook_id}`}>
+                    {personExternalID?.facebook_id !== null ? (
+                      <>
+                        <Link to={`https://www.facebook.com/${personExternalID?.facebook_id}`}>
+                          <img src={svgFacebook} alt="facebook" className="w-9 mr-2" />
+                        </Link>
+                      </>
+                    ) : (
                       <img src={svgFacebook} alt="facebook" className="w-9 mr-2" />
-                    </Link>
+                    )}
                   </TooltipTrigger>
                   <TooltipContent className="bg-slate-800 rounded-sm py-1 px-3 text-white">
                     <p>Visitar Facebook</p>
@@ -56,9 +63,15 @@ const PersonDetails = () => {
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Link to={`https://twitter.com/${personExternalID?.twitter_id}`}>
+                    {personExternalID?.twitter_id !== null ? (
+                      <>
+                        <Link to={`https://twitter.com/${personExternalID?.twitter_id}`}>
+                          <img src={svgTwitter} alt="twitter" className="w-9 ml-2 mr-2" />
+                        </Link>
+                      </>
+                    ) : (
                       <img src={svgTwitter} alt="twitter" className="w-9 ml-2 mr-2" />
-                    </Link>
+                    )}                    
                   </TooltipTrigger>
                   <TooltipContent className="bg-slate-800 rounded-sm py-1 px-3 text-white">
                     <p>Visitar Twitter</p>
@@ -69,9 +82,15 @@ const PersonDetails = () => {
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Link to={`https://instagram.com/${personExternalID?.instagram_id}`}>
+                    {personExternalID?.instagram_id !== null ? (
+                      <>
+                        <Link to={`https://instagram.com/${personExternalID?.instagram_id}`}>
+                          <img src={svgInstagram} alt="instagram" className="w-9 mr-2" />
+                        </Link>
+                      </>
+                    ) : (
                       <img src={svgInstagram} alt="instagram" className="w-9 mr-2" />
-                    </Link>
+                    )}                     
                   </TooltipTrigger>
                   <TooltipContent className="bg-slate-800 rounded-sm py-1 px-3 text-white">
                     <p>Visitar Instagram</p>
@@ -87,7 +106,7 @@ const PersonDetails = () => {
             <div className="my-4">
               <p className="font-semibold text-xl">Biografia</p>
               <p className="mt-2">
-                {personDetails.data?.biography}
+                {personDetails.data?.biography ? personDetails.data?.biography : "Sem dados para exibição"}
               </p>
             </div>
 
@@ -101,7 +120,7 @@ const PersonDetails = () => {
                         <Link to={`/details/${item.id}`}>
                           <CardMoviePerson
                             key={item.id}
-                            poster_path={item.poster_path}
+                            poster_path={item.poster_path ? `https://media.themoviedb.org/t/p/w150_and_h225_bestv2${item.poster_path}` : imageNotFound}
                             title={item.title}
                           />
                         </Link>  
