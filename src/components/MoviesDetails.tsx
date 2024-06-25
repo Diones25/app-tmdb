@@ -97,40 +97,77 @@ const MoviesDetails = () => {
                     </div>
                   </div>
 
-                  {movieVideo.data !== undefined &&
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <div className="flex justify-center m-auto lg:ml-0 my-3 py-1 px-1 w-44 cursor-pointer rounded-sm hover:bg-gray-500 ">
-                          <Play />
-                          <span className="font-semibold">Reproduzir trailer</span>
-                        </div>
-                      </DialogTrigger>
-                      <DialogContent className="sm:max-w-[920px]">
-                        <DialogHeader>
-                          <DialogTitle>Trailer Oficial</DialogTitle>
-                        </DialogHeader>
+                  <div className="flex">
+                    <div className="mr-3">
+                      {movieVideo.data !== undefined &&
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <div className="flex justify-center m-auto lg:ml-0 my-3 py-1 px-1 w-44 cursor-pointer rounded-sm hover:bg-gray-500 ">
+                              <Play />
+                              <span className="font-semibold">Reproduzir trailer</span>
+                            </div>
+                          </DialogTrigger>
+                          <DialogContent className="sm:max-w-[920px]">
+                            <DialogHeader>
+                              <DialogTitle>Trailer Oficial</DialogTitle>
+                            </DialogHeader>
 
-                        {movieVideoTrailer.data?.length as number > 0 ? (
-                          <>
-                            <iframe
-                              className="w-full h-[28rem]"
-                              src={`https://www.youtube.com/embed/${movieVideoTrailer.data?.[0].keyInitial as string}`}
-                              title="YouTube video player"
-                              frameBorder="0"
-                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                              referrerPolicy="strict-origin-when-cross-origin"
-                              allowFullScreen
-                            >
-                            </iframe>
-                          </>
-                        ) : (
-                          <p className="bg-orange-300 border border-orange-400 rounded-xl w-70 text-center text-white py-2 m-2">Não há trailer para exibição</p>
-                        )}
+                            {movieVideoTrailer.data?.length as number > 0 ? (
+                              <>
+                                <iframe
+                                  className="w-full h-[28rem]"
+                                  src={`https://www.youtube.com/embed/${movieVideoTrailer.data?.[0].keyInitial as string}`}
+                                  title="YouTube video player"
+                                  frameBorder="0"
+                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                  referrerPolicy="strict-origin-when-cross-origin"
+                                  allowFullScreen
+                                >
+                                </iframe>
+                              </>
+                            ) : (
+                              <p className="bg-orange-300 border border-orange-400 rounded-xl w-70 text-center text-white py-2 m-2">Não há trailer para exibição</p>
+                            )}
 
-                      </DialogContent>
-                    </Dialog>
-                  
-                  }
+                          </DialogContent>
+                        </Dialog>
+                      }
+                    </div>
+
+                    <div>
+                      {externalId.data !== undefined &&
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <div className="flex justify-center m-auto lg:ml-0 my-3 py-1 px-1 w-44 cursor-pointer rounded-sm bg-red-500 hover:bg-red-400 ">
+                              <Play />
+                              <span className="font-semibold">Assistir filme</span>
+                            </div>
+                          </DialogTrigger>
+                          <DialogContent className="sm:max-w-[920px]">
+                            <DialogHeader>
+                              <DialogTitle>Assistir filme</DialogTitle>
+                            </DialogHeader>
+
+                            {externalId.data !== undefined ? (
+                              <>
+                                <iframe
+                                  id="EmbedderContainer"
+                                  className="w-full h-[28rem]"
+                                  src={`https://embedder.net/e/${externalId.data.imdb_id}`}
+                                  frameBorder="0"
+                                  allowFullScreen
+                                >
+                                </iframe>
+                              </>
+                            ) : (
+                              <p className="bg-orange-300 border border-orange-400 rounded-xl w-70 text-center text-white py-2 m-2">Não há trailer para exibição</p>
+                            )}
+
+                          </DialogContent>
+                        </Dialog>
+                      }
+                    </div>
+                  </div>
                   
                   <div className="mt-4">
                     <p>{ moviesDetails.data?.tagline }</p>
