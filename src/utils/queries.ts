@@ -10,6 +10,7 @@ import {
   getMovieKeywords,
   getMovieRecommended,
   getMoviesPopulares,
+  getPersonDetails,
   getPersonsPopulares,
   getSeriesPopulares
 } from "./api";
@@ -25,36 +26,6 @@ export const useMoviesPopulares = (page: number) => {
   const query = useQuery({
     queryKey: ['moviesPopulares', page],
     queryFn: () => getMoviesPopulares(page),
-    placeholderData: keepPreviousData
-  });
-
-  return query;
-}
-
-export const useMoviesUpcoming = (page: number) => {
-  const query = useQuery({
-    queryKey: ['moviesUpcoming', page],
-    queryFn: () => geMoviesUpcoming(page),
-    placeholderData: keepPreviousData
-  });
-
-  return query;
-}
-
-export const useSeriesPopulares = (page: number) => {
-  const query = useQuery({
-    queryKey: ['seriesPopulares', page],
-    queryFn: () => getSeriesPopulares(page),
-    placeholderData: keepPreviousData
-  });
-
-  return query;
-}
-
-export const usePersonsPopulares = (page: number) => {
-  const query = useQuery({
-    queryKey: ['personsPopulares', page],
-    queryFn: () => getPersonsPopulares(page),
     placeholderData: keepPreviousData
   });
 
@@ -132,3 +103,45 @@ export const useMovieRecommended = (id: number) => {
 
   return query;
 }
+
+export const useMoviesUpcoming = (page: number) => {
+  const query = useQuery({
+    queryKey: ['moviesUpcoming', page],
+    queryFn: () => geMoviesUpcoming(page),
+    placeholderData: keepPreviousData
+  });
+
+  return query;
+}
+
+export const useSeriesPopulares = (page: number) => {
+  const query = useQuery({
+    queryKey: ['seriesPopulares', page],
+    queryFn: () => getSeriesPopulares(page),
+    placeholderData: keepPreviousData
+  });
+
+  return query;
+}
+
+export const usePersonsPopulares = (page: number) => {
+  const query = useQuery({
+    queryKey: ['personsPopulares', page],
+    queryFn: () => getPersonsPopulares(page),
+    placeholderData: keepPreviousData
+  });
+
+  return query;
+}
+
+export const usePersonDetails = (id: number) => {
+  const query = useQuery({
+    queryKey: ['personDetails', id],
+    queryFn: () => getPersonDetails(id)
+  });
+
+  return query;
+}
+
+
+
