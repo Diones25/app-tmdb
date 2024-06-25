@@ -12,6 +12,7 @@ import {
   getMoviesPopulares,
   getPersonCredits,
   getPersonDetails,
+  getPersonExternalIDs,
   getPersonsPopulares,
   getSeriesPopulares
 } from "./api";
@@ -23,6 +24,7 @@ import { ExternalId } from "@/types/ExternalId";
 import { Keyword } from "@/types/Keyword";
 import { MovieRecommended } from "@/types/MovieRecommended";
 import { PersonCredits } from "@/types/PersonCredits";
+import { PersonExternalIDs } from "@/types/PersonExternalIDs";
 
 export const useMoviesPopulares = (page: number) => {
   const query = useQuery({
@@ -154,3 +156,11 @@ export const usePersonCredits = (id: number) => {
   return query;
 }
 
+export const usePersonExternalIDs = (id: number) => {
+  const query = useQuery({
+    queryKey: ['personExternalIDs', id],
+    queryFn: (): Promise<PersonExternalIDs> => getPersonExternalIDs(id)
+  });
+
+  return query;
+}

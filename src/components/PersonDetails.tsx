@@ -4,29 +4,16 @@ import CardMoviePerson from "./CardMoviePerson";
 import svgFacebook from '../assets/facebook.svg';
 import svgTwitter from '../assets/twitter.svg';
 import svgInstagram from '../assets/instagram.svg';
-import { useEffect, useState } from "react";
-import { getPersonExternalIDs } from "@/utils/api";
 import { formateDate, returnAge } from "@/lib/utils";
-import { PersonExternalIDs } from "@/types/PersonExternalIDs";
 import Navbar from "./Navbar";
 import imageNotFound from '../assets/imageNotFound.png';
-import { usePersonCredits, usePersonDetails } from "@/utils/queries";
+import { usePersonCredits, usePersonDetails, usePersonExternalIDs } from "@/utils/queries";
 
 const PersonDetails = () => {
   const { id } = useParams();
   const personDetails = usePersonDetails(Number(id));
   const personCredits = usePersonCredits(Number(id));
-
-  const [personExternalID, setPersonExternalID] = useState<PersonExternalIDs>();
-
-  useEffect(() => {
-
-
-    (async () => {
-      const res = await getPersonExternalIDs(Number(id));
-      setPersonExternalID(res);
-    })();
-  }, []);
+  const personExternalID = usePersonExternalIDs(Number(id));
 
   return (
     <>
@@ -44,9 +31,9 @@ const PersonDetails = () => {
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    {personExternalID?.facebook_id !== null ? (
+                    {personExternalID.data?.facebook_id !== null && personExternalID.data?.facebook_id !== undefined ? (
                       <>
-                        <Link to={`https://www.facebook.com/${personExternalID?.facebook_id}`}>
+                        <Link to={`https://www.facebook.com/${personExternalID.data?.facebook_id}`}>
                           <img src={svgFacebook} alt="facebook" className="w-9 mr-2" />
                         </Link>
                       </>
@@ -63,9 +50,9 @@ const PersonDetails = () => {
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    {personExternalID?.twitter_id !== null ? (
+                    {personExternalID.data?.twitter_id !== null && personExternalID.data?.twitter_id !== undefined ? (
                       <>
-                        <Link to={`https://twitter.com/${personExternalID?.twitter_id}`}>
+                        <Link to={`https://twitter.com/${personExternalID.data?.twitter_id}`}>
                           <img src={svgTwitter} alt="twitter" className="w-9 ml-2 mr-2" />
                         </Link>
                       </>
@@ -82,9 +69,9 @@ const PersonDetails = () => {
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    {personExternalID?.instagram_id !== null ? (
+                    {personExternalID.data?.instagram_id !== null && personExternalID.data?.instagram_id !== undefined ? (
                       <>
-                        <Link to={`https://instagram.com/${personExternalID?.instagram_id}`}>
+                        <Link to={`https://instagram.com/${personExternalID.data?.instagram_id}`}>
                           <img src={svgInstagram} alt="instagram" className="w-9 mr-2" />
                         </Link>
                       </>
