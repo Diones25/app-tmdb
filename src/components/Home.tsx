@@ -124,7 +124,7 @@ function HomePage() {
                     <PaginationComponent
                       page={page}
                       maxButtons={maxButtons}
-                      totalPages={moviesPopulares.data?.total_pages}
+                      totalPages={MoviesUpcoming.data?.total_pages}
                       setPage={setPage}
                     />
                   </div>
@@ -164,7 +164,7 @@ function HomePage() {
                     <PaginationComponent
                       page={page}
                       maxButtons={maxButtons}
-                      totalPages={moviesPopulares.data?.total_pages}
+                      totalPages={SeriesPopulares.data?.total_pages}
                       setPage={setPage}
                     />
                   </div>
@@ -202,7 +202,7 @@ function HomePage() {
                     <PaginationComponent
                       page={page}
                       maxButtons={maxButtons}
-                      totalPages={moviesPopulares.data?.total_pages}
+                      totalPages={PersonsPopulares.data?.total_pages}
                       setPage={setPage}
                     />
                   </div>
