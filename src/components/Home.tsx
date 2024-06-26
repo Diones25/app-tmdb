@@ -18,6 +18,7 @@ import { formateDate } from "@/lib/utils";
 import CardPerson from "./CardPerson";
 import Navbar from "./Navbar";
 import PaginationComponent from "./PaginationComponent";
+import SearchInput from "./SearchInput";
 
 function HomePage() {
   const [page, setPage] = useState(1);

@@ -11,11 +11,11 @@ import {
 type Props = {
   page: number;
   maxButtons: number;
-  totalPages: number;
+  totalPages: number | undefined;
   setPage: (value: React.SetStateAction<number>) => void
 }
 
-function PaginationComponent({ page, maxButtons, totalPages, setPage }: Props) {
+function PaginationComponent({ page, maxButtons, totalPages = 0, setPage }: Props) {
 
   const handlePageChange = (newPage: number) => {
     if (newPage > 0 && newPage <= totalPages) {
