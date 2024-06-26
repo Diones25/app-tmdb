@@ -80,12 +80,19 @@ function HomePage() {
                   </div>
 
                   <div className="mt-5">
-                    <PaginationComponent
-                      page={page}
-                      maxButtons={maxButtons}
-                      totalPages={moviesPopulares.data?.total_pages}
-                      setPage={setPage}
-                    />
+                    {moviesPopulares.data !== undefined ? (
+                      <>
+                        <PaginationComponent
+                          page={page}
+                          maxButtons={maxButtons}
+                          totalPages={moviesPopulares.data?.total_pages}
+                          setPage={setPage}
+                        />
+                      </>
+                    ) : (
+                      ""
+                    )}
+                    
                   </div>
                 </div>
               </div>
@@ -121,12 +128,18 @@ function HomePage() {
                   </div>
 
                   <div className="mt-5">
-                    <PaginationComponent
-                      page={page}
-                      maxButtons={maxButtons}
-                      totalPages={MoviesUpcoming.data?.total_pages}
-                      setPage={setPage}
-                    />
+                    {MoviesUpcoming.data !== undefined ? (
+                      <>
+                        <PaginationComponent
+                          page={page}
+                          maxButtons={maxButtons}
+                          totalPages={MoviesUpcoming.data?.total_pages}
+                          setPage={setPage}
+                        />
+                      </>
+                    ) : (
+                      ""
+                    )}                    
                   </div>
                 </div>
               </div>
@@ -161,12 +174,18 @@ function HomePage() {
                   </div>
 
                   <div className="mt-5">
-                    <PaginationComponent
-                      page={page}
-                      maxButtons={maxButtons}
-                      totalPages={SeriesPopulares.data?.total_pages}
-                      setPage={setPage}
-                    />
+                    {SeriesPopulares.data !== undefined ? (
+                      <>
+                        <PaginationComponent
+                          page={page}
+                          maxButtons={maxButtons}
+                          totalPages={SeriesPopulares.data?.total_pages}
+                          setPage={setPage}
+                        />
+                      </>
+                    ) : (
+                      ""
+                    )}                     
                   </div>
                 </div>
               </div>
@@ -199,12 +218,18 @@ function HomePage() {
                   </div>
 
                   <div className="mt-5">
-                    <PaginationComponent
-                      page={page}
-                      maxButtons={maxButtons}
-                      totalPages={PersonsPopulares.data?.total_pages}
-                      setPage={setPage}
-                    />
+                    {PersonsPopulares.data !== undefined ? (
+                      <>
+                        <PaginationComponent
+                          page={page}
+                          maxButtons={maxButtons}
+                          totalPages={PersonsPopulares.data?.total_pages}
+                          setPage={setPage}
+                        />
+                      </>
+                    ) : (
+                      ""
+                    )}                     
                   </div>
                 </div>
               </div>
