@@ -1,14 +1,14 @@
 export type SeriesPopulares = {
-  results: Results[];
+  results: ResultsSeries[];
   page: number;
   total_pages: number;
   total_results: number;
 }
 
-export type Results = {
+export type ResultsSeries = {
   id: number;
   poster_path: string;
   vote_average: number;
-  title: string;
-  release_date: string;
+  name: string;
+  first_air_date: string;
 }

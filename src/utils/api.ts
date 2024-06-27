@@ -12,7 +12,7 @@ import { PersonCredits, PersonCreditsItem } from "@/types/PersonCredits";
 import { TypePersonDetails } from "@/types/PersonDetails";
 import { PersonExternalIDs } from "@/types/PersonExternalIDs";
 import { PersonsPopulares, ResultsPerson } from "@/types/PersonsPopulares";
-import { SeriesPopulares } from "@/types/SeriesPopulares";
+import { ResultsSeries, SeriesPopulares } from "@/types/SeriesPopulares";
 import axios from "axios";
 
 const baseURL = "https://api.themoviedb.org/3";
@@ -266,13 +266,13 @@ export const getSeriesPopulares = async (page: number): Promise<SeriesPopulares>
       const parsedData = JSON.parse(data);
 
       return {
-        results: parsedData.results.map((item: Results) => {
+        results: parsedData.results.map((item: ResultsSeries) => {
           return {
             id: item.id,
-            poster_path: `https://www.themoviedb.org/t/p/w220_and_h330_face${item.poster_path}`,
+            poster_path: item.poster_path,
             vote_average: item.vote_average,
-            title: item.title,
-            release_date: item.release_date
+            name: item.name,
+            first_air_date: item.first_air_date
           }
         }),
         page: parsedData.page,
@@ -281,6 +281,32 @@ export const getSeriesPopulares = async (page: number): Promise<SeriesPopulares>
       }
     }]
   });
+
+  return response.data;
+}
+
+export const getSerachSeries = async (query: string, page: number) => {
+  const response = await api.get(`/search/tv?query=${query}&page=${page}`, {
+    transformResponse: [function (data) {
+      const parsedData = JSON.parse(data);
+
+      return {
+        results: parsedData.results.map((item: ResultsSeries) => {
+          return {
+            id: item.id,
+            poster_path: item.poster_path,
+            vote_average: item.vote_average,
+            name: item.name,
+            first_air_date: item.first_air_date
+          }
+        }),
+        page: parsedData.page,
+        total_pages: parsedData.total_pages,
+        total_results: parsedData.total_results,
+      }
+    }]
+  });
+
   return response.data;
 }
 

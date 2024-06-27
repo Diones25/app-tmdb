@@ -20,7 +20,7 @@ import Navbar from "./Navbar";
 import imageNotFound from '../assets/imageNotFound.png';
 import PaginationComponent from "./PaginationComponent";
 import SearchInput from "./SearchInput";
-import { getSerachMovies } from "@/utils/api";
+import { getSerachMovies, getSerachSeries } from "@/utils/api";
 import { Button } from "./ui/button";
 
 function HomePage() {
@@ -28,6 +28,7 @@ function HomePage() {
   const [maxButtons, setMaxButtons] = useState(10);
   const [query, setQuery] = useState("");
   const [moviesSearch, setMoviesSearch] = useState([]);
+  const [seriesSearch, setSeriesSearch] = useState([]);
   const [showPagainationSearch, setShowPaginationSearch] = useState(false);
 
   const [activeTab, setActiveTab] = useState('populares');
@@ -41,10 +42,15 @@ function HomePage() {
       if (query) {
         const response = await getSerachMovies(query, page);
         setMoviesSearch(response);
+
+        const responseSe = await getSerachSeries(query, page);
+        setSeriesSearch(responseSe)
+
         setShowPaginationSearch(true);
       }
       else {
         setMoviesSearch([])
+        setSeriesSearch([])
         setShowPaginationSearch(false);
       }
 
@@ -203,35 +209,61 @@ function HomePage() {
             </TabsContent>
 
             <TabsContent value="series">
+
+              <div className="my-6">
+                <SearchInput
+                  placeholder={"Digite o nome do filme que você deseja pesquisar"}
+                  value={query}
+                  onChange={(search) => setQuery(search)}
+                />
+              </div>
+
+              {SeriesPopulares.isLoading && 'Carregando...'}
+
               <div className="flex justify-center sm:justify-start">
                 <div>
                   <div>
                     <div className='grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
-
-                      {SeriesPopulares.isLoading && 'Carregando...'}
-
-                      {SeriesPopulares.data &&
+                      
+                      {SeriesPopulares.data && seriesSearch.length === 0 ? (
                         <>
                           {SeriesPopulares.data.results.map((item) => (
-                            <Link to={`/series/details/${item.id}`}>
-                              <CardItem
-                                key={item.id}
-                                vote_average={item.vote_average}
-                                poster_path={item.poster_path}
-                                title={item.title}
-                                release_date={formateDate(item.release_date)}
-                              />
-                            </Link>
+                            <div key={item.id}>
+                              <Link to={`/details/${item.id}`}>
+                                <CardItem
+                                  key={item.id}
+                                  vote_average={item.vote_average}
+                                  poster_path={item.poster_path ? `https://www.themoviedb.org/t/p/w220_and_h330_face${item.poster_path}` : imageNotFound}
+                                  title={item.name}
+                                  release_date={formateDate(item.first_air_date)}
+                                />
+                              </Link>
+                            </div>
                           ))}
                         </>
-
-                      }
+                      ) : (
+                        <>
+                          {seriesSearch.results?.map((item) => (
+                            <div key={item.id}>
+                              <Link to={`/details/${item.id}`}>
+                                <CardItem
+                                  key={item.id}
+                                  vote_average={item.vote_average}
+                                  poster_path={item.poster_path ? `https://www.themoviedb.org/t/p/w220_and_h330_face${item.poster_path}` : imageNotFound}
+                                  title={item.name}
+                                  release_date={formateDate(item.first_air_date)}
+                                />
+                              </Link>
+                            </div>
+                          ))}
+                        </>
+                      )}
 
                     </div>
                   </div>
 
                   <div className="mt-5">
-                    {SeriesPopulares.data !== undefined ? (
+                    {SeriesPopulares.data !== undefined && !showPagainationSearch ? (
                       <>
                         <PaginationComponent
                           page={page}
@@ -242,8 +274,23 @@ function HomePage() {
                       </>
                     ) : (
                       ""
-                    )}                     
+                    )}
+
+                    {showPagainationSearch ? (
+                      <>
+                        <PaginationComponent
+                          page={page}
+                          maxButtons={maxButtons}
+                          totalPages={seriesSearch.total_pages}
+                          setPage={setPage}
+                        />
+                      </>
+                    ) : (
+                      ""
+                    )}
+
                   </div>
+
                 </div>
               </div>
             </TabsContent>
