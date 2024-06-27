@@ -31,6 +31,31 @@ const api = axios.create({
   }
 });
 
+export const getSerachMovies = async (query: string) => {
+  const response = await api.get(`/search/movie?query=${query}`, {
+    transformResponse: [function (data) {
+      const parsedData = JSON.parse(data);
+
+      return {
+        results: parsedData.results.map((item: Results) => {
+          return {
+            id: item.id,
+            poster_path: `https://www.themoviedb.org/t/p/w220_and_h330_face${item.poster_path}`,
+            vote_average: item.vote_average,
+            title: item.title,
+            release_date: item.release_date
+          }
+        }),
+        page: parsedData.page,
+        total_pages: parsedData.total_pages,
+        total_results: parsedData.total_results,
+      }
+    }]
+  });
+  console.log(response.data)
+  return response.data;
+}
+
 export const getMoviesPopulares = async (page: number): Promise<MoviesPopulares> => {
   const response = await api.get(`/movie/popular?page=${page}`, {
     transformResponse: [function (data) {

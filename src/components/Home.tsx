@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/tabs";
 import CardItem from "./Card";
 import Banner from "./Banner";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom"
 import {
   useMoviesPopulares,
@@ -19,16 +19,33 @@ import CardPerson from "./CardPerson";
 import Navbar from "./Navbar";
 import PaginationComponent from "./PaginationComponent";
 import SearchInput from "./SearchInput";
+import { getSerachMovies } from "@/utils/api";
 
 function HomePage() {
   const [page, setPage] = useState(1);
   const [maxButtons, setMaxButtons] = useState(10);
+  const [query, setQuery] = useState("");
+  const [moviesSearch, setMoviesSearch] = useState([]);
 
   const [activeTab, setActiveTab] = useState('populares');
   const moviesPopulares = useMoviesPopulares(page);
   const MoviesUpcoming = useMoviesUpcoming(page);
   const SeriesPopulares = useSeriesPopulares(page);
   const PersonsPopulares = usePersonsPopulares(page);
+
+  useEffect(() => {
+    (async () => {
+      if (query) {
+        const response = await getSerachMovies(query);
+        setMoviesSearch(response);
+      }
+      else {
+        setQuery("")
+        setMoviesSearch([])
+      }
+
+    })();
+  }, [query])
 
   return (
     <>
@@ -51,13 +68,22 @@ function HomePage() {
             </div>
 
             <TabsContent value="populares" className="mt-3">
+
+              <div className="my-6">
+                <SearchInput
+                  placeholder={"Digite o nome do filme que você deseja pesquisar"}
+                  value={query}
+                  onChange={(search) => setQuery(search)}
+                />
+              </div>
+
               {moviesPopulares.isLoading && 'Carregando...'}
               <div className="flex justify-center sm:justify-start">
                 <div>
                   <div>
-                    <div className='grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
+                    <div className='grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>                     
 
-                      {moviesPopulares.data &&
+                      {moviesPopulares.data && moviesSearch.length === 0 ? (
                         <>
                           {moviesPopulares.data.results.map((item) => (
                             <div key={item.id}>
@@ -73,9 +99,23 @@ function HomePage() {
                             </div>
                           ))}
                         </>
-
-                      }
-
+                      ) : (
+                        <>
+                          {moviesSearch.results?.map((item) => (
+                            <div key={item.id}>
+                              <Link to={`/details/${item.id}`}>
+                                <CardItem
+                                  key={item.id}
+                                  vote_average={item.vote_average}
+                                  poster_path={item.poster_path}
+                                  title={item.title}
+                                  release_date={formateDate(item.release_date)}
+                                />
+                              </Link>
+                            </div>
+                          ))}
+                        </>
+                      )}                     
                     </div>
                   </div>
 
