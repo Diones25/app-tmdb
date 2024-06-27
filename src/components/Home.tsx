@@ -212,7 +212,7 @@ function HomePage() {
 
               <div className="my-6">
                 <SearchInput
-                  placeholder={"Digite o nome do filme que você deseja pesquisar"}
+                  placeholder={"Digite o nome do serie que você deseja pesquisar"}
                   value={query}
                   onChange={(search) => setQuery(search)}
                 />
