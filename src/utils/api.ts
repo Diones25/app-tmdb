@@ -52,7 +52,7 @@ export const getSerachMovies = async (query: string) => {
       }
     }]
   });
-  console.log(response.data)
+
   return response.data;
 }
 
