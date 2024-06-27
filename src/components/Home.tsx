@@ -17,6 +17,7 @@ import {
 import { formateDate } from "@/lib/utils";
 import CardPerson from "./CardPerson";
 import Navbar from "./Navbar";
+import imageNotFound from '../assets/imageNotFound.png';
 import PaginationComponent from "./PaginationComponent";
 import SearchInput from "./SearchInput";
 import { getSerachMovies } from "@/utils/api";
@@ -91,7 +92,7 @@ function HomePage() {
                                 <CardItem
                                   key={item.id}
                                   vote_average={item.vote_average}
-                                  poster_path={item.poster_path}
+                                  poster_path={item.poster_path ? `https://www.themoviedb.org/t/p/w220_and_h330_face${item.poster_path}` : imageNotFound}
                                   title={item.title}
                                   release_date={formateDate(item.release_date)}
                                 />

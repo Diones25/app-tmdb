@@ -14,7 +14,7 @@ type Props = {
 function CardItem({ poster_path, vote_average, title, release_date }: Props) {
   return (
     <>
-      <Card className="w-[200px] hover:drop-shadow-2xl cursor-pointer">
+      <Card className="w-[200px] h-[516px] hover:drop-shadow-2xl cursor-pointer">
         <div>
           <img
             className='w-full object-cover rounded-t-md'
