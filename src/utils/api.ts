@@ -31,8 +31,8 @@ const api = axios.create({
   }
 });
 
-export const getSerachMovies = async (query: string) => {
-  const response = await api.get(`/search/movie?query=${query}`, {
+export const getSerachMovies = async (query: string, page: number) => {
+  const response = await api.get(`/search/movie?query=${query}&page=${page}`, {
     transformResponse: [function (data) {
       const parsedData = JSON.parse(data);
 

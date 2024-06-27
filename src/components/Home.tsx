@@ -21,12 +21,14 @@ import imageNotFound from '../assets/imageNotFound.png';
 import PaginationComponent from "./PaginationComponent";
 import SearchInput from "./SearchInput";
 import { getSerachMovies } from "@/utils/api";
+import { Button } from "./ui/button";
 
 function HomePage() {
   const [page, setPage] = useState(1);
   const [maxButtons, setMaxButtons] = useState(10);
   const [query, setQuery] = useState("");
   const [moviesSearch, setMoviesSearch] = useState([]);
+  const [showPagainationSearch, setShowPaginationSearch] = useState(false);
 
   const [activeTab, setActiveTab] = useState('populares');
   const moviesPopulares = useMoviesPopulares(page);
@@ -37,16 +39,17 @@ function HomePage() {
   useEffect(() => {
     (async () => {
       if (query) {
-        const response = await getSerachMovies(query);
+        const response = await getSerachMovies(query, page);
         setMoviesSearch(response);
+        setShowPaginationSearch(true);
       }
       else {
-        setQuery("")
         setMoviesSearch([])
+        setShowPaginationSearch(false);
       }
 
     })();
-  }, [query])
+  }, [query, page])
 
   return (
     <>
@@ -121,12 +124,25 @@ function HomePage() {
                   </div>
 
                   <div className="mt-5">
-                    {moviesPopulares.data !== undefined ? (
+                    {moviesPopulares.data !== undefined && !showPagainationSearch ? (
                       <>
                         <PaginationComponent
                           page={page}
                           maxButtons={maxButtons}
                           totalPages={moviesPopulares.data?.total_pages}
+                          setPage={setPage}
+                        />
+                      </>
+                    ) : (
+                      ""
+                    )}
+
+                    {showPagainationSearch ? (
+                      <>
+                        <PaginationComponent
+                          page={page}
+                          maxButtons={maxButtons}
+                          totalPages={moviesSearch.total_pages}
                           setPage={setPage}
                         />
                       </>
