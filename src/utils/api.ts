@@ -310,6 +310,20 @@ export const getSerachSeries = async (query: string, page: number) => {
   return response.data;
 }
 
+export const getSeriesDetails = async (id: number) => {
+  const response = await api.get(`/movie/${id}`, {
+    transformResponse: [function (data) {
+      const parsedData = JSON.parse(data);
+
+      return {
+        id: parsedData.id,
+
+      }
+    }]
+  });
+  return response.data;
+}
+
 export const getPersonsPopulares = async (page: number): Promise<PersonsPopulares> => {
   const response = await api.get(`/person/popular?page=${page}`, {
     transformResponse: [function (data) {
