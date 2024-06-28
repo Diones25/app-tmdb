@@ -127,20 +127,13 @@ export const getMovieDetailsVideos = async (id: number): Promise<Key[]> => {
 }
 
 export const getMovieDetailsVideoTrailer = async (id: number): Promise<Key> => {
-  const response = await api.get(`/movie/${id}/videos`, {
-    transformResponse: [function (data) {
-      const parsedData = JSON.parse(data);
+  const response = await api.get(`/movie/${id}/videos`);
+  
+  const data = {
+    key: response.data.results[0].key
+  }
 
-      return {
-        results: parsedData.results.map(() => {
-          return {
-            keyInitial: parsedData.results[0].key
-          }
-        }),
-      }
-    }]
-  });
-  return response.data.results;
+  return data
 }
 
 export const getMovieDetailsImages = async (id: number): Promise<FilePath[]> => {
