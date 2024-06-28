@@ -28,7 +28,7 @@ import MoviesRecommended from "./MoviesRecommended";
 import {
   useMovieCredits,
   useMovieDetailsImages,
-  useMovieDetailsVideoTrailer,
+  //useMovieDetailsVideoTrailer,
   useMovieDetailsVideos,
   useMovieExternalIds,
   useMovieKeywords,
