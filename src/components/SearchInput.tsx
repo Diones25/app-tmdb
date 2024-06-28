@@ -4,7 +4,7 @@ import { useState } from "react";
 
 type Props = {
   value?: string | number | undefined;
-  onChange?: React.ChangeEventHandler<HTMLInputElement> | undefined;
+  onChange?: React.ChangeEventHandler<HTMLInputElement> | undefined | any;
   placeholder: string;
 }
 

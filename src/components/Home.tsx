@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/tabs";
 import CardItem from "./Card";
 import Banner from "./Banner";
-import { Key, useEffect, useState } from "react";
+import { Key, SetStateAction, useEffect, useState } from "react";
 import { Link } from "react-router-dom"
 import {
   useMoviesPopulares,
@@ -84,7 +84,7 @@ function HomePage() {
                 <SearchInput
                   placeholder={"Digite o nome do filme que você deseja pesquisar"}
                   value={query}
-                  onChange={(search) => setQuery(search)}
+                  onChange={(search: SetStateAction<string>) => setQuery(search)}
                 />
               </div>
 
@@ -217,7 +217,7 @@ function HomePage() {
                 <SearchInput
                   placeholder={"Digite o nome do serie que você deseja pesquisar"}
                   value={query}
-                  onChange={(search) => setQuery(search)}
+                  onChange={(search: SetStateAction<string>) => setQuery(search)}
                 />
               </div>
 
