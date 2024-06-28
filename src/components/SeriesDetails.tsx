@@ -21,7 +21,7 @@ import svgFacebook from '../assets/facebook.svg';
 import svgTwitter from '../assets/twitter.svg';
 import svgInstagram from '../assets/instagram.svg';
 import svgIMDB from '../assets/imdb.svg';
-import noVideoAvaible from '../assets/no-video-available.jpg';
+//import noVideoAvaible from '../assets/no-video-available.jpg';
 import imageNotFound from '../assets/imageNotFound.png';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import MoviesRecommended from "./MoviesRecommended";
@@ -41,7 +41,7 @@ const MoviesDetails = () => {
   const { id } = useParams();
   const moviesDetails = useMoviesDetails(Number(id));
   const movieVideo = useMovieDetailsVideos(Number(id));
-  const movieVideoTrailer = useMovieDetailsVideoTrailer(Number(id));
+  //const movieVideoTrailer = useMovieDetailsVideoTrailer(Number(id));
   const movieImages = useMovieDetailsImages(Number(id));
   const movieCredits = useMovieCredits(Number(id));
   const externalId = useMovieExternalIds(Number(id));

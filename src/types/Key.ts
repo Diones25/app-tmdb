@@ -4,3 +4,5 @@ export type Key = {
   '0'?: string | keyInitial;
   keyInitial: string;
 }
+
+type keyInitial = {}
