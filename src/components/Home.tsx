@@ -94,7 +94,7 @@ function HomePage() {
                   <div>
                     <div className='grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>                     
 
-                      {moviesPopulares.data && moviesSearch.results.length === 0 ? (
+                      {moviesPopulares.data && moviesSearch.results === undefined ? (
                         <>
                           {moviesPopulares.data.results.map((item) => (
                             <div key={item.id}>
@@ -174,15 +174,17 @@ function HomePage() {
                       {MoviesUpcoming.data &&
                         <>
                         {MoviesUpcoming.data.results.map((item) => (
-                          <Link to={`/releases/details/${item.id}`}>
-                            <CardItem
-                              key={item.id}
-                              vote_average={item.vote_average}
-                              poster_path={item.poster_path}
-                              title={item.title}
-                              release_date={formateDate(item.release_date)}
-                            />
-                          </Link>
+                          <div key={item.id}>
+                            <Link to={`/releases/details/${item.id}`}>
+                              <CardItem
+                                key={item.id}
+                                vote_average={item.vote_average}
+                                poster_path={item.poster_path}
+                                title={item.title}
+                                release_date={formateDate(item.release_date)}
+                              />
+                            </Link>
+                          </div>
                           ))}
                         </>
 
@@ -226,7 +228,7 @@ function HomePage() {
                   <div>
                     <div className='grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
                       
-                      {SeriesPopulares.data && seriesSearch.results.length === 0 ? (
+                      {SeriesPopulares.data && seriesSearch.results === undefined ? (
                         <>
                           {SeriesPopulares.data.results.map((item) => (
                             <div key={item.id}>
