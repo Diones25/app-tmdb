@@ -110,7 +110,7 @@ const MoviesDetails = () => {
                           <DialogTitle>Trailer Oficial</DialogTitle>
                         </DialogHeader>
 
-                        {movieVideoTrailer.data?.length > 0 ? (
+                        {/* {movieVideoTrailer.data?.length > 0 ? (
                           <>
                             <iframe
                               className="w-full h-[28rem]"
@@ -125,7 +125,7 @@ const MoviesDetails = () => {
                           </>
                         ) : (
                           <p className="bg-orange-300 border border-orange-400 rounded-xl w-70 text-center text-white py-2 m-2">Não há trailer para exibição</p>
-                        )}
+                        )} */}
 
                       </DialogContent>
                     </Dialog>
@@ -186,7 +186,7 @@ const MoviesDetails = () => {
                         <div className="flex">
                           
 
-                          {movieVideo.data?.length > 0 ? (
+                          {/* {movieVideo.data?.length > 0 ? (
                             <>
                               {movieVideo.data?.map((item, index) => (
                                 <iframe
@@ -204,7 +204,7 @@ const MoviesDetails = () => {
                             </>
                           ) : (
                               <img src={ noVideoAvaible } alt="" />
-                          )}
+                          )} */}
                           
                         </div>
                       </TabsContent>
