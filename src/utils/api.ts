@@ -7,12 +7,14 @@ import { MovieCredits, MovieCreditsArray } from "@/types/MovieCredits";
 import { Genre, MovieDetail } from "@/types/MovieDetail";
 import { MovieRecommended, MovieRecommendedItem } from "@/types/MovieRecommended";
 import { MoviesPopulares, Results } from "@/types/MoviesPopulares";
+import { MoviesSearch } from "@/types/MoviesSearch";
 import { MoviesUpcoming, ResultsUpcoming } from "@/types/MoviesUpcoming";
 import { PersonCredits, PersonCreditsItem } from "@/types/PersonCredits";
 import { TypePersonDetails } from "@/types/PersonDetails";
 import { PersonExternalIDs } from "@/types/PersonExternalIDs";
 import { PersonsPopulares, ResultsPerson } from "@/types/PersonsPopulares";
 import { ResultsSeries, SeriesPopulares } from "@/types/SeriesPopulares";
+import { SeriesSearch } from "@/types/SeriesSearch";
 import axios from "axios";
 
 const baseURL = "https://api.themoviedb.org/3";
@@ -31,7 +33,7 @@ const api = axios.create({
   }
 });
 
-export const getSerachMovies = async (query: string, page: number) => {
+export const getSerachMovies = async (query: string, page: number): Promise<MoviesSearch> => {
   const response = await api.get(`/search/movie?query=${query}&page=${page}`, {
     transformResponse: [function (data) {
       const parsedData = JSON.parse(data);
@@ -285,7 +287,7 @@ export const getSeriesPopulares = async (page: number): Promise<SeriesPopulares>
   return response.data;
 }
 
-export const getSerachSeries = async (query: string, page: number) => {
+export const getSerachSeries = async (query: string, page: number): Promise<SeriesSearch> => {
   const response = await api.get(`/search/tv?query=${query}&page=${page}`, {
     transformResponse: [function (data) {
       const parsedData = JSON.parse(data);

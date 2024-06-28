@@ -21,14 +21,15 @@ import imageNotFound from '../assets/imageNotFound.png';
 import PaginationComponent from "./PaginationComponent";
 import SearchInput from "./SearchInput";
 import { getSerachMovies, getSerachSeries } from "@/utils/api";
-import { Button } from "./ui/button";
+import { MoviesSearch } from "@/types/MoviesSearch";
+import { SeriesSearch } from "@/types/SeriesSearch";
 
 function HomePage() {
   const [page, setPage] = useState(1);
-  const [maxButtons, setMaxButtons] = useState(10);
+  const [maxButtons, _] = useState(10);
   const [query, setQuery] = useState("");
-  const [moviesSearch, setMoviesSearch] = useState([]);
-  const [seriesSearch, setSeriesSearch] = useState([]);
+  const [moviesSearch, setMoviesSearch] = useState<MoviesSearch>([]);
+  const [seriesSearch, setSeriesSearch] = useState<SeriesSearch>([]);
   const [showPagainationSearch, setShowPaginationSearch] = useState(false);
 
   const [activeTab, setActiveTab] = useState('populares');
@@ -93,7 +94,7 @@ function HomePage() {
                   <div>
                     <div className='grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>                     
 
-                      {moviesPopulares.data && moviesSearch.length === 0 ? (
+                      {moviesPopulares.data && moviesSearch.results.length === 0 ? (
                         <>
                           {moviesPopulares.data.results.map((item) => (
                             <div key={item.id}>
@@ -225,7 +226,7 @@ function HomePage() {
                   <div>
                     <div className='grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
                       
-                      {SeriesPopulares.data && seriesSearch.length === 0 ? (
+                      {SeriesPopulares.data && seriesSearch.results.length === 0 ? (
                         <>
                           {SeriesPopulares.data.results.map((item) => (
                             <div key={item.id}>
