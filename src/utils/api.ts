@@ -7,7 +7,7 @@ import { MovieCredits, MovieCreditsArray } from "@/types/MovieCredits";
 import { Genre, MovieDetail } from "@/types/MovieDetail";
 import { MovieRecommended, MovieRecommendedItem } from "@/types/MovieRecommended";
 import { MoviesPopulares, Results } from "@/types/MoviesPopulares";
-import { MoviesSearch } from "@/types/MoviesSearch";
+import { MoviesSearch, ResultsMoviesSearch } from "@/types/MoviesSearch";
 import { MoviesUpcoming, ResultsUpcoming } from "@/types/MoviesUpcoming";
 import { PersonCredits, PersonCreditsItem } from "@/types/PersonCredits";
 import { TypePersonDetails } from "@/types/PersonDetails";
@@ -39,7 +39,7 @@ export const getSerachMovies = async (query: string, page: number): Promise<Movi
       const parsedData = JSON.parse(data);
 
       return {
-        results: parsedData.results.map((item: Results) => {
+        results: parsedData.results.map((item: ResultsMoviesSearch) => {
           return {
             id: item.id,
             poster_path: `https://www.themoviedb.org/t/p/w220_and_h330_face${item.poster_path}`,
