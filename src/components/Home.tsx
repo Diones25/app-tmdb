@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/tabs";
 import CardItem from "./Card";
 import Banner from "./Banner";
-import { useEffect, useState } from "react";
+import { Key, useEffect, useState } from "react";
 import { Link } from "react-router-dom"
 import {
   useMoviesPopulares,
@@ -28,8 +28,8 @@ function HomePage() {
   const [page, setPage] = useState(1);
   const [maxButtons, _] = useState(10);
   const [query, setQuery] = useState("");
-  const [moviesSearch, setMoviesSearch] = useState<MoviesSearch>([]);
-  const [seriesSearch, setSeriesSearch] = useState<SeriesSearch>([]);
+  const [moviesSearch, setMoviesSearch] = useState<MoviesSearch | any>([]);
+  const [seriesSearch, setSeriesSearch] = useState<SeriesSearch | any>([]);
   const [showPagainationSearch, setShowPaginationSearch] = useState(false);
 
   const [activeTab, setActiveTab] = useState('populares');
@@ -112,7 +112,7 @@ function HomePage() {
                         </>
                       ) : (
                         <>
-                          {moviesSearch.results?.map((item) => (
+                          {moviesSearch.results?.map((item: { id: Key | null | undefined; vote_average: number; poster_path: string | undefined; title: string | undefined; release_date: string; }) => (
                             <div key={item.id}>
                               <Link to={`/details/${item.id}`}>
                                 <CardItem
@@ -246,7 +246,7 @@ function HomePage() {
                         </>
                       ) : (
                         <>
-                          {seriesSearch.results?.map((item) => (
+                          {seriesSearch.results?.map((item: { id: Key | null | undefined; vote_average: number; poster_path: any; name: string | undefined; first_air_date: string; }) => (
                             <div key={item.id}>
                               <Link to={`/details/${item.id}`}>
                                 <CardItem
