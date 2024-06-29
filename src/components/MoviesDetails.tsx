@@ -218,7 +218,7 @@ const MoviesDetails = () => {
                   </div>
 
                   <div className="">
-                    <div className=" w-[360px] sm:w-[400px] md:w-[450px] lg:w-[620px] xl:w-[870px] overflow-x-scroll overflow-y-hidden">
+                    <div className=" w-[320px] sm:w-[380px] md:w-[450px] lg:w-[620px] xl:w-[870px] overflow-x-scroll overflow-y-hidden">
                       <TabsContent value="videos">
                         <div className="flex">
                           
