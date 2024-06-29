@@ -232,7 +232,7 @@ function HomePage() {
                         <>
                           {SeriesPopulares.data.results.map((item) => (
                             <div key={item.id}>
-                              <Link to={`/details/${item.id}`}>
+                              <Link to={`/series/details/${item.id}`}>
                                 <CardItem
                                   key={item.id}
                                   vote_average={item.vote_average}
