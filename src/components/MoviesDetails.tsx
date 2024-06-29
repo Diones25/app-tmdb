@@ -97,7 +97,7 @@ const MoviesDetails = () => {
                     </div>
                   </div>
 
-                  <div className="flex">
+                  <div className="flex flex-col sm:flex-col md:flex-row lg:flex-row xl:flex-row">
                     <div className="mr-3">
                       {movieVideo.data !== undefined &&
                         <Dialog>
