@@ -309,13 +309,15 @@ function HomePage() {
                       {PersonsPopulares.data &&
                         <>
                         {PersonsPopulares.data.results.map((item) => (
-                          <Link to={`/person/details/${item.id}`}>
-                            <CardPerson
-                              key={item.id}
-                              profile_path={`https://media.themoviedb.org/t/p/w300_and_h450_bestv2${item.profile_path}`}
-                              name={item.name}                          
-                            />
-                          </Link>
+                          <div key={item.id}>
+                            <Link to={`/person/details/${item.id}`}>
+                              <CardPerson
+                                key={item.id}
+                                profile_path={`https://media.themoviedb.org/t/p/w300_and_h450_bestv2${item.profile_path}`}
+                                name={item.name}
+                              />
+                            </Link>
+                          </div>
                           ))}
                         </>
 
