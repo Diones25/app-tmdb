@@ -11,7 +11,7 @@ type Props = {
 const CardPerson = ({ profile_path, name }: Props) => {
   return (
     <>
-      <Card className="w-[200px] hover:drop-shadow-2xl cursor-pointer">
+      <Card className=" md:w-[200px] hover:drop-shadow-2xl cursor-pointer">
         <div>
           <img
             className='w-full object-cover rounded-t-md'
