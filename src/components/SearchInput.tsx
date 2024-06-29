@@ -24,7 +24,7 @@ function SearchInput({ value, onChange, placeholder }: Props) {
         placeholder={placeholder}
         value={displayValue}
         onChange={handleChange}
-        className="w-96 border-gray-400 outline-none"
+        className="  md:w-96 lg:w-96 border-gray-400 outline-none"
       />
     </>
   )
