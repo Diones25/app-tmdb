@@ -41,6 +41,7 @@ function PaginationComponent({ page, maxButtons, totalPages = 0, setPage }: Prop
     for (let i = startPage; i <= endPage; i++) {
       pageNumbers.push(
         <PaginationItem
+          className="hidden sm:hidden md:block lg:block xl:block"
           key={i}
           onClick={() => handlePageChange(i)}
         >
