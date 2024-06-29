@@ -4,7 +4,6 @@ import {
 } from "@/components/ui/card"
 
 type Props = {
-  key?: number;
   profile_path?: string;
   vote_average?: number;
   name?: string;
@@ -12,10 +11,10 @@ type Props = {
   release_date?: string
 }
 
-const CardPersonMovieDetail = ({ key, profile_path, name, character }: Props) => {
+const CardPersonMovieDetail = ({ profile_path, name, character }: Props) => {
   return (
     <>
-      <Card key={key} className="min-w-[140px] h-[265px] rounded-sm hover:drop-shadow-2xl cursor-pointer">
+      <Card className="min-w-[140px] h-[265px] rounded-sm hover:drop-shadow-2xl cursor-pointer">
         <div>
           <img
             className='w-[140px] h-[175px] object-cover rounded-t-md'

@@ -4,15 +4,14 @@ import {
 } from "@/components/ui/card"
 
 type Props = {
-  key?: number | null | undefined;
   profile_path?: string;
   name?: string;
 }
 
-const CardPerson = ({ key, profile_path, name }: Props) => {
+const CardPerson = ({ profile_path, name }: Props) => {
   return (
     <>
-      <Card key={key} className="w-[200px] hover:drop-shadow-2xl cursor-pointer">
+      <Card className="w-[200px] hover:drop-shadow-2xl cursor-pointer">
         <div>
           <img
             className='w-full object-cover rounded-t-md'
