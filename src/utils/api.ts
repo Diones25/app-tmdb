@@ -345,7 +345,7 @@ export const getSeriesDetails = async (id: number): Promise<SerieDetails> => {
       }
     }]
   });
-  
+  console.log("Console da API ==> ", response.data)
   return response.data;
 }
 

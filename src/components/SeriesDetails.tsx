@@ -170,65 +170,72 @@ const SeriesDetails = () => {
                 }
               </div>
 
-              <div className="mt-10">
-                <h1 className="text-black text-2xl font-semibold">Temporada atual</h1>
+              {seriesDetails.data?.seasons.length as number > 0 ? (
+                <>
+                  <div className="mt-10">
+                    <h1 className="text-black text-2xl font-semibold">Temporada atual</h1>
 
-                <div className="my-4 border rounded-sm">
+                    <div className="my-4 border rounded-sm">
 
-                  <div className=" lg:flex">
-                    <div className="lg:mr-5 mt-5 lg:mt-0">
-                      <img
-                        src={seriesDetails.data?.seasons[0]?.poster_path ? `https://media.themoviedb.org/t/p/w130_and_h195_bestv2${seriesDetails.data?.seasons[0]?.poster_path}` : imageNotFound}
-                        className="h-[220px] max-w-[200px] sm:max-w-[200px] md:max-w-[200px] lg:max-w-[460px] m-auto sm:m-auto md:m-auto lg:rounded-tl-sm "  
-                        alt="Poster da temporada"
-                      />
-                    </div> 
+                      <div className=" lg:flex">
+                        <div className="lg:mr-5 mt-5 lg:mt-0">
+                          <img
+                            src={seriesDetails.data?.seasons[0]?.poster_path ? `https://media.themoviedb.org/t/p/w130_and_h195_bestv2${seriesDetails.data?.seasons[0]?.poster_path}` : imageNotFound}
+                            className="h-[220px] max-w-[200px] sm:max-w-[200px] md:max-w-[200px] lg:max-w-[460px] m-auto sm:m-auto md:m-auto lg:rounded-tl-sm "
+                            alt="Poster da temporada"
+                          />
+                        </div>
 
-                    <div className="py-4 text-center sm:text-center md:text-center">
-                      <div>
-                        <h1 className="text-black hover:text-gray-700 text-xl font-semibold cursor-pointer text-center sm:text-center md:text-center lg:text-left xl:text-left mb-0 sm:mb-0 md:mb-0 lg:mb-1 xl:mb-1">{seriesDetails.data?.seasons[0]?.name ? seriesDetails.data?.seasons[0]?.name : "--" }</h1>
-                        <div className="flex justify-center lg:justify-start text-black mt-3 lg:mt-0">
+                        <div className="py-4 text-center sm:text-center md:text-center">
+                          <div>
+                            <h1 className="text-black hover:text-gray-700 text-xl font-semibold cursor-pointer text-center sm:text-center md:text-center lg:text-left xl:text-left mb-0 sm:mb-0 md:mb-0 lg:mb-1 xl:mb-1">{seriesDetails.data?.seasons[0]?.name ? seriesDetails.data?.seasons[0]?.name : "--"}</h1>
+                            <div className="flex justify-center lg:justify-start text-black mt-3 lg:mt-0">
 
-                          {seriesDetails.data?.seasons[0]?.vote_average ? (
-                            <>
-                              <div className="flex justify-center items-center bg-[#032541] rounded-sm text-white w-14 py-1 mr-2">
-                                <img src={star} className="w-3 mr-1" alt="star" />
-                                <span className="text-sm">{seriesDetails.data?.seasons[0]?.vote_average ? (seriesDetails.data?.seasons[0]?.vote_average as number * 10).toFixed(0) : "0"}</span>
-                                <span className="text-[11px]">%</span>
-                              </div>
-                            </>
-                          ): (
-                            <p className="mr-2">--</p>
-                          )}                                                  
-                          <span>{formateYear(seriesDetails.data?.seasons[0]?.air_date as string)}</span>
-                          <span className="mx-1">.</span>
-                          <span>{seriesDetails.data?.seasons[0]?.episode_count} episódios</span>
+                              {seriesDetails.data?.seasons[0]?.vote_average ? (
+                                <>
+                                  <div className="flex justify-center items-center bg-[#032541] rounded-sm text-white w-14 py-1 mr-2">
+                                    <img src={star} className="w-3 mr-1" alt="star" />
+                                    <span className="text-sm">{seriesDetails.data?.seasons[0]?.vote_average ? (seriesDetails.data?.seasons[0]?.vote_average as number * 10).toFixed(0) : "0"}</span>
+                                    <span className="text-[11px]">%</span>
+                                  </div>
+                                </>
+                              ) : (
+                                <p className="mr-2">--</p>
+                              )}
+                              <span>{formateYear(seriesDetails.data?.seasons[0]?.air_date as string)}</span>
+                              <span className="mx-1">.</span>
+                              <span>{seriesDetails.data?.seasons[0]?.episode_count} episódios</span>
+                            </div>
+                          </div>
+
+                          <div className="text-black">
+                            <p className="my-4 px-2 md:pr-2 text-center sm:text-center md:text-center lg:text-left">
+                              {seriesDetails.data?.seasons[0]?.overview ? (
+                                <>
+                                  {seriesDetails.data?.seasons[0]?.overview}
+                                </>
+                              ) : (
+                                <p>Sem descrição</p>
+                              )}
+                            </p>
+                          </div>
+
+                          <div className="flex justify-center lg:justify-start text-black px-2">
+                            <img src={calender} className="w-4" alt="calendário" />
+                            <p className="mx-2">{seriesDetails.data?.next_episode_to_air?.name ? seriesDetails.data?.next_episode_to_air?.name : "Sem nome"}</p>
+                            <p>({seriesDetails.data?.next_episode_to_air?.season_number ? seriesDetails.data?.next_episode_to_air?.season_number : "--"}x{seriesDetails.data?.next_episode_to_air?.episode_number ? seriesDetails.data?.next_episode_to_air?.episode_number : "--"}, {seriesDetails.data?.next_episode_to_air?.air_date ? formateDate(seriesDetails.data?.next_episode_to_air?.air_date as string) : "--"})</p>
+                          </div>
                         </div>
                       </div>
+                    </div>
 
-                      <div className="text-black">
-                        <p className="my-4 px-2 md:pr-2 text-center sm:text-center md:text-center lg:text-left">
-                          {seriesDetails.data?.seasons[0]?.overview ? (
-                            <>
-                              {seriesDetails.data?.seasons[0]?.overview}
-                            </>
-                          ) : (
-                            <p>Sem descrição</p>
-                          )}                           
-                        </p>
-                      </div>
-
-                      <div className="flex justify-center lg:justify-start text-black px-2">
-                        <img src={calender} className="w-4" alt="calendário" />
-                        <p className="mx-2">{ seriesDetails.data?.next_episode_to_air?.name ? seriesDetails.data?.next_episode_to_air?.name : "Sem nome" }</p>
-                        <p>({seriesDetails.data?.next_episode_to_air?.season_number ? seriesDetails.data?.next_episode_to_air?.season_number : "--"}x{seriesDetails.data?.next_episode_to_air?.episode_number ? seriesDetails.data?.next_episode_to_air?.episode_number : "--"}, {seriesDetails.data?.next_episode_to_air?.air_date ? formateDate(seriesDetails.data?.next_episode_to_air?.air_date as string) : "--"})</p>
-                      </div>
-                    </div> 
-                  </div>                 
-                </div>
-
-                <h1 className="text-black text-lg font-semibold cursor-pointer">Mostrar todas as temporadas</h1>
-              </div>
+                    <h1 className="text-black text-lg font-semibold cursor-pointer">Mostrar todas as temporadas</h1>
+                  </div>
+                </>
+              ): (
+                ""
+              )}
+              
 
               <div className="flex pb-6 mt-6">
 
