@@ -248,7 +248,7 @@ function HomePage() {
                         <>
                           {seriesSearch.results?.map((item: { id: Key | null | undefined; vote_average: number; poster_path: any; name: string | undefined; first_air_date: string; }) => (
                             <div key={item.id}>
-                              <Link to={`/details/${item.id}`}>
+                              <Link to={`/series/details/${item.id}`}>
                                 <CardItem
                                   key={item.id}
                                   vote_average={item.vote_average}
