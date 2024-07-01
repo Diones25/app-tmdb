@@ -229,7 +229,9 @@ const SeriesDetails = () => {
                       </div>
                     </div>
 
-                    <h1 className="text-black text-lg font-semibold cursor-pointer">Mostrar todas as temporadas</h1>
+                    <Link to={`/tv/${seriesDetails.data?.id}/seasons`}>
+                      <h1 className="text-black text-lg font-semibold cursor-pointer hover:text-gray-500">Mostrar todas as temporadas</h1>
+                    </Link>
                   </div>
                 </>
               ): (
