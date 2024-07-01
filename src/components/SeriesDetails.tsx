@@ -98,40 +98,52 @@ const SeriesDetails = () => {
                     </div>
                   </div>
 
-                  {serieVideo.data !== undefined &&
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <div className="flex justify-center m-auto lg:ml-0 my-3 py-1 px-1 w-44 cursor-pointer rounded-sm hover:bg-gray-500 ">
+                  <div className="flex flex-col sm:flex-col md:flex-row lg:flex-row xl:flex-row">
+                    <div className="mr-3">
+                      {serieVideo.data !== undefined &&
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <div className="flex justify-center m-auto lg:ml-0 my-3 py-1 px-1 w-44 cursor-pointer rounded-sm hover:bg-gray-500 ">
+                              <Play />
+                              <span className="font-semibold">Reproduzir trailer</span>
+                            </div>
+                          </DialogTrigger>
+                          <DialogContent className="sm:max-w-[920px]">
+                            <DialogHeader>
+                              <DialogTitle>Trailer Oficial</DialogTitle>
+                            </DialogHeader>
+
+                            {serieVideoTrailer.data !== undefined ? (
+                              <>
+                                <iframe
+                                  className="w-full h-[28rem]"
+                                  src={`https://www.youtube.com/embed/${serieVideoTrailer.data?.key}`}
+                                  title="YouTube video player"
+                                  frameBorder="0"
+                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                  referrerPolicy="strict-origin-when-cross-origin"
+                                  allowFullScreen
+                                >
+                                </iframe>
+                              </>
+                            ) : (
+                              <p className="bg-orange-300 border border-orange-400 rounded-xl w-70 text-center text-white py-2 m-2">Não há trailer para exibição</p>
+                            )}
+
+                          </DialogContent>
+                        </Dialog>                  
+                      }
+                    </div>
+
+                    <div>
+                      <Link to={`/tv/${seriesDetails.data?.id}/seasons`}>
+                        <div className="flex justify-center m-auto lg:ml-0 my-3 py-1 px-1 w-44 cursor-pointer rounded-sm bg-red-500 hover:bg-red-400 ">
                           <Play />
-                          <span className="font-semibold">Reproduzir trailer</span>
-                        </div>
-                      </DialogTrigger>
-                      <DialogContent className="sm:max-w-[920px]">
-                        <DialogHeader>
-                          <DialogTitle>Trailer Oficial</DialogTitle>
-                        </DialogHeader>
-
-                        {serieVideoTrailer.data !== undefined ? (
-                          <>
-                            <iframe
-                              className="w-full h-[28rem]"
-                              src={`https://www.youtube.com/embed/${serieVideoTrailer.data?.key}`}
-                              title="YouTube video player"
-                              frameBorder="0"
-                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                              referrerPolicy="strict-origin-when-cross-origin"
-                              allowFullScreen
-                            >
-                            </iframe>
-                          </>
-                        ) : (
-                          <p className="bg-orange-300 border border-orange-400 rounded-xl w-70 text-center text-white py-2 m-2">Não há trailer para exibição</p>
-                        )}
-
-                      </DialogContent>
-                    </Dialog>
-                  
-                  }
+                          <span className="font-semibold">Assistir filme</span>
+                        </div>                      
+                      </Link>
+                    </div>
+                  </div>
                   
                   <div className="mt-4">
                     <p className="text-gray-300">{ seriesDetails.data?.tagline }</p>
