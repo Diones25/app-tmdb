@@ -17,6 +17,7 @@ import { PersonsPopulares, ResultsPerson } from "@/types/PersonsPopulares";
 import { SerieCredits, SerieCreditsItem } from "@/types/SerieCredits";
 import { SerieDetails } from "@/types/SerieDetails";
 import { SerieRecommended, SerieRecommendedItem } from "@/types/SerieRecommended";
+import { SerieSeasonsDetails } from "@/types/SerieSeasonsDetails";
 import { ResultsSeries, SeriesPopulares } from "@/types/SeriesPopulares";
 import { SeriesSearch } from "@/types/SeriesSearch";
 import axios from "axios";
@@ -342,6 +343,23 @@ export const getSeriesDetails = async (id: number): Promise<SerieDetails> => {
         tagline: parsedData.tagline,
         type: parsedData.type,
         vote_average: parsedData.vote_average
+      }
+    }]
+  });
+
+  return response.data;
+}
+
+export const getSeriesSeasonsDetails = async (id: number): Promise<SerieSeasonsDetails> => {
+  const response = await api.get(`/tv/${id}`, {
+    transformResponse: [function (data) {
+      const parsedData = JSON.parse(data);
+
+      return {
+        first_air_date: parsedData.first_air_date,        
+        name: parsedData.name,        
+        poster_path: parsedData.poster_path,
+        seasons: parsedData.seasons        
       }
     }]
   });

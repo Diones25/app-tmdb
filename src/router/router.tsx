@@ -3,6 +3,7 @@ import HomePage from "@/components/Home";
 import MoviesDetails from "@/components/MoviesDetails";
 import PersonDetails from "@/components/PersonDetails";
 import SeriesDetails from "@/components/SeriesDetails";
+import SeriesSeasonsDetails from "@/components/SeriesSeasonsDetails";
 import { createBrowserRouter } from "react-router-dom";
 
 export const Router = createBrowserRouter([
@@ -35,6 +36,14 @@ export const Router = createBrowserRouter([
     Component() {
       return (
         <SeriesDetails />
+      )
+    }
+  },
+  {
+    path: '/tv/:id/seasons',
+    Component() {
+      return (
+        <SeriesSeasonsDetails />
       )
     }
   },
