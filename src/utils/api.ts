@@ -432,6 +432,11 @@ export const getSerieKeywords = async (id: number): Promise<KeywordSerie> => {
   return response.data;
 }
 
+export const getSerieExternalIds = async (id: number): Promise<ExternalId> => {
+  const response = await api.get(`/tv/${id}/external_ids`);
+  return response.data;
+}
+
 export const getPersonsPopulares = async (page: number): Promise<PersonsPopulares> => {
   const response = await api.get(`/person/popular?page=${page}`, {
     transformResponse: [function (data) {

@@ -21,17 +21,17 @@ import svgFacebook from '../assets/facebook.svg';
 import svgTwitter from '../assets/twitter.svg';
 import svgInstagram from '../assets/instagram.svg';
 import svgIMDB from '../assets/imdb.svg';
+import link_HomePage from '../assets/link_HomePage.svg';
 import noVideoAvaible from '../assets/no-video-available.jpg';
 import imageNotFound from '../assets/imageNotFound.png';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import MoviesRecommended from "./MoviesRecommended";
 import {
-  useMovieExternalIds,
-  useMovieKeywords,
   useSerieCredits,
   useSerieDetailsImages,
   useSerieDetailsVideoTrailer,
   useSerieDetailsVideos,
+  useSerieExternalIds,
   useSerieKeywords,
   useSerieRecommended,
   useSeriesDetails
@@ -45,7 +45,7 @@ const SeriesDetails = () => {
   const serieVideoTrailer = useSerieDetailsVideoTrailer(Number(id));
   const serieImages = useSerieDetailsImages(Number(id));
   const serieCredits = useSerieCredits(Number(id));
-  const externalId = useMovieExternalIds(Number(id));
+  const externalId = useSerieExternalIds(Number(id));
   const keyword = useSerieKeywords(Number(id));
   const serieRecommended = useSerieRecommended(Number(id));
 
@@ -322,35 +322,49 @@ const SeriesDetails = () => {
                       <p>Visitar IMDB</p>
                     </TooltipContent>
                   </Tooltip>
-                </TooltipProvider>                
+                </TooltipProvider>      
+                
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      {seriesDetails.data?.homepage !== null ? (
+                        <>
+                          <Link to={seriesDetails.data?.homepage as string}>
+                            <img src={link_HomePage} alt="homePage" className="w-9 ml-1" />
+                          </Link>
+                        </>
+                      ) : (
+                        <img src={link_HomePage} alt="homePage" className="w-9 ml-1" />
+                      )}
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Visitar página inicial</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </div>
 
               <div className="text-black text-center md:text-left mt-6">
 
-                {/* <div className="mb-4">
-                  <p className="font-semibold">Titulo original</p>
-                  <p>{ moviesDetails.data?.original_title }</p>
+                <div className="mb-4">
+                  <p className="font-semibold">Situação</p>
+                  <p>{seriesDetails.data?.status === "Returning Series" ? "Renovada" : "" }</p>
                 </div>
 
                 <div className="mb-4">
-                  <p className="font-semibold">Situação</p>
-                  <p>{ moviesDetails.data?.status === "Released" ? "Lançado" : "" }</p>
+                  <p className="font-semibold">Emissora</p>
+                  <img src={`https://media.themoviedb.org/t/p/h30/${seriesDetails.data?.networks[0].logo_path}`} alt="Emissora" />
+                </div>
+
+                <div className="mb-4">
+                  <p className="font-semibold">Tipo</p>
+                  <p>{seriesDetails.data?.type === "Scripted" ? "Roteirizada" : ""}</p>
                 </div>
 
                 <div className="mb-4">
                   <p className="font-semibold">Idioma original</p>
-                  <p>{  moviesDetails.data?.original_language === "en" ? "Inglês" : "" }</p>
+                  <p>{  seriesDetails.data?.original_language === "en" ? "Inglês" : "" }</p>
                 </div>
-
-                <div className="mb-4">
-                  <p className="font-semibold">Orçamento</p>
-                  <p>{ moviesDetails.data?.budget }</p>
-                </div>
-
-                <div className="mb-6">
-                  <p className="font-semibold">Receita</p>
-                  <p>{ moviesDetails.data?.revenue }</p>
-                </div> */}
                 
                 <div className="mb-4">
                   <p className="font-semibold">Palavras-chave</p>

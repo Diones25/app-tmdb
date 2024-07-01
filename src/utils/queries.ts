@@ -18,6 +18,7 @@ import {
   getSerieDetailsImages,
   getSerieDetailsVideoTrailer,
   getSerieDetailsVideos,
+  getSerieExternalIds,
   getSerieKeywords,
   getSerieRecommended,
   getSeriesDetails,
@@ -197,6 +198,15 @@ export const useSerieKeywords = (id: number) => {
   const query = useQuery({
     queryKey: ['serieKeywords', id],
     queryFn: (): Promise<KeywordSerie> => getSerieKeywords(id)
+  });
+
+  return query;
+}
+
+export const useSerieExternalIds = (id: number) => {
+  const query = useQuery({
+    queryKey: ['serieExternalIds', id],
+    queryFn: (): Promise<ExternalId> => getSerieExternalIds(id)
   });
 
   return query;
