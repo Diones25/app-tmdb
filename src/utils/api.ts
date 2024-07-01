@@ -314,6 +314,13 @@ export const getSeriesDetails = async (id: number): Promise<SerieDetails> => {
     transformResponse: [function (data) {
       const parsedData = JSON.parse(data);
 
+      const currentYear = new Date().getFullYear();
+      const seasonsCurrentYear = parsedData.seasons.filter((season: { air_date: string | number | Date; }) => {
+        return season.air_date && new Date(season.air_date).getFullYear() === currentYear;
+      });
+
+      const seasons = seasonsCurrentYear;
+
       return {
         id: parsedData.id,
         backdrop_path: parsedData.backdrop_path,
@@ -330,6 +337,7 @@ export const getSeriesDetails = async (id: number): Promise<SerieDetails> => {
         original_name: parsedData.original_name,
         overview: parsedData.overview,
         poster_path: parsedData.poster_path,
+        seasons: seasons,
         status: parsedData.status,
         tagline: parsedData.tagline,
         type: parsedData.type,
@@ -337,6 +345,7 @@ export const getSeriesDetails = async (id: number): Promise<SerieDetails> => {
       }
     }]
   });
+  
   return response.data;
 }
 

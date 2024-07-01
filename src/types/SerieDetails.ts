@@ -14,6 +14,7 @@ export interface SerieDetails {
   original_name: string
   overview: string
   poster_path: string
+  seasons: Season[]
   status: string
   tagline: string
   type: string
@@ -62,4 +63,15 @@ export interface Network {
   logo_path: string
   name: string
   origin_country: string
+}
+
+export interface Season {
+  air_date?: string
+  episode_count: number
+  id: number
+  name: string
+  overview: string
+  poster_path?: string
+  season_number: number
+  vote_average: number
 }
