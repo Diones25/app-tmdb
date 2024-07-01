@@ -179,7 +179,7 @@ const SeriesDetails = () => {
                     <div className="lg:mr-5 mt-5 lg:mt-0">
                       <img
                         src={seriesDetails.data?.seasons[0]?.poster_path ? `https://media.themoviedb.org/t/p/w130_and_h195_bestv2${seriesDetails.data?.seasons[0]?.poster_path}` : imageNotFound}
-                        className="h-[220px] w-[200px] sm:w-[200px] md:w-[200px] lg:w-[460px] m-auto sm:m-auto md:m-auto lg:rounded-tl-sm "  
+                        className="h-[220px] max-w-[200px] sm:max-w-[200px] md:max-w-[200px] lg:max-w-[460px] m-auto sm:m-auto md:m-auto lg:rounded-tl-sm "  
                         alt="Poster da temporada"
                       />
                     </div> 
