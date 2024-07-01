@@ -13,6 +13,9 @@ import { PersonCredits, PersonCreditsItem } from "@/types/PersonCredits";
 import { TypePersonDetails } from "@/types/PersonDetails";
 import { PersonExternalIDs } from "@/types/PersonExternalIDs";
 import { PersonsPopulares, ResultsPerson } from "@/types/PersonsPopulares";
+import { SerieCredits, SerieCreditsItem } from "@/types/SerieCredits";
+import { SerieDetails } from "@/types/SerieDetails";
+import { SerieRecommended, SerieRecommendedItem } from "@/types/SerieRecommended";
 import { ResultsSeries, SeriesPopulares } from "@/types/SeriesPopulares";
 import { SeriesSearch } from "@/types/SeriesSearch";
 import axios from "axios";
@@ -305,18 +308,122 @@ export const getSerachSeries = async (query: string, page: number): Promise<Seri
   return response.data;
 }
 
-export const getSeriesDetails = async (id: number) => {
-  const response = await api.get(`/movie/${id}`, {
+export const getSeriesDetails = async (id: number): Promise<SerieDetails> => {
+  const response = await api.get(`/tv/${id}`, {
     transformResponse: [function (data) {
       const parsedData = JSON.parse(data);
 
       return {
         id: parsedData.id,
-
+        backdrop_path: parsedData.backdrop_path,
+        first_air_date: parsedData.first_air_date,
+        genres: parsedData.genres.map((item: Genre) => item.name),
+        homepage: parsedData.homepage,
+        in_production: parsedData.in_production,
+        last_air_date: parsedData.last_air_date,
+        last_episode_to_air: parsedData.last_episode_to_air,
+        name: parsedData.name,
+        next_episode_to_air: parsedData.next_episode_to_air,
+        networks: parsedData.networks,
+        original_language: parsedData.original_language,
+        original_name: parsedData.original_name,
+        overview: parsedData.overview,
+        poster_path: parsedData.poster_path,
+        status: parsedData.status,
+        tagline: parsedData.tagline,
+        type: parsedData.type,
+        vote_average: parsedData.vote_average
       }
     }]
   });
   return response.data;
+}
+
+export const getSerieDetailsVideos = async (id: number): Promise<Key[]> => {
+  const response = await api.get(`/tv/${id}/videos`, {
+    transformResponse: [function (data) {
+      const parsedData = JSON.parse(data);
+
+      return {
+        results: parsedData.results.map((item: Key) => {
+          return {
+            key: item.key
+          }
+        }),
+      }
+    }]
+  });
+  return response.data.results;
+}
+
+export const getSerieDetailsVideoTrailer = async (id: number): Promise<Key> => {
+  const response = await api.get(`/tv/${id}/videos`);
+
+  const data = {
+    key: response.data.results[1].key
+  }
+
+  return data
+}
+
+export const getSerieDetailsImages = async (id: number): Promise<FilePath[]> => {
+  const url = `https://api.themoviedb.org/3/tv/${id}/images`;
+  const options = {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmNWE0MTMwZmZiZjVhZjZhMGRjMTdlNDU2NzE4OThkMCIsInN1YiI6IjYxMzdhZTg3MDdhODA4MDA2MTQ1ZjdjNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.gJVXz5HjXwJ_ob0dyjxlCXuvIhoPITmPUSWfqX_q-qg'
+    }
+  };
+
+  const response = await axios.get(url, options);
+  const data = response.data.backdrops.map((item: FilePath) => {
+    return {
+      file_path: item.file_path
+    }
+  });
+
+  return data;
+}
+
+export const getSerieRecommended = async (id: number): Promise<SerieRecommended> => {
+  const response = await api.get(`/tv/${id}/recommendations`, {
+    transformResponse: [function (data) {
+      const parsedData = JSON.parse(data);
+
+      return {
+        results: parsedData.results.map((item: SerieRecommendedItem) => {
+          return {
+            id: item.id,
+            backdrop_path: item.backdrop_path,
+            name: item.name,
+            vote_average: item.vote_average
+          }
+        })
+      }
+    }]
+  });
+  return response.data.results;
+}
+
+export const getSerieCredits = async (id: number): Promise<SerieCredits> => {
+  const response = await api.get(`/tv/${id}/credits`, {
+    transformResponse: [function (data) {
+      const parsedData = JSON.parse(data);
+
+      return {
+        results: parsedData.cast.map((item: SerieCreditsItem) => {
+          return {
+            id: item.id,
+            profile_path: item.profile_path,
+            name: item.name,
+            character: item.character
+          }
+        })
+      }
+    }]
+  });
+  return response.data.results;
 }
 
 export const getPersonsPopulares = async (page: number): Promise<PersonsPopulares> => {

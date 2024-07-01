@@ -14,6 +14,12 @@ import {
   getPersonDetails,
   getPersonExternalIDs,
   getPersonsPopulares,
+  getSerieCredits,
+  getSerieDetailsImages,
+  getSerieDetailsVideoTrailer,
+  getSerieDetailsVideos,
+  getSerieRecommended,
+  getSeriesDetails,
   getSeriesPopulares
 } from "./api";
 import { MovieDetail } from "@/types/MovieDetail";
@@ -25,6 +31,9 @@ import { Keyword } from "@/types/Keyword";
 import { MovieRecommended } from "@/types/MovieRecommended";
 import { PersonCredits } from "@/types/PersonCredits";
 import { PersonExternalIDs } from "@/types/PersonExternalIDs";
+import { SerieDetails } from "@/types/SerieDetails";
+import { SerieRecommended } from "@/types/SerieRecommended";
+import { SerieCredits } from "@/types/SerieCredits";
 
 export const useMoviesPopulares = (page: number) => {
   const query = useQuery({
@@ -123,6 +132,60 @@ export const useSeriesPopulares = (page: number) => {
     queryKey: ['seriesPopulares', page],
     queryFn: () => getSeriesPopulares(page),
     placeholderData: keepPreviousData
+  });
+
+  return query;
+}
+
+export const useSeriesDetails = (id: number) => {
+  const query = useQuery({
+    queryKey: ['seriesDetails', id],
+    queryFn: (): Promise<SerieDetails> => getSeriesDetails(id)
+  });
+
+  return query;
+}
+
+export const useSerieDetailsVideos = (id: number) => {
+  const query = useQuery({
+    queryKey: ['serieDetailsVideos', id],
+    queryFn: (): Promise<Key[]> => getSerieDetailsVideos(id)
+  });
+
+  return query;
+}
+
+export const useSerieDetailsVideoTrailer = (id: number) => {
+  const query = useQuery({
+    queryKey: ['serieDetailsVideoTrailer', id],
+    queryFn: (): Promise<Key> => getSerieDetailsVideoTrailer(id)
+  });
+
+  return query;
+}
+
+export const useSerieDetailsImages = (id: number) => {
+  const query = useQuery({
+    queryKey: ['serieDetailsImages', id],
+    queryFn: (): Promise<FilePath[]> => getSerieDetailsImages(id)
+  });
+
+  return query;
+}
+
+export const useSerieRecommended = (id: number) => {
+  const query = useQuery({
+    queryKey: ['serieRecommended', id],
+    queryFn: (): Promise<SerieRecommended> => getSerieRecommended(id)
+  });
+
+  return query;
+}
+
+export const useSerieCredits = (id: number) => {
+  const query = useQuery({
+    queryKey: ['serieCredits', id],
+    queryFn: (): Promise<SerieCredits> => getSerieCredits(id)
   });
 
   return query;

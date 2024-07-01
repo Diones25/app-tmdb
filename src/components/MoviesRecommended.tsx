@@ -10,7 +10,7 @@ const MoviesRecommended = ({ backdrop_path, title, vote_average }: Props) => {
     <>
       <div className="">
         <div className="w-[250px]">
-          <img className="rounded-sm" src={backdrop_path} alt="" />
+          <img className="rounded-sm w-[250px] h-[140px]" src={backdrop_path} alt="" />
           <div className="flex justify-between mt-2 text-black">
             <p>{title}</p>
             <p>{vote_average}%</p>

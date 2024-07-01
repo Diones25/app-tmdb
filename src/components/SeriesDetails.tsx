@@ -21,45 +21,45 @@ import svgFacebook from '../assets/facebook.svg';
 import svgTwitter from '../assets/twitter.svg';
 import svgInstagram from '../assets/instagram.svg';
 import svgIMDB from '../assets/imdb.svg';
-//import noVideoAvaible from '../assets/no-video-available.jpg';
+import noVideoAvaible from '../assets/no-video-available.jpg';
 import imageNotFound from '../assets/imageNotFound.png';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import MoviesRecommended from "./MoviesRecommended";
 import {
-  useMovieCredits,
-  useMovieDetailsImages,
-  //useMovieDetailsVideoTrailer,
-  useMovieDetailsVideos,
   useMovieExternalIds,
   useMovieKeywords,
-  useMovieRecommended,
-  useMoviesDetails
+  useSerieCredits,
+  useSerieDetailsImages,
+  useSerieDetailsVideoTrailer,
+  useSerieDetailsVideos,
+  useSerieRecommended,
+  useSeriesDetails
 } from "@/utils/queries";
 import Navbar from "./Navbar";
 
-const MoviesDetails = () => {
+const SeriesDetails = () => {
   const { id } = useParams();
-  const moviesDetails = useMoviesDetails(Number(id));
-  const movieVideo = useMovieDetailsVideos(Number(id));
-  //const movieVideoTrailer = useMovieDetailsVideoTrailer(Number(id));
-  const movieImages = useMovieDetailsImages(Number(id));
-  const movieCredits = useMovieCredits(Number(id));
+  const seriesDetails = useSeriesDetails(Number(id));
+  const serieVideo = useSerieDetailsVideos(Number(id));
+  const serieVideoTrailer = useSerieDetailsVideoTrailer(Number(id));
+  const serieImages = useSerieDetailsImages(Number(id));
+  const serieCredits = useSerieCredits(Number(id));
   const externalId = useMovieExternalIds(Number(id));
   const keyword = useMovieKeywords(Number(id));
-  const movieRecommended = useMovieRecommended(Number(id));
+  const serieRecommended = useSerieRecommended(Number(id));
 
   return (
     <>
       <Navbar />
 
       <div className="flex justify-center">
-        {moviesDetails.isLoading && "Carregando..."}
+        {seriesDetails.isLoading && "Carregando..."}
       </div>
 
       <div className="min-h-screen mt-3 text-white">
         <div
           style={{
-            backgroundImage: `url(${`https://image.tmdb.org/t/p/w1920_and_h800_face/`}.${moviesDetails.data?.backdrop_path})`,
+            backgroundImage: `url(${`https://image.tmdb.org/t/p/w1920_and_h800_face/`}.${seriesDetails.data?.backdrop_path})`,
           }}        
           className="bg-no-repeat bg-cover bg-center"
         >
@@ -67,26 +67,24 @@ const MoviesDetails = () => {
             <div className="container">                          
               <div className="flex flex-col lg:flex-row items-center py-7">
                 <CardImage
-                  poster_path={`https://image.tmdb.org/t/p/w600_and_h900_bestv2/${moviesDetails.data?.poster_path}`}                  
+                  poster_path={`https://image.tmdb.org/t/p/w600_and_h900_bestv2/${seriesDetails.data?.poster_path}`}                  
                 /> 
 
                 <div className="ml-9 mt-3 text-center lg:text-left">
-                  <h2 className="text-white text-4xl font-bold">{moviesDetails.data?.title}<span className="font-normal">({formateYear(moviesDetails.data?.release_date)})</span></h2>
+                  <h2 className="text-white text-4xl font-bold">{seriesDetails.data?.original_name}<span className="font-normal">({formateYear(seriesDetails.data?.first_air_date as string)})</span></h2>
                   <p>                    
-                    <span className="mr-1">{formateDateDetails(moviesDetails.data?.release_date)}</span>
+                    <span className="mr-1">{formateDateDetails(seriesDetails.data?.first_air_date as string)}</span>
                     <span className="font-bold">.</span>
                     <span className="mx-1">
-                      {moviesDetails.data?.genres+","}                      
+                      {seriesDetails.data?.genres+","}                      
                     </span>
-                    <span className="font-bold">.</span>
-                    <span className="ml-1">{formateDuration(moviesDetails.data?.runtime) }</span>
                   </p>
 
                   <div className="flex justify-center lg:justify-start mt-5">
                     <div>
                       <div className="flex items-center">
                         <VoteAveregeItem
-                          vote_average={moviesDetails.data?.vote_average}
+                          vote_average={seriesDetails.data?.vote_average}
                         />
                         <div className="ml-2 text-left font-bold">
                           <p>Avaliação</p>
@@ -97,7 +95,7 @@ const MoviesDetails = () => {
                     </div>
                   </div>
 
-                  {movieVideo.data !== undefined &&
+                  {serieVideo.data !== undefined &&
                     <Dialog>
                       <DialogTrigger asChild>
                         <div className="flex justify-center m-auto lg:ml-0 my-3 py-1 px-1 w-44 cursor-pointer rounded-sm hover:bg-gray-500 ">
@@ -110,11 +108,11 @@ const MoviesDetails = () => {
                           <DialogTitle>Trailer Oficial</DialogTitle>
                         </DialogHeader>
 
-                        {/* {movieVideoTrailer.data?.length > 0 ? (
+                        {serieVideoTrailer.data !== undefined ? (
                           <>
                             <iframe
                               className="w-full h-[28rem]"
-                              src={`https://www.youtube.com/embed/${movieVideoTrailer.data?.[0].keyInitial}`}
+                              src={`https://www.youtube.com/embed/${serieVideoTrailer.data?.key}`}
                               title="YouTube video player"
                               frameBorder="0"
                               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -125,7 +123,7 @@ const MoviesDetails = () => {
                           </>
                         ) : (
                           <p className="bg-orange-300 border border-orange-400 rounded-xl w-70 text-center text-white py-2 m-2">Não há trailer para exibição</p>
-                        )} */}
+                        )}
 
                       </DialogContent>
                     </Dialog>
@@ -133,9 +131,9 @@ const MoviesDetails = () => {
                   }
                   
                   <div className="mt-4">
-                    <p>{ moviesDetails.data?.tagline }</p>
+                    <p className="text-gray-300">{ seriesDetails.data?.tagline }</p>
                     <h2 className="font-semibold text-2xl my-2">Sinopse</h2>
-                    <p>{ moviesDetails.data?.overview }</p>
+                    <p>{ seriesDetails.data?.overview }</p>
                   </div>
                 </div>
               </div>             
@@ -150,9 +148,9 @@ const MoviesDetails = () => {
               <h1 className="text-black text-2xl font-semibold">Elenco principal</h1>
               <div className="flex overflow-x-scroll overflow-y-hidden gap-4 pb-6 mt-4">
 
-                {movieCredits.data &&
+                {serieCredits.data &&
                   <>
-                  {movieCredits.data?.map((item) => (
+                  {serieCredits.data?.map((item) => (
                     <div key={item.id}>
                       <Link to={`/person/details/${item.id}`}>
                         <CardPersonMovieDetail
@@ -175,20 +173,20 @@ const MoviesDetails = () => {
                   <div className="flex items-center text-black mt-2">
                     <h1 className="text-black text-2xl font-semibold mr-10">Mídia</h1>
                     <TabsList className="bg-transparent">
-                      <TabsTrigger value="videos" className="mr-6">Vídeos <span className="text-gray-500">{movieVideo.data?.length}</span></TabsTrigger>
-                      <TabsTrigger value="imagens" className="">Imagens de fundo <span className="text-gray-500">{movieImages.data?.length}</span></TabsTrigger>
+                      <TabsTrigger value="videos" className="mr-6">Vídeos <span className="text-gray-500">{serieVideo.data?.length}</span></TabsTrigger>
+                      <TabsTrigger value="imagens" className="">Imagens de fundo <span className="text-gray-500">{serieImages.data?.length}</span></TabsTrigger>
                     </TabsList>
                   </div>
 
                   <div className="">
-                    <div className="w-[55rem] overflow-x-scroll overflow-y-hidden">
+                    <div className=" w-[320px] sm:w-[380px] md:w-[450px] lg:w-[620px] xl:w-[870px] overflow-x-scroll overflow-y-hidden">
                       <TabsContent value="videos">
                         <div className="flex">
                           
 
-                          {/* {movieVideo.data?.length > 0 ? (
+                          {serieVideo.data !== undefined ? (
                             <>
-                              {movieVideo.data?.map((item, index) => (
+                              {serieVideo.data?.map((item, index) => (
                                 <iframe
                                   key={index}
                                   className="min-w-[33rem] h-[19rem]"
@@ -204,14 +202,14 @@ const MoviesDetails = () => {
                             </>
                           ) : (
                               <img src={ noVideoAvaible } alt="" />
-                          )} */}
+                          )}
                           
                         </div>
                       </TabsContent>
 
                       <TabsContent value="imagens">
                         <div className="flex">
-                          {movieImages.data?.map((item, index) => (
+                          {serieImages.data?.map((item, index) => (
                             <div key={index} className="min-w-[533px] h-[19rem]">
                               <img src={`https://media.themoviedb.org/t/p/w533_and_h300_bestv2${item.file_path}`} alt="" />
                             </div>
@@ -228,13 +226,13 @@ const MoviesDetails = () => {
                 <h1 className="text-black text-2xl font-semibold">Recomendações</h1>
                 <div className="flex overflow-x-scroll overflow-y-hidden gap-4 pb-6 mt-4">
 
-                  {movieRecommended.data &&
+                  {serieRecommended.data &&
                     <>
-                      {movieRecommended.data?.map(item => (                          
+                      {serieRecommended.data?.map(item => (                          
                         <Link to={`/details/${item.id}`} key={item.id}>
                           <MoviesRecommended
-                            backdrop_path={`https://media.themoviedb.org/t/p/w250_and_h141_face/${item.backdrop_path}`}
-                            title={item.title}
+                            backdrop_path={item.backdrop_path ? `https://media.themoviedb.org/t/p/w250_and_h141_face/${item.backdrop_path}` : imageNotFound}
+                            title={item.name}
                             vote_average={(item.vote_average * 10).toFixed(0)}
                           /> 
                         </Link>                       
@@ -326,7 +324,7 @@ const MoviesDetails = () => {
                 </TooltipProvider>                
               </div>
 
-              <div className="text-black text-center md:text-left mt-6">
+              {/* <div className="text-black text-center md:text-left mt-6">
 
                 <div className="mb-4">
                   <p className="font-semibold">Titulo original</p>
@@ -370,7 +368,7 @@ const MoviesDetails = () => {
 
                 </div>
 
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -380,5 +378,5 @@ const MoviesDetails = () => {
   )
 }
 
-export default MoviesDetails
+export default SeriesDetails;
 
