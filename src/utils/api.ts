@@ -3,6 +3,7 @@ import { ExternalId } from "@/types/ExternalId";
 import { FilePath } from "@/types/FilePath";
 import { Key } from "@/types/Key";
 import { Keyword } from "@/types/Keyword";
+import { KeywordSerie } from "@/types/KeywordSerie";
 import { MovieCredits, MovieCreditsArray } from "@/types/MovieCredits";
 import { Genre, MovieDetail } from "@/types/MovieDetail";
 import { MovieRecommended, MovieRecommendedItem } from "@/types/MovieRecommended";
@@ -424,6 +425,11 @@ export const getSerieCredits = async (id: number): Promise<SerieCredits> => {
     }]
   });
   return response.data.results;
+}
+
+export const getSerieKeywords = async (id: number): Promise<KeywordSerie> => {
+  const response = await api.get(`/tv/${id}/keywords`);
+  return response.data;
 }
 
 export const getPersonsPopulares = async (page: number): Promise<PersonsPopulares> => {

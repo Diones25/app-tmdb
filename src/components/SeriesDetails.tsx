@@ -2,7 +2,7 @@ import { Play } from "lucide-react";
 import CardImage from "./CardImage";
 import VoteAveregeItem from "./VoteAveregeItem";
 import { Link, useParams } from 'react-router-dom';
-import { formateDateDetails, formateDuration, formateYear } from "@/lib/utils";
+import { formateDateDetails, formateYear } from "@/lib/utils";
 import {
   Dialog,
   DialogContent,
@@ -32,6 +32,7 @@ import {
   useSerieDetailsImages,
   useSerieDetailsVideoTrailer,
   useSerieDetailsVideos,
+  useSerieKeywords,
   useSerieRecommended,
   useSeriesDetails
 } from "@/utils/queries";
@@ -45,7 +46,7 @@ const SeriesDetails = () => {
   const serieImages = useSerieDetailsImages(Number(id));
   const serieCredits = useSerieCredits(Number(id));
   const externalId = useMovieExternalIds(Number(id));
-  const keyword = useMovieKeywords(Number(id));
+  const keyword = useSerieKeywords(Number(id));
   const serieRecommended = useSerieRecommended(Number(id));
 
   return (
@@ -324,9 +325,9 @@ const SeriesDetails = () => {
                 </TooltipProvider>                
               </div>
 
-              {/* <div className="text-black text-center md:text-left mt-6">
+              <div className="text-black text-center md:text-left mt-6">
 
-                <div className="mb-4">
+                {/* <div className="mb-4">
                   <p className="font-semibold">Titulo original</p>
                   <p>{ moviesDetails.data?.original_title }</p>
                 </div>
@@ -349,13 +350,13 @@ const SeriesDetails = () => {
                 <div className="mb-6">
                   <p className="font-semibold">Receita</p>
                   <p>{ moviesDetails.data?.revenue }</p>
-                </div>
+                </div> */}
                 
                 <div className="mb-4">
                   <p className="font-semibold">Palavras-chave</p>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-1 mt-2">
-                    {keyword.data?.keywords.map(item => (
+                    {keyword.data?.results.map(item => (
                       <div key={item.id}>
                         <Link to={`/keyword/${item.id}/movie`}>
                           <div key={item.id}>
@@ -368,7 +369,7 @@ const SeriesDetails = () => {
 
                 </div>
 
-              </div> */}
+              </div>
             </div>
           </div>
         </div>

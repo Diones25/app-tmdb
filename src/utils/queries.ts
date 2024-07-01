@@ -18,6 +18,7 @@ import {
   getSerieDetailsImages,
   getSerieDetailsVideoTrailer,
   getSerieDetailsVideos,
+  getSerieKeywords,
   getSerieRecommended,
   getSeriesDetails,
   getSeriesPopulares
@@ -34,6 +35,7 @@ import { PersonExternalIDs } from "@/types/PersonExternalIDs";
 import { SerieDetails } from "@/types/SerieDetails";
 import { SerieRecommended } from "@/types/SerieRecommended";
 import { SerieCredits } from "@/types/SerieCredits";
+import { KeywordSerie } from "@/types/KeywordSerie";
 
 export const useMoviesPopulares = (page: number) => {
   const query = useQuery({
@@ -186,6 +188,15 @@ export const useSerieCredits = (id: number) => {
   const query = useQuery({
     queryKey: ['serieCredits', id],
     queryFn: (): Promise<SerieCredits> => getSerieCredits(id)
+  });
+
+  return query;
+}
+
+export const useSerieKeywords = (id: number) => {
+  const query = useQuery({
+    queryKey: ['serieKeywords', id],
+    queryFn: (): Promise<KeywordSerie> => getSerieKeywords(id)
   });
 
   return query;
