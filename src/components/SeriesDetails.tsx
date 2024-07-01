@@ -22,6 +22,8 @@ import svgTwitter from '../assets/twitter.svg';
 import svgInstagram from '../assets/instagram.svg';
 import svgIMDB from '../assets/imdb.svg';
 import link_HomePage from '../assets/link_HomePage.svg';
+import star from '../assets/star.svg';
+import calender from '../assets/calender.svg';
 import noVideoAvaible from '../assets/no-video-available.jpg';
 import imageNotFound from '../assets/imageNotFound.png';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
@@ -168,6 +170,53 @@ const SeriesDetails = () => {
                 }
               </div>
 
+              <div className="mt-10">
+                <h1 className="text-black text-2xl font-semibold">Temporada atual</h1>
+
+                <div className="my-4 border rounded-sm">
+
+                  <div className=" lg:flex">
+                    <div className="lg:mr-5 mt-5 lg:mt-0">
+                      <img
+                        src="https://media.themoviedb.org/t/p/w130_and_h195_bestv2/nWwhdt7iOFJsWM8Lz1UtaUC6EUf.jpg"
+                        className="h-[220px] w-[200px] sm:w-[200px] md:w-[200px] lg:w-[460px] m-auto sm:m-auto md:m-auto lg:rounded-tl-sm "  
+                        alt="Poster da temporada"
+                      />
+                    </div> 
+
+                    <div className="py-4 text-center sm:text-center md:text-center">
+                      <div>
+                        <h1 className="text-black hover:text-gray-700 text-xl font-semibold cursor-pointer">Temporada 4</h1>
+                        <div className="flex justify-center lg:justify-start text-black mt-3 lg:mt-0">
+                          <div className="flex justify-center items-center bg-[#032541] rounded-sm text-white w-14 py-1 mr-2">
+                            <img src={star} className="w-3 mr-1" alt="star" />
+                            <span className="text-sm">58</span>
+                            <span className="text-[11px]">%</span>
+                          </div>
+                          <span>2024</span>
+                          <span>.</span>
+                          <span>8 episódios</span>
+                        </div>
+                      </div>
+
+                      <div className="text-black">
+                        <p className="my-4 px-2 md:pr-2 text-center sm:text-center md:text-center lg:text-left">
+                          O mundo está à beira da ruína. Victoria Neuman está cada vez mais perto do Salão Oval sentindo a pressão do Capitão Pátria, cujo poder está se consolidando. Bruto está com pouco tempo de vida, afastado do filho da Becca, e a equipe de The Boys cansou de suas mentiras. Com os riscos extremamente altos, eles precisam encontrar um modo de trabalhar juntos para salvar o mundo antes que seja tarde.
+                        </p>
+                      </div>
+
+                      <div className="flex justify-center lg:justify-start text-black px-2">
+                        <img src={calender} className="w-4" alt="calendário" />
+                        <p className="mx-2">Negócios sujos</p>
+                        <p>(4x6, 4 de julho de 2024)</p>
+                      </div>
+                    </div> 
+                  </div>                 
+                </div>
+
+                <h1 className="text-black text-lg font-semibold cursor-pointer">Mostrar todas as temporadas</h1>
+              </div>
+
               <div className="flex pb-6 mt-6">
 
                 <Tabs defaultValue="videos">
@@ -230,7 +279,7 @@ const SeriesDetails = () => {
                   {serieRecommended.data &&
                     <>
                       {serieRecommended.data?.map(item => (                          
-                        <Link to={`/details/${item.id}`} key={item.id}>
+                        <Link to={`/series/details/${item.id}`} key={item.id}>
                           <MoviesRecommended
                             backdrop_path={item.backdrop_path ? `https://media.themoviedb.org/t/p/w250_and_h141_face/${item.backdrop_path}` : imageNotFound}
                             title={item.name}
