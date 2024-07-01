@@ -14,10 +14,10 @@ type Props = {
 const CardPersonMovieDetail = ({ profile_path, name, character }: Props) => {
   return (
     <>
-      <Card className="min-w-[140px] h-[265px] rounded-sm hover:drop-shadow-2xl cursor-pointer">
+      <Card className="w-[140px] h-[320px] rounded-sm hover:drop-shadow-2xl cursor-pointer">
         <div>
           <img
-            className='w-[140px] h-[175px] object-cover rounded-t-md'
+            className='w-[140px] h-[200px] object-cover rounded-t-md'
             src={profile_path}
             alt=""
           />
