@@ -62,6 +62,8 @@ const SeriesSeasonsDetails = () => {
               <div key={item.id}>
                 <CardSeasonsDetails
                   poster_path={item.poster_path ? `https://media.themoviedb.org/t/p/w130_and_h195_bestv2${item.poster_path}` : imageNotFound}
+                  urlImage={`/tv/${id}/season/${item.season_number}`}
+                  urlName={`/tv/${id}/season/${item.season_number}`}
                   name={item.name}
                   star={star}
                   vote_average={item.vote_average ? (item.vote_average as number * 10).toFixed(0) : 0}
