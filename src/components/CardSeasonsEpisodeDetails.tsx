@@ -96,9 +96,10 @@ const CardSeasonsEpisodeDetails = ({ still_path, name, star, vote_average, air_d
                     <Tabs defaultValue="player1" value={activeTab} onValueChange={setActiveTab} className="mt-3">
                       <div className="flex items-center">                        
                         <div className="w-[600px]">
-                          <TabsList className="grid w-full mb-[95px] sm:mb-[31px] md:mb-[0px] sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 bg-transparent border border-[#1BB293]">
+                          <TabsList className="grid w-full mb-[95px] sm:mb-[31px] md:mb-[0px] sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 bg-transparent border border-[#1BB293]">
                             <TabsTrigger value="player1" className={activeTab === 'player1' ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white' : ''}>Player 1</TabsTrigger>
                             <TabsTrigger value="player2" className={activeTab === 'player2' ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white' : ''}>Player 2</TabsTrigger>                            
+                            <TabsTrigger value="player2" className={activeTab === 'player3' ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white' : ''}>Player 3</TabsTrigger>                            
                           </TabsList>
                         </div>
                       </div>
@@ -117,6 +118,19 @@ const CardSeasonsEpisodeDetails = ({ still_path, name, star, vote_average, air_d
                       </TabsContent>
 
                       <TabsContent value="player2">
+                        <div>
+                          <iframe
+                            id="EmbedderContainer"
+                            className="w-full h-[28rem]"
+                            src={`https://embed.embedplayer.site/serie/${series_id}/`}
+                            frameBorder="0"
+                            allowFullScreen
+                          >
+                          </iframe>
+                        </div>
+                      </TabsContent>
+
+                      <TabsContent value="player3">
                         <div>
                           <iframe
                             id="EmbedderContainer"
