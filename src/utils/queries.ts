@@ -23,7 +23,8 @@ import {
   getSerieRecommended,
   getSeriesDetails,
   getSeriesPopulares,
-  getSeriesSeasonsDetails
+  getSeriesSeasonsDetails,
+  getSeriesSeasonsEpisodeDetails
 } from "./api";
 import { MovieDetail } from "@/types/MovieDetail";
 import { Key } from "@/types/Key";
@@ -39,6 +40,7 @@ import { SerieRecommended } from "@/types/SerieRecommended";
 import { SerieCredits } from "@/types/SerieCredits";
 import { KeywordSerie } from "@/types/KeywordSerie";
 import { SerieSeasonsDetails } from "@/types/SerieSeasonsDetails";
+import { SeriesSeasonsEpisodeDetails } from "@/types/SeriesSeasonsEpisodeDetails";
 
 export const useMoviesPopulares = (page: number) => {
   const query = useQuery({
@@ -218,6 +220,15 @@ export const useSeriesSeasonsDetails = (id: number) => {
   const query = useQuery({
     queryKey: ['seriesSeasonsDetails', id],
     queryFn: (): Promise<SerieSeasonsDetails> => getSeriesSeasonsDetails(id)
+  });
+
+  return query;
+}
+
+export const useSeriesSeasonsEpisodeDetails = (series_id: number, season_number: number) => {
+  const query = useQuery({
+    queryKey: ['seriesSeasonsEpisodeDetails', series_id, season_number],
+    queryFn: (): Promise<SeriesSeasonsEpisodeDetails> => getSeriesSeasonsEpisodeDetails(series_id, season_number)
   });
 
   return query;

@@ -4,6 +4,7 @@ import MoviesDetails from "@/components/MoviesDetails";
 import PersonDetails from "@/components/PersonDetails";
 import SeriesDetails from "@/components/SeriesDetails";
 import SeriesSeasonsDetails from "@/components/SeriesSeasonsDetails";
+import SeriesSeasonsEpisodeDetails from "@/components/SeriesSeasonsEpisodeDetails";
 import { createBrowserRouter } from "react-router-dom";
 
 export const Router = createBrowserRouter([
@@ -44,6 +45,14 @@ export const Router = createBrowserRouter([
     Component() {
       return (
         <SeriesSeasonsDetails />
+      )
+    }
+  },
+  {
+    path: '/tv/:series_id/season/:season_number',
+    Component() {
+      return (
+        <SeriesSeasonsEpisodeDetails />
       )
     }
   },

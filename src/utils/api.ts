@@ -20,6 +20,7 @@ import { SerieRecommended, SerieRecommendedItem } from "@/types/SerieRecommended
 import { SerieSeasonsDetails } from "@/types/SerieSeasonsDetails";
 import { ResultsSeries, SeriesPopulares } from "@/types/SeriesPopulares";
 import { SeriesSearch } from "@/types/SeriesSearch";
+import { SeriesSeasonsEpisodeDetails } from "@/types/SeriesSeasonsEpisodeDetails";
 import axios from "axios";
 
 const baseURL = "https://api.themoviedb.org/3";
@@ -461,6 +462,23 @@ export const getSerieKeywords = async (id: number): Promise<KeywordSerie> => {
 
 export const getSerieExternalIds = async (id: number): Promise<ExternalId> => {
   const response = await api.get(`/tv/${id}/external_ids`);
+  return response.data;
+}
+
+export const getSeriesSeasonsEpisodeDetails = async (series_id: number, season_number: number): Promise<SeriesSeasonsEpisodeDetails> => {
+  const response = await api.get(`/tv/${series_id}/season/${season_number}`, {
+    transformResponse: [function (data) {
+      const parsedData: SeriesSeasonsEpisodeDetails = JSON.parse(data);
+
+      return {
+        air_date: parsedData.air_date,
+        episodes: parsedData.episodes,
+        name: parsedData.name,
+        poster_path: parsedData.poster_path
+      }
+    }]
+  });
+
   return response.data;
 }
 

@@ -139,7 +139,7 @@ const SeriesDetails = () => {
                       <Link to={`/tv/${seriesDetails.data?.id}/seasons`}>
                         <div className="flex justify-center m-auto lg:ml-0 my-3 py-1 px-1 w-44 cursor-pointer rounded-sm bg-red-500 hover:bg-red-400 ">
                           <Play />
-                          <span className="font-semibold">Assistir filme</span>
+                          <span className="font-semibold">Assistir série</span>
                         </div>                      
                       </Link>
                     </div>
