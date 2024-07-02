@@ -43,7 +43,7 @@ const CardSeasonsEpisodeDetails = ({ still_path, name, star, vote_average, air_d
 
           <div className="py-3">
             <div>
-              <h1 className="text-black font-bold text-xl mr-2">{name}</h1>                           
+              <h1 className="text-black font-bold text-xl mr-2">{ episode_number } - {name}</h1>                           
               <div className="flex justify-center lg:justify-start text-black mt-3 lg:mt-0">
 
                 {vote_average ? (
