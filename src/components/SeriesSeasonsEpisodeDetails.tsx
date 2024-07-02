@@ -73,6 +73,7 @@ function SeriesSeasonsEpisodeDetails() {
                   imdb={externalId.data?.imdb_id}
                   season_number={item.season_number}
                   episode_number={item.episode_number}
+                  series_id={series_id}
                 />
               </div>
             ))}

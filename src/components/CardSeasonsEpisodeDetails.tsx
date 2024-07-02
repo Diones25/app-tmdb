@@ -3,7 +3,14 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion"
+} from "@/components/ui/accordion";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs";
+import { useState } from "react";
 
 type Props = {
   still_path: string;
@@ -16,9 +23,12 @@ type Props = {
   season_number?: number;
   episode_number?: number;
   imdb?: string;
+  series_id?: string;
 }
 
-const CardSeasonsEpisodeDetails = ({ still_path, name, star, vote_average, air_date, runtime, overview, season_number, episode_number, imdb }: Props) => {
+const CardSeasonsEpisodeDetails = ({ still_path, name, star, vote_average, air_date, runtime, overview, season_number, episode_number, imdb, series_id }: Props) => {
+  const [activeTab, setActiveTab] = useState('player1');
+
   return (
     <>
       <div className="container">
@@ -70,16 +80,42 @@ const CardSeasonsEpisodeDetails = ({ still_path, name, star, vote_average, air_d
                 <AccordionItem value="item-1">
                   <AccordionTrigger><span className="bg-red-500 text-white px-2 rounded-[2px]">Assistir</span></AccordionTrigger>
                   <AccordionContent>
-                    <>
-                      <iframe
-                        id="EmbedderContainer"
-                        className="w-full h-[28rem]"
-                        src={`https://embedder.net/e/series?imdb=${imdb}&sea=${season_number}&epi=${episode_number}`}
-                        frameBorder="0"
-                        allowFullScreen
-                      >
-                      </iframe>
-                    </>
+                    <Tabs defaultValue="player1" value={activeTab} onValueChange={setActiveTab} className="mt-3">
+                      <div className="flex items-center">                        
+                        <div className="w-[600px]">
+                          <TabsList className="grid w-full mb-[95px] sm:mb-[31px] md:mb-[0px] sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 bg-transparent border border-[#1BB293]">
+                            <TabsTrigger value="player1" className={activeTab === 'player1' ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white' : ''}>Player 1</TabsTrigger>
+                            <TabsTrigger value="player2" className={activeTab === 'player2' ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white' : ''}>Player 2</TabsTrigger>                            
+                          </TabsList>
+                        </div>
+                      </div>
+
+                      <TabsContent value="player1" className="mt-3">
+                        <div>
+                          <iframe
+                            id="EmbedderContainer"
+                            className="w-full h-[28rem]"
+                            src={`https://superflixapi.dev/serie/${series_id}/${season_number}/${episode_number}`}
+                            frameBorder="0"
+                            allowFullScreen
+                          >
+                          </iframe>
+                        </div>
+                      </TabsContent>
+
+                      <TabsContent value="player2">
+                        <div>
+                          <iframe
+                            id="EmbedderContainer"
+                            className="w-full h-[28rem]"
+                            src={`https://embedder.net/e/series?imdb=${imdb}&sea=${season_number}&epi=${episode_number}`}
+                            frameBorder="0"
+                            allowFullScreen
+                          >
+                          </iframe>
+                        </div>
+                      </TabsContent>
+                    </Tabs>
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
