@@ -11,6 +11,12 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
@@ -36,9 +42,11 @@ import {
   useMoviesDetails
 } from "@/utils/queries";
 import Navbar from "./Navbar";
+import { useState } from "react";
 
 const MoviesDetails = () => {
   const { id } = useParams();
+  const [activeTab, setActiveTab] = useState('player1');
   const moviesDetails = useMoviesDetails(Number(id));
   const movieVideo = useMovieDetailsVideos(Number(id));
   const movieVideoTrailer = useMovieDetailsVideoTrailer(Number(id));
@@ -149,16 +157,44 @@ const MoviesDetails = () => {
                             </DialogHeader>
 
                             {externalId.data !== undefined ? (
-                              <>
-                                <iframe
-                                  id="EmbedderContainer"
-                                  className="w-full h-[28rem]"
-                                  src={`https://embedder.net/e/${externalId.data.imdb_id}`}
-                                  frameBorder="0"
-                                  allowFullScreen
-                                >
-                                </iframe>
-                              </>
+                              <div>                                
+                                <Tabs defaultValue="player1" value={activeTab} onValueChange={setActiveTab} className="mt-3">
+                                  <div className="flex items-center">                        
+                                    <div className="w-[600px]">
+                                      <TabsList className="grid w-full mb-[95px] sm:mb-[31px] md:mb-[0px] sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 bg-transparent border border-[#1BB293]">
+                                        <TabsTrigger value="player1" className={activeTab === 'player1' ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white' : ''}>Player 1</TabsTrigger>
+                                        <TabsTrigger value="player2" className={activeTab === 'player2' ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white' : ''}>Player 2</TabsTrigger>                            
+                                      </TabsList>
+                                    </div>
+                                  </div>
+
+                                  <TabsContent value="player1" className="mt-3">
+                                    <div>
+                                      <iframe
+                                        id="EmbedderContainer"
+                                        className="w-full h-[28rem]"
+                                        src={`https://superflixapi.dev/filme/${externalId.data.imdb_id}`}
+                                        frameBorder="0"
+                                        allowFullScreen
+                                      >
+                                      </iframe>
+                                    </div>
+                                  </TabsContent>
+
+                                  <TabsContent value="player2">
+                                    <div>
+                                      <iframe
+                                        id="EmbedderContainer"
+                                        className="w-full h-[28rem]"
+                                        src={`https://embedder.net/e/${externalId.data.imdb_id}`}
+                                        frameBorder="0"
+                                        allowFullScreen
+                                      >
+                                      </iframe>
+                                    </div>
+                                  </TabsContent>
+                                </Tabs>
+                              </div>
                             ) : (
                               <p className="bg-orange-300 border border-orange-400 rounded-xl w-70 text-center text-white py-2 m-2">Não há trailer para exibição</p>
                             )}
