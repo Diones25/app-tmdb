@@ -10,6 +10,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs";
+import arrow_down from "../assets/arrow-down.svg";
 import { useState } from "react";
 
 type Props = {
@@ -78,7 +79,19 @@ const CardSeasonsEpisodeDetails = ({ still_path, name, star, vote_average, air_d
             <div>
               <Accordion type="single" collapsible className="w-full">
                 <AccordionItem value="item-1">
-                  <AccordionTrigger><span className="bg-red-500 text-white px-2 rounded-[2px]">Assistir</span></AccordionTrigger>
+                  <AccordionTrigger>
+                    
+                    <div className="flex items-center bg-red-500 text-white px-2 rounded-[2px]">                       
+                      Assistir
+                      <div className="ml-1">
+                        <img
+                          src={arrow_down}
+                          className="w-3"
+                          alt="arrow down"
+                        />
+                      </div> 
+                    </div>
+                  </AccordionTrigger>
                   <AccordionContent>
                     <Tabs defaultValue="player1" value={activeTab} onValueChange={setActiveTab} className="mt-3">
                       <div className="flex items-center">                        
