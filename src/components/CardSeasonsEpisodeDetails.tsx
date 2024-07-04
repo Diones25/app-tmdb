@@ -33,19 +33,19 @@ const CardSeasonsEpisodeDetails = ({ still_path, name, star, vote_average, air_d
   return (
     <>
       <div className="container">
-        <div className="flex border mb-7 rounded-sm">
+        <div className="flex flex-col sm:flex-col md:flex-col lg:flex-row border mb-7 rounded-sm px-3 sm:px-3 md:px-3 lg:px-0 lg:pr-3">
           <div className="mr-5">
             <img
               src={still_path}
-              className="max-w-[227px] max-h[127px] rounded-tl-sm"
+              className="max-w-[227px] max-h[127px] rounded-none lg:rounded-tl-sm m-auto mt-5 sm:mt-5 md:mt-5 lg:mt-0"
               alt="Poster da temporada"
             />            
           </div>
 
           <div className="py-3">
             <div>
-              <h1 className="text-black font-bold text-xl mr-2">{ episode_number } - {name}</h1>                           
-              <div className="flex justify-center lg:justify-start text-black mt-3 lg:mt-0">
+              <h1 className="text-center mt-2 sm:text-left md:text-left lg:text-left text-black font-bold text-xl mr-2">{ episode_number } - {name}</h1>                           
+              <div className="flex justify-center sm:justify-start md:justify-start lg:justify-start text-black mt-3 lg:mt-0">
 
                 {vote_average ? (
                   <>
@@ -65,7 +65,7 @@ const CardSeasonsEpisodeDetails = ({ still_path, name, star, vote_average, air_d
             </div>
 
             <div className="text-black">
-              <p className="my-4 px-2 md:pr-2 text-center sm:text-center md:text-center lg:text-left">
+              <p className="my-4 px-2 md:pr-2 text-justify">
                 {overview ? (
                   <>
                     {overview}
@@ -99,7 +99,7 @@ const CardSeasonsEpisodeDetails = ({ still_path, name, star, vote_average, air_d
                           <TabsList className="grid w-full mb-[95px] sm:mb-[31px] md:mb-[0px] sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 bg-transparent border border-[#1BB293]">
                             <TabsTrigger value="player1" className={activeTab === 'player1' ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white' : ''}>Player 1</TabsTrigger>
                             <TabsTrigger value="player2" className={activeTab === 'player2' ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white' : ''}>Player 2</TabsTrigger>                            
-                            <TabsTrigger value="player2" className={activeTab === 'player3' ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white' : ''}>Player 3</TabsTrigger>                            
+                            <TabsTrigger value="player3" className={activeTab === 'player3' ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white' : ''}>Player 3</TabsTrigger>                            
                           </TabsList>
                         </div>
                       </div>
