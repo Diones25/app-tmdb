@@ -16,7 +16,7 @@ const CardSeasonsDetails = ({ poster_path, urlImage,urlName, name, star, vote_av
   return (
     <>
       <div className="container">
-        <div className="flex items-center py-4">
+        <div className="flex flex-col sm:flex-row md:flex-row lg:flex-row items-center py-4">
           <div className="mr-5">
             <Link to={urlImage}>
               <img
@@ -30,9 +30,9 @@ const CardSeasonsDetails = ({ poster_path, urlImage,urlName, name, star, vote_av
           <div>
             <div>
               <Link to={urlName}>
-                <h1 className="text-black font-bold text-xl mr-2">{name}</h1>              
+                <h1 className="text-center mt-2 sm:text-left sm:mt-0 md:text-left md:mt-0 lg:text-left lg:mt-0 text-black font-bold text-xl mr-2">{name}</h1>              
               </Link>              
-              <div className="flex justify-center lg:justify-start text-black mt-3 lg:mt-0">
+              <div className="flex justify-center sm:justify-start md:justify-start lg:justify-start text-black mt-3 lg:mt-0">
 
                 {vote_average ? (
                   <>
@@ -52,7 +52,7 @@ const CardSeasonsDetails = ({ poster_path, urlImage,urlName, name, star, vote_av
             </div>
 
             <div className="text-black">
-              <p className="my-4 px-2 md:pr-2 text-center sm:text-center md:text-center lg:text-left">
+              <p className="text-justify my-4 px-2 md:pr-2">
                 {overview ? (
                   <>
                     {overview}
