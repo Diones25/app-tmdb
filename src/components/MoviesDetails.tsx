@@ -154,7 +154,7 @@ const MoviesDetails = () => {
                               <div>                                
                                 <Tabs defaultValue="player1" value={activeTab} onValueChange={setActiveTab}>
                                   <div className="flex items-center">                        
-                                    <div className="m-auto mb-1 sm:mb-1 md:mb-1 lg:mb-1 md:m-0">
+                                    <div className="m-auto md:m-0">
                                       <TabsList className="grid w-full sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 bg-transparent border border-[#1BB293]">
                                         <TabsTrigger value="player1" className={activeTab === 'player1' ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white py-2 w-32' : 'py-2'}>Player 1</TabsTrigger>
                                         <TabsTrigger value="player2" className={activeTab === 'player2' ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white py-2 w-32' : 'py-2'}>Player 2</TabsTrigger>                            
