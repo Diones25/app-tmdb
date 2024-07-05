@@ -24,16 +24,18 @@ const AllMoviesKeywords = () => {
           {keywordsMovies &&
             <>
             {keywordsMovies.results.map((item) => (
-              <Link to={`/details/${item.id}`}>
-                <CardKeywordMovies
-                  key={item.id}
-                  poster_path={item.poster_path}
-                  title={item.title}
-                  original_title={item.original_title}
-                  release_date={item.release_date}
-                  overview={item.overview}
-                />
-              </Link>
+              <div key={item.id}>
+                <Link to={`/details/${item.id}`}>
+                  <CardKeywordMovies
+                    key={item.id}
+                    poster_path={item.poster_path}
+                    title={item.title}
+                    original_title={item.original_title}
+                    release_date={item.release_date}
+                    overview={item.overview}
+                  />
+                </Link>
+              </div>
               ))}
             </>
           }

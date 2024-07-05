@@ -145,20 +145,20 @@ const MoviesDetails = () => {
                               <span className="font-semibold">Assistir filme</span>
                             </div>
                           </DialogTrigger>
-                          <DialogContent className="sm:max-w-[920px]">
+                          <DialogContent className="max-w-[80rem]">
                             <DialogHeader>
                               <DialogTitle>Assistir filme</DialogTitle>
                             </DialogHeader>
 
                             {externalId.data !== undefined ? (
                               <div>                                
-                                <Tabs defaultValue="player1" value={activeTab} onValueChange={setActiveTab} className="mt-3">
+                                <Tabs defaultValue="player1" value={activeTab} onValueChange={setActiveTab}>
                                   <div className="flex items-center">                        
-                                    <div className="w-[600px]">
-                                      <TabsList className="grid w-full mb-[95px] sm:mb-[31px] md:mb-[0px] sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 bg-transparent border border-[#1BB293]">
-                                        <TabsTrigger value="player1" className={activeTab === 'player1' ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white' : ''}>Player 1</TabsTrigger>
-                                        <TabsTrigger value="player2" className={activeTab === 'player2' ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white' : ''}>Player 2</TabsTrigger>                            
-                                        <TabsTrigger value="player3" className={activeTab === 'player3' ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white' : ''}>Player 3</TabsTrigger>                            
+                                    <div className="m-auto mb-1 sm:mb-1 md:mb-1 lg:mb-1 md:m-0">
+                                      <TabsList className="grid w-full sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 bg-transparent border border-[#1BB293]">
+                                        <TabsTrigger value="player1" className={activeTab === 'player1' ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white py-2 w-32' : 'py-2'}>Player 1</TabsTrigger>
+                                        <TabsTrigger value="player2" className={activeTab === 'player2' ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white py-2 w-32' : 'py-2'}>Player 2</TabsTrigger>                            
+                                        <TabsTrigger value="player3" className={activeTab === 'player3' ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white py-2 w-32' : 'py-2'}>Player 3</TabsTrigger>                            
                                       </TabsList>
                                     </div>
                                   </div>
