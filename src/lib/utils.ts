@@ -36,3 +36,10 @@ export const returnAge = (oldDate: string) => {
   const age = differenceInYears(dataAtual, dataAntiga);
   return age;
 }
+
+export const currencyUSD = (value: string) => {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  }).format(Number(value));
+}
