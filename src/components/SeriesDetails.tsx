@@ -200,7 +200,7 @@ const SeriesDetails = () => {
 
                         <div className="py-4 text-center sm:text-center md:text-center">
                           <div>
-                            <h1 className="text-black hover:text-gray-700 text-xl font-semibold cursor-pointer text-center sm:text-center md:text-center lg:text-left xl:text-left mb-0 sm:mb-0 md:mb-0 lg:mb-1 xl:mb-1">{seriesDetails.data?.seasons[0]?.name ? seriesDetails.data?.seasons[0]?.name : "--"}</h1>
+                            <h1 className="text-black hover:text-gray-500 text-xl font-semibold cursor-pointer text-center sm:text-center md:text-center lg:text-left xl:text-left mb-0 sm:mb-0 md:mb-0 lg:mb-1 xl:mb-1">{seriesDetails.data?.seasons[0]?.name ? seriesDetails.data?.seasons[0]?.name : "--"}</h1>
                             <div className="flex justify-center lg:justify-start text-black mt-3 lg:mt-0">
 
                               {seriesDetails.data?.seasons[0]?.vote_average ? (
