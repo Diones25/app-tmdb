@@ -2,7 +2,7 @@ import { Play } from "lucide-react";
 import CardImage from "./CardImage";
 import VoteAveregeItem from "./VoteAveregeItem";
 import { Link, useParams } from 'react-router-dom';
-import { formateDateDetails, formateDuration, formateYear } from "@/lib/utils";
+import { currencyUSD, formateDateDetails, formateDuration, formateYear } from "@/lib/utils";
 import {
   Dialog,
   DialogContent,
@@ -426,12 +426,12 @@ const MoviesDetails = () => {
 
                 <div className="mb-4">
                   <p className="font-semibold">Orçamento</p>
-                  <p>{ moviesDetails.data?.budget }</p>
+                  <p>{ currencyUSD(moviesDetails.data?.budget as string) }</p>
                 </div>
 
                 <div className="mb-6">
                   <p className="font-semibold">Receita</p>
-                  <p>{ moviesDetails.data?.revenue }</p>
+                  <p>{ currencyUSD(moviesDetails.data?.revenue as string) }</p>
                 </div>
                 
                 <div className="mb-4">
