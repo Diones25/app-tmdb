@@ -268,7 +268,7 @@ const SeriesDetails = () => {
                         <div className="flex">
                           
 
-                          {serieVideo.data !== undefined ? (
+                          {serieVideo.data?.length as number > 0 ? (
                             <>
                               {serieVideo.data?.map((item, index) => (
                                 <iframe
