@@ -347,26 +347,25 @@ const MoviesDetails = () => {
                 </Tabs> 
               </div> 
               
-              <div className="mt-6">
-                <h1 className="text-black text-2xl font-semibold">Recomendações</h1>
-                <div className="flex overflow-x-scroll overflow-y-hidden gap-4 pb-6 mt-4">
-
-                  {movieRecommended.data &&
-                    <>
-                      {movieRecommended.data?.map(item => (                          
+              {movieRecommended.data && movieRecommended.data.length > 0 &&
+                <>
+                  <div className="mt-6">
+                    <h1 className="text-black text-2xl font-semibold">Recomendações</h1>
+                    <div className="flex overflow-x-scroll overflow-y-hidden gap-4 pb-6 mt-4">
+                      {movieRecommended.data?.map(item => (
                         <Link to={`/details/${item.id}`} key={item.id}>
                           <MoviesRecommended
                             backdrop_path={`https://media.themoviedb.org/t/p/w250_and_h141_face/${item.backdrop_path}`}
                             title={item.title}
                             vote_average={(item.vote_average * 10).toFixed(0)}
-                          /> 
-                        </Link>                       
+                          />
+                        </Link>
                       ))}
-                    </>
-                  }
-                  
-                </div>
-              </div>
+                    </div>
+                  </div>
+                </>
+              }
+                
             </div>
 
             <div className='sm:col-span-3 md:col-auto mt-4'>
