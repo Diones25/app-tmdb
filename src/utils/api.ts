@@ -148,7 +148,7 @@ export const getMovieDetailsImages = async (id: number): Promise<FilePath[]> => 
     method: 'GET',
     headers: {
       accept: 'application/json',
-      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmNWE0MTMwZmZiZjVhZjZhMGRjMTdlNDU2NzE4OThkMCIsInN1YiI6IjYxMzdhZTg3MDdhODA4MDA2MTQ1ZjdjNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.gJVXz5HjXwJ_ob0dyjxlCXuvIhoPITmPUSWfqX_q-qg'
+      Authorization: token
     }
   };
 
