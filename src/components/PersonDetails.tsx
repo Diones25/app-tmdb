@@ -107,7 +107,7 @@ const PersonDetails = () => {
                         <Link to={`/details/${item.id}`}>
                           <CardMoviePerson
                             key={item.id}
-                            poster_path={item.poster_path ? `https://media.themoviedb.org/t/p/w150_and_h225_bestv2${item.poster_path}` : imageNotFound}
+                          poster_path={item.poster_path ? `https://media.themoviedb.org/t/p/w130_and_h195_face${item.poster_path}` : imageNotFound}
                             title={item.title}
                           />
                         </Link>  
