@@ -37,6 +37,7 @@ import {
 } from "@/utils/queries";
 import Navbar from "./Navbar";
 import { useState } from "react";
+import { Button } from "./ui/button";
 
 const MoviesDetails = () => {
   const { id } = useParams();
@@ -179,7 +180,7 @@ const MoviesDetails = () => {
                                   </TabsContent>
 
                                   <TabsContent value="player2">
-                                    <div>
+                                    <div className="flex flex-col items-center">
                                       <iframe
                                         id="EmbedderContainer"
                                         className="w-full h-[28rem]"
@@ -188,6 +189,9 @@ const MoviesDetails = () => {
                                         allowFullScreen
                                       >
                                       </iframe>
+                                      <Link className="mt-3" to={`https://fembed.sx/e/${externalId.data.imdb_id}`} target="_blank" rel="noopener noreferrer">
+                                        <Button>Abrir no Fembed</Button>
+                                      </Link>
                                     </div>
                                   </TabsContent>
                           
