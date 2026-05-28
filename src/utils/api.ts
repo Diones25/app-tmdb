@@ -23,6 +23,8 @@ import { SeriesSearch } from "@/types/SeriesSearch";
 import { SeriesSeasonsEpisodeDetails } from "@/types/SeriesSeasonsEpisodeDetails";
 import axios from "axios";
 
+//CONSIDERAR MIGRAR PARA O NEXT.JS PARA TRANSFERIR AS REQUISIÇÕES PARA O BACKEND E PROTEGER O TOKEN E API KEY
+
 const baseURL = "https://api.themoviedb.org/3";
 const api_key = import.meta.env.VITE_APP_API_KEY;
 const token = import.meta.env.VITE_APP_TOKEN;
