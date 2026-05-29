@@ -222,8 +222,8 @@ export const getMovieKeywords = async (id: number): Promise<Keyword> => {
   return response.data;
 }
 
-export const getAllMoviesKeywords = async (id: number): Promise<TypeAllMoviesKeywords> => {
-  const response = await api.get(`/keyword/${id}/movies`, {
+export const getAllMoviesKeywords = async (id: number, page: number = 1): Promise<TypeAllMoviesKeywords> => {
+  const response = await api.get(`/keyword/${id}/movies?page=${page}`, {
     transformResponse: [function (data) {
       const parsedData = JSON.parse(data);
 
