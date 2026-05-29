@@ -31,6 +31,7 @@ function HomePage() {
   const [tvPage, setTvPage] = useState(1);
   const [maxButtons, _] = useState(10);
   const [query, setQuery] = useState("");
+  const [tvQuery, setTvQuery] = useState("");
   const [moviesSearch, setMoviesSearch] = useState<MoviesSearch | any>([]);
   const [seriesSearch, setSeriesSearch] = useState<SeriesSearch | any>([]);
   const [showPagainationSearch, setShowPaginationSearch] = useState(false);
@@ -42,10 +43,18 @@ function HomePage() {
   const PersonsPopulares = usePersonsPopulares(page);
   const AllChannels = useAllChannels();
   const tvItemsPerPage = 20;
-  const tvTotalItems = AllChannels.data?.total ?? AllChannels.data?.data?.length ?? 0;
+
+  const tvChannels = AllChannels.data?.data ?? [];
+  const tvFilteredChannels = tvQuery
+    ? tvChannels.filter((item) =>
+      (item.name ?? '').toLowerCase().includes(tvQuery.toLowerCase().trim())
+    )
+    : tvChannels;
+
+  const tvTotalItems = tvFilteredChannels.length;
   const tvTotalPages = Math.ceil(tvTotalItems / tvItemsPerPage);
   const tvStartIndex = (tvPage - 1) * tvItemsPerPage;
-  const tvChannelsPage = AllChannels.data?.data?.slice(tvStartIndex, tvStartIndex + tvItemsPerPage) ?? [];
+  const tvChannelsPage = tvFilteredChannels.slice(tvStartIndex, tvStartIndex + tvItemsPerPage);
 
   useEffect(() => {
     (async () => {
@@ -66,6 +75,10 @@ function HomePage() {
 
     })();
   }, [query, page])
+
+  useEffect(() => {
+    setTvPage(1);
+  }, [tvQuery])
 
   return (
     <>
@@ -311,6 +324,14 @@ function HomePage() {
             <TabsContent value="tv">
               <div className="flex justify-center sm:justify-start">
                 <div>
+                  <div className="my-6">
+                    <SearchInput
+                      placeholder={"Digite o nome do canal que você deseja pesquisar"}
+                      value={tvQuery}
+                      onChange={(search: SetStateAction<string>) => setTvQuery(search)}
+                    />
+                  </div>
+
                   <div className='grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
                     {AllChannels.isLoading && 'Carregando...'}
                     {tvChannelsPage.length > 0 &&
