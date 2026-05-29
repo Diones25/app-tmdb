@@ -9,6 +9,7 @@ import Banner from "./Banner";
 import { Key, SetStateAction, useEffect, useState } from "react";
 import { Link } from "react-router-dom"
 import {
+  useAllChannels,
   useMoviesPopulares,
   useMoviesUpcoming,
   usePersonsPopulares,
@@ -23,6 +24,7 @@ import SearchInput from "./SearchInput";
 import { getSerachMovies, getSerachSeries } from "@/utils/api";
 import { MoviesSearch } from "@/types/MoviesSearch";
 import { SeriesSearch } from "@/types/SeriesSearch";
+import CardTv from "./CardTv";
 
 function HomePage() {
   const [page, setPage] = useState(1);
@@ -37,6 +39,7 @@ function HomePage() {
   const MoviesUpcoming = useMoviesUpcoming(page);
   const SeriesPopulares = useSeriesPopulares(page);
   const PersonsPopulares = usePersonsPopulares(page);
+  const AllChannels = useAllChannels();
 
   useEffect(() => {
     (async () => {
@@ -69,10 +72,11 @@ function HomePage() {
             <div className="flex items-center">
               <h2 className="mr-3 font-semi-bold font-serif hidden sm:block text-md sm:text-2xl md:text-2xl">Os Mais Populares</h2>
               <div className="w-[600px]">              
-                <TabsList className="grid w-full mb-[95px] sm:mb-[31px] md:mb-[0px] sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 bg-transparent border border-[#1BB293]">
+                <TabsList className="grid w-full mb-[95px] sm:mb-[31px] md:mb-[0px] sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 bg-transparent border border-[#1BB293]">
                   <TabsTrigger value="populares" className={activeTab === 'populares' ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white' : ''}>Populares</TabsTrigger>
                   <TabsTrigger value="lancamentos" className={activeTab === 'lancamentos' ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white' : ''}>Lançamentos</TabsTrigger>
                   <TabsTrigger value="series" className={activeTab === 'series' ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white' : ''}>Séries</TabsTrigger>
+                  <TabsTrigger value="tv" className={activeTab === 'tv' ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white' : ''}>TV</TabsTrigger>
                   <TabsTrigger value="pessoas" className={activeTab === 'pessoas' ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white' : ''}>Pessoas</TabsTrigger>
               </TabsList>
               </div>
@@ -294,6 +298,30 @@ function HomePage() {
 
                   </div>
 
+                </div>
+              </div>
+            </TabsContent>
+
+            <TabsContent value="tv">
+              <div className="flex justify-center sm:justify-start">
+                <div className='grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
+                  {PersonsPopulares.isLoading && 'Carregando...'}
+                  {PersonsPopulares.data &&
+                    <>
+                      {AllChannels.data.data.map((item: { id: Key | null | undefined; preview_url: string | undefined; logo_url: string | undefined; name: string | undefined; category: string | undefined; }) => (
+                        <div key={item.id}>
+                          <CardTv
+                            key={item.id}
+                            preview_url={item.preview_url}
+                            logo_url={item.logo_url}
+                            name={item.name}
+                            category={item.category}
+                          />
+                        </div>
+                      ))}
+                    </>
+
+                  }
                 </div>
               </div>
             </TabsContent>

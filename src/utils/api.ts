@@ -1,4 +1,5 @@
 import { ResultsAllMoviesKeywords, TypeAllMoviesKeywords } from "@/types/AllMoviesKeywords";
+import { Channel } from "@/types/Channel";
 import { ExternalId } from "@/types/ExternalId";
 import { FilePath } from "@/types/FilePath";
 import { Key } from "@/types/Key";
@@ -40,6 +41,15 @@ const api = axios.create({
     Authorization: token
   }
 });
+
+export const getAllChannels = async (): Promise<any> => {
+  const response = await axios.get(`https://reidosembeds.com/api/channels`);
+  console.log("TVs ==> ", response.data);
+  return response.data;
+
+}
+
+getAllChannels();
 
 export const getSerachMovies = async (query: string, page: number): Promise<MoviesSearch> => {
   const response = await api.get(`/search/movie?query=${query}&page=${page}`, {

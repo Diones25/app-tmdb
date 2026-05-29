@@ -1,6 +1,7 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query"
 import {
   geMoviesUpcoming,
+  getAllChannels,
   getMovieCredits,
   getMovieDetails,
   getMovieDetailsImages,
@@ -41,6 +42,16 @@ import { SerieCredits } from "@/types/SerieCredits";
 import { KeywordSerie } from "@/types/KeywordSerie";
 import { SerieSeasonsDetails } from "@/types/SerieSeasonsDetails";
 import { SeriesSeasonsEpisodeDetails } from "@/types/SeriesSeasonsEpisodeDetails";
+
+export const useAllChannels = () => {
+  const query = useQuery({
+    queryKey: ['allChannels'],
+    queryFn: () => getAllChannels(),
+    placeholderData: keepPreviousData
+  });
+
+  return query;
+}
 
 export const useMoviesPopulares = (page: number) => {
   const query = useQuery({
