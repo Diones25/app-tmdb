@@ -28,6 +28,7 @@ import CardTv from "./CardTv";
 
 function HomePage() {
   const [page, setPage] = useState(1);
+  const [tvPage, setTvPage] = useState(1);
   const [maxButtons, _] = useState(10);
   const [query, setQuery] = useState("");
   const [moviesSearch, setMoviesSearch] = useState<MoviesSearch | any>([]);
@@ -40,6 +41,11 @@ function HomePage() {
   const SeriesPopulares = useSeriesPopulares(page);
   const PersonsPopulares = usePersonsPopulares(page);
   const AllChannels = useAllChannels();
+  const tvItemsPerPage = 20;
+  const tvTotalItems = AllChannels.data?.total ?? AllChannels.data?.data?.length ?? 0;
+  const tvTotalPages = Math.ceil(tvTotalItems / tvItemsPerPage);
+  const tvStartIndex = (tvPage - 1) * tvItemsPerPage;
+  const tvChannelsPage = AllChannels.data?.data?.slice(tvStartIndex, tvStartIndex + tvItemsPerPage) ?? [];
 
   useEffect(() => {
     (async () => {
@@ -304,24 +310,39 @@ function HomePage() {
 
             <TabsContent value="tv">
               <div className="flex justify-center sm:justify-start">
-                <div className='grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
-                  {AllChannels.isLoading && 'Carregando...'}
-                  {AllChannels.data?.data &&
-                    <>
-                      {AllChannels.data.data.map((item) => (
-                        <div key={item.id}>
-                          <CardTv
-                            key={item.id}
-                            preview_url={item.preview_url ? item.preview_url : imageNotFound}
-                            logo_url={item.logo_url}
-                            name={item.name}
-                            category={item.category}
-                            embed_url={item.embed_url}
-                          />
-                        </div>
-                      ))}
-                    </>
-                  }
+                <div>
+                  <div className='grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
+                    {AllChannels.isLoading && 'Carregando...'}
+                    {tvChannelsPage.length > 0 &&
+                      <>
+                        {tvChannelsPage.map((item) => (
+                          <div key={item.id}>
+                            <CardTv
+                              key={item.id}
+                              preview_url={item.preview_url ? item.preview_url : imageNotFound}
+                              logo_url={item.logo_url}
+                              name={item.name}
+                              category={item.category}
+                              embed_url={item.embed_url}
+                            />
+                          </div>
+                        ))}
+                      </>
+                    }
+                  </div>
+
+                  <div className="mt-5">
+                    {tvTotalPages > 1 ? (
+                      <PaginationComponent
+                        page={tvPage}
+                        maxButtons={maxButtons}
+                        totalPages={tvTotalPages}
+                        setPage={setTvPage}
+                      />
+                    ) : (
+                      ""
+                    )}
+                  </div>
                 </div>
               </div>
             </TabsContent>
