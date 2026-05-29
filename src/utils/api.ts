@@ -37,19 +37,17 @@ const api = axios.create({
     api_key: api_key,
     language: language
   },
-  headers: {    
+  headers: {
     Authorization: token
   }
 });
 
-export const getAllChannels = async (): Promise<any> => {
+export const getAllChannels = async (): Promise<Channel> => {
   const response = await axios.get(`https://reidosembeds.com/api/channels`);
   console.log("TVs ==> ", response.data);
   return response.data;
 
 }
-
-getAllChannels();
 
 export const getSerachMovies = async (query: string, page: number): Promise<MoviesSearch> => {
   const response = await api.get(`/search/movie?query=${query}&page=${page}`, {
@@ -80,13 +78,13 @@ export const getMoviesPopulares = async (page: number): Promise<MoviesPopulares>
   const response = await api.get(`/movie/popular?page=${page}`, {
     transformResponse: [function (data) {
       const parsedData = JSON.parse(data);
-      
-      return {        
+
+      return {
         results: parsedData.results.map((item: Results) => {
           return {
             id: item.id,
             poster_path: item.poster_path,
-            vote_average: item.vote_average,            
+            vote_average: item.vote_average,
             title: item.title,
             release_date: item.release_date
           }
@@ -134,19 +132,19 @@ export const getMovieDetailsVideos = async (id: number): Promise<Key[]> => {
 
       return {
         results: parsedData.results.map((item: Key) => {
-          return {            
+          return {
             key: item.key
           }
         }),
       }
     }]
-  }); 
+  });
   return response.data.results;
 }
 
 export const getMovieDetailsVideoTrailer = async (id: number): Promise<Key> => {
   const response = await api.get(`/movie/${id}/videos`);
-  
+
   const data = {
     key: response.data.results[0].key
   }
@@ -215,7 +213,7 @@ export const getMovieCredits = async (id: number): Promise<MovieCreditsArray> =>
 }
 
 export const getMovieExternalIds = async (id: number): Promise<ExternalId> => {
-  const response = await api.get(`/movie/${id}/external_ids`);  
+  const response = await api.get(`/movie/${id}/external_ids`);
   return response.data;
 }
 
@@ -245,7 +243,7 @@ export const getAllMoviesKeywords = async (id: number): Promise<TypeAllMoviesKey
         total_results: parsedData.total_results,
       }
     }]
-  });    
+  });
   return response.data;
 }
 
@@ -369,10 +367,10 @@ export const getSeriesSeasonsDetails = async (id: number): Promise<SerieSeasonsD
       const parsedData = JSON.parse(data);
 
       return {
-        first_air_date: parsedData.first_air_date,        
-        name: parsedData.name,        
+        first_air_date: parsedData.first_air_date,
+        name: parsedData.name,
         poster_path: parsedData.poster_path,
-        seasons: parsedData.seasons        
+        seasons: parsedData.seasons
       }
     }]
   });
@@ -503,7 +501,7 @@ export const getPersonsPopulares = async (page: number): Promise<PersonsPopulare
         results: parsedData.results.map((item: ResultsPerson) => {
           return {
             id: item.id,
-            profile_path: item.profile_path,            
+            profile_path: item.profile_path,
             name: item.name
           }
         }),
@@ -532,7 +530,7 @@ export const getPersonDetails = async (id: number): Promise<TypePersonDetails> =
         place_of_birth: parsedData.place_of_birth,
       }
     }]
-  }); 
+  });
 
   return response.data;
 }
@@ -552,7 +550,7 @@ export const getPersonCredits = async (id: number): Promise<PersonCredits> => {
         })
       }
     }]
-  }); 
+  });
 
   return response.data.results;
 }

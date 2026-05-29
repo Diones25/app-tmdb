@@ -25,6 +25,7 @@ import { getSerachMovies, getSerachSeries } from "@/utils/api";
 import { MoviesSearch } from "@/types/MoviesSearch";
 import { SeriesSearch } from "@/types/SeriesSearch";
 import CardTv from "./CardTv";
+import { Channel } from "@/types/Channel";
 
 function HomePage() {
   const [page, setPage] = useState(1);
@@ -65,20 +66,20 @@ function HomePage() {
     <>
       <Navbar />
       <Banner />
-      
+
       <div className="min-h-screen">
-        <div className="container">        
+        <div className="container">
           <Tabs defaultValue="populares" value={activeTab} onValueChange={setActiveTab} className="mt-3">
             <div className="flex items-center">
               <h2 className="mr-3 font-semi-bold font-serif hidden sm:block text-md sm:text-2xl md:text-2xl">Os Mais Populares</h2>
-              <div className="w-[600px]">              
+              <div className="w-[600px]">
                 <TabsList className="grid w-full mb-[95px] sm:mb-[31px] md:mb-[0px] sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 bg-transparent border border-[#1BB293]">
                   <TabsTrigger value="populares" className={activeTab === 'populares' ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white' : ''}>Populares</TabsTrigger>
                   <TabsTrigger value="lancamentos" className={activeTab === 'lancamentos' ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white' : ''}>Lançamentos</TabsTrigger>
                   <TabsTrigger value="series" className={activeTab === 'series' ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white' : ''}>Séries</TabsTrigger>
                   <TabsTrigger value="tv" className={activeTab === 'tv' ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white' : ''}>TV</TabsTrigger>
                   <TabsTrigger value="pessoas" className={activeTab === 'pessoas' ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white' : ''}>Pessoas</TabsTrigger>
-              </TabsList>
+                </TabsList>
               </div>
             </div>
 
@@ -96,7 +97,7 @@ function HomePage() {
               <div className="flex justify-center sm:justify-start">
                 <div>
                   <div>
-                    <div className='grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>                     
+                    <div className='grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
 
                       {moviesPopulares.data && moviesSearch.results === undefined ? (
                         <>
@@ -130,7 +131,7 @@ function HomePage() {
                             </div>
                           ))}
                         </>
-                      )}                     
+                      )}
                     </div>
                   </div>
 
@@ -160,11 +161,11 @@ function HomePage() {
                     ) : (
                       ""
                     )}
-                    
+
                   </div>
                 </div>
               </div>
-              
+
             </TabsContent>
 
             <TabsContent value="lancamentos">
@@ -177,18 +178,18 @@ function HomePage() {
 
                       {MoviesUpcoming.data &&
                         <>
-                        {MoviesUpcoming.data.results.map((item) => (
-                          <div key={item.id}>
-                            <Link to={`/releases/details/${item.id}`}>
-                              <CardItem
-                                key={item.id}
-                                vote_average={item.vote_average}
-                                poster_path={item.poster_path}
-                                title={item.title}
-                                release_date={formateDate(item.release_date)}
-                              />
-                            </Link>
-                          </div>
+                          {MoviesUpcoming.data.results.map((item) => (
+                            <div key={item.id}>
+                              <Link to={`/releases/details/${item.id}`}>
+                                <CardItem
+                                  key={item.id}
+                                  vote_average={item.vote_average}
+                                  poster_path={item.poster_path}
+                                  title={item.title}
+                                  release_date={formateDate(item.release_date)}
+                                />
+                              </Link>
+                            </div>
                           ))}
                         </>
 
@@ -209,7 +210,7 @@ function HomePage() {
                       </>
                     ) : (
                       ""
-                    )}                    
+                    )}
                   </div>
                 </div>
               </div>
@@ -231,7 +232,7 @@ function HomePage() {
                 <div>
                   <div>
                     <div className='grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
-                      
+
                       {SeriesPopulares.data && seriesSearch.results === undefined ? (
                         <>
                           {SeriesPopulares.data.results.map((item) => (
@@ -305,22 +306,22 @@ function HomePage() {
             <TabsContent value="tv">
               <div className="flex justify-center sm:justify-start">
                 <div className='grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
-                  {PersonsPopulares.isLoading && 'Carregando...'}
-                  {PersonsPopulares.data &&
+                  {AllChannels.isLoading && 'Carregando...'}
+                  {AllChannels.data?.data &&
                     <>
-                      {AllChannels.data.data.map((item: { id: Key | null | undefined; preview_url: string | undefined; logo_url: string | undefined; name: string | undefined; category: string | undefined; }) => (
+                      {AllChannels.data.data.map((item) => (
                         <div key={item.id}>
                           <CardTv
                             key={item.id}
-                            preview_url={item.preview_url}
+                            preview_url={item.preview_url ? item.preview_url : imageNotFound}
                             logo_url={item.logo_url}
                             name={item.name}
                             category={item.category}
+                            embed_url={item.embed_url}
                           />
                         </div>
                       ))}
                     </>
-
                   }
                 </div>
               </div>
@@ -336,16 +337,16 @@ function HomePage() {
 
                       {PersonsPopulares.data &&
                         <>
-                        {PersonsPopulares.data.results.map((item) => (
-                          <div key={item.id}>
-                            <Link to={`/person/details/${item.id}`}>
-                              <CardPerson
-                                key={item.id}
-                                profile_path={`https://media.themoviedb.org/t/p/w300_and_h450_bestv2${item.profile_path}`}
-                                name={item.name}
-                              />
-                            </Link>
-                          </div>
+                          {PersonsPopulares.data.results.map((item) => (
+                            <div key={item.id}>
+                              <Link to={`/person/details/${item.id}`}>
+                                <CardPerson
+                                  key={item.id}
+                                  profile_path={`https://media.themoviedb.org/t/p/w300_and_h450_bestv2${item.profile_path}`}
+                                  name={item.name}
+                                />
+                              </Link>
+                            </div>
                           ))}
                         </>
 
@@ -366,12 +367,12 @@ function HomePage() {
                       </>
                     ) : (
                       ""
-                    )}                     
+                    )}
                   </div>
                 </div>
               </div>
             </TabsContent>
-          </Tabs>        
+          </Tabs>
         </div>
 
       </div>
