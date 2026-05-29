@@ -2,9 +2,11 @@ import {
   Card,
   CardFooter,
 } from "@/components/ui/card"
+import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { Play } from "lucide-react";
 import { Link } from "react-router-dom";
+import imageNotFound from "../assets/imageNotFound.png";
 
 type Props = {
   name?: string;
@@ -15,6 +17,17 @@ type Props = {
 }
 
 const CardTv = ({ name, logo_url, preview_url, embed_url, category}: Props) => {
+  const [previewSrc, setPreviewSrc] = useState(preview_url || imageNotFound);
+  const [logoSrc, setLogoSrc] = useState(logo_url);
+
+  useEffect(() => {
+    setPreviewSrc(preview_url || imageNotFound);
+  }, [preview_url]);
+
+  useEffect(() => {
+    setLogoSrc(logo_url);
+  }, [logo_url]);
+
   return (
     <>
       <Link to={embed_url as string} target="_blank" rel="noopener noreferrer">
@@ -22,10 +35,18 @@ const CardTv = ({ name, logo_url, preview_url, embed_url, category}: Props) => {
           <div className="relative">
             <img
               className='w-full h-[160px] object-cover rounded-t-md'
-              src={preview_url}
+              src={previewSrc}
               alt="imagem de preview"
+              onError={() => setPreviewSrc(imageNotFound)}
             />
-            <img src={logo_url} className="w-16 absolute top-16 right-16" alt="logo" />
+            {logoSrc ? (
+              <img
+                src={logoSrc}
+                className="w-16 absolute top-16 right-16"
+                alt="logo"
+                onError={() => setLogoSrc(undefined)}
+              />
+            ) : null}
           </div>
           <CardFooter className="flex flex-col mt-5 bg-[#95a5a6]">
             <h1 className="self-start font-semibold text-white">{name}</h1>

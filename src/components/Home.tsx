@@ -25,7 +25,6 @@ import { getSerachMovies, getSerachSeries } from "@/utils/api";
 import { MoviesSearch } from "@/types/MoviesSearch";
 import { SeriesSearch } from "@/types/SeriesSearch";
 import CardTv from "./CardTv";
-import { Channel } from "@/types/Channel";
 
 function HomePage() {
   const [page, setPage] = useState(1);
