@@ -42,7 +42,7 @@ const CardTv = ({ name, logo_url, preview_url, embed_url, category}: Props) => {
             {logoSrc ? (
               <img
                 src={logoSrc}
-                className="w-16 absolute top-16 right-16"
+                className="w-16 absolute top-14 right-[82px]"
                 alt="logo"
                 onError={() => setLogoSrc(undefined)}
               />
