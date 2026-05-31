@@ -3,7 +3,6 @@ import {
   Card,
 } from "@/components/ui/card"
 import { Star } from "lucide-react"
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import imageNotFound from '../assets/imageNotFound.png';
 
