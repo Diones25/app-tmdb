@@ -44,9 +44,7 @@ const api = axios.create({
 
 export const getAllChannels = async (): Promise<Channel> => {
   const response = await axios.get(`https://reidosembeds.com/api/channels`);
-  console.log("TVs ==> ", response.data);
   return response.data;
-
 }
 
 export const getSerachMovies = async (query: string, page: number): Promise<MoviesSearch> => {
@@ -268,6 +266,11 @@ export const geMoviesUpcoming = async (page: number): Promise<MoviesUpcoming> =>
       }
     }]
   });
+  return response.data;
+}
+
+export const getMovieReviews = async (id: number): Promise<any> => {
+  const response = await api.get(`/movie/${id}/reviews`);
   return response.data;
 }
 

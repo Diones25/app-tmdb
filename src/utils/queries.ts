@@ -10,6 +10,7 @@ import {
   getMovieExternalIds,
   getMovieKeywords,
   getMovieRecommended,
+  getMovieReviews,
   getMoviesPopulares,
   getPersonCredits,
   getPersonDetails,
@@ -42,6 +43,16 @@ import { SerieCredits } from "@/types/SerieCredits";
 import { KeywordSerie } from "@/types/KeywordSerie";
 import { SerieSeasonsDetails } from "@/types/SerieSeasonsDetails";
 import { SeriesSeasonsEpisodeDetails } from "@/types/SeriesSeasonsEpisodeDetails";
+
+export const usetMovieReviews = (id: number) => {
+  const query = useQuery({
+    queryKey: ['movieReviews', id],
+    queryFn: (): Promise<any> => getMovieReviews(id),
+    placeholderData: keepPreviousData
+  });
+
+  return query;
+}
 
 export const useAllChannels = () => {
   const query = useQuery({

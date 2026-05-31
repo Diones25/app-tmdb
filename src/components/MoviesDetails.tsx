@@ -33,11 +33,14 @@ import {
   useMovieExternalIds,
   useMovieKeywords,
   useMovieRecommended,
-  useMoviesDetails
+  useMoviesDetails,
+  usetMovieReviews
 } from "@/utils/queries";
 import Navbar from "./Navbar";
 import { useState } from "react";
 import { Button } from "./ui/button";
+import CardReview from "./CardReview";
+import { MovieReview } from "@/types/MovieReview";
 
 const MoviesDetails = () => {
   const { id } = useParams();
@@ -50,6 +53,7 @@ const MoviesDetails = () => {
   const externalId = useMovieExternalIds(Number(id));
   const keyword = useMovieKeywords(Number(id));
   const movieRecommended = useMovieRecommended(Number(id));
+  const movieReviews = usetMovieReviews(Number(id));
 
   return (
     <>
@@ -281,6 +285,29 @@ const MoviesDetails = () => {
 
                 }
               </div>
+
+              <div className={`${movieReviews.data?.results?.length > 0 ? 'pb-6 mt-6' : ''}`}>
+                {movieReviews.isLoading && 'Carregando...'}
+                {movieReviews.data?.results?.length > 0 &&
+                  <>
+                    <h1 className="text-black text-2xl font-semibold mb-4">Avaliações em destaque</h1>
+                    <div className="flex">
+                    {movieReviews.data.results.map((item: MovieReview) => (
+                        <div key={item.id}>
+                          <CardReview
+                            key={item.id}
+                            avatar_path={item.author_details?.avatar_path ? `https://media.themoviedb.org/t/p/w300_and_h450_bestv2${item.author_details?.avatar_path}` : imageNotFound}
+                            name={item.author_details?.name}
+                            rating={item.author_details.rating}
+                            url={item.url}
+                            content={`${item.content.slice(0, 150) }...`}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                }
+              </div> 
 
               <div className="flex pb-6 mt-6">
 
