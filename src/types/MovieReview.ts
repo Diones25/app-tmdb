@@ -9,5 +9,6 @@ export type MovieReview = {
 type AuthorDetails = {
   avatar_path: string;
   name: string;
+  username: string;
   rating: number;
 }

@@ -296,9 +296,9 @@ const MoviesDetails = () => {
                         <div key={item.id}>
                           <CardReview
                             key={item.id}
-                            avatar_path={item.author_details?.avatar_path ? `https://media.themoviedb.org/t/p/w300_and_h450_bestv2${item.author_details?.avatar_path}` : imageNotFound}
-                            name={item.author_details?.name}
-                            rating={item.author_details.rating}
+                            avatar_path={item.author_details?.avatar_path}
+                            name={!item.author_details?.name ? item.author_details?.username : item.author_details?.name}
+                            rating={!item.author_details.rating ? 0 : item.author_details.rating}
                             url={item.url}
                             content={`${item.content.slice(0, 150) }...`}
                           />
