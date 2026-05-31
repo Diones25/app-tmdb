@@ -19,7 +19,7 @@ const CardReview = ({ avatar_path, name, rating, url, content }: Props) => {
   return (
     <>
       <Link to={url}>
-        <Card className="w-[403px] h-[176px] rounded-sm mr-2">
+        <Card className="min-w-[320px] sm:min-w-[403px] h-[176px] rounded-sm">
           <div className="pl-4 pt-4">
             <div className="flex items-center">
               <>
@@ -30,10 +30,10 @@ const CardReview = ({ avatar_path, name, rating, url, content }: Props) => {
                     alt="Imagem de avatar do Autor"
                   />
                 ) : (
-                    <img src={imageNotFound} alt="" className="w-8 h-8 rounded-full mr-2" />
+                  <img src={imageNotFound} alt="" className="w-8 h-8 rounded-full mr-2" />
                 )}
               </>
-              
+
               <p className="mr-2">{name}</p>
               <Star className="mr-1 text-yellow-400" size={16} />
               <span>{rating}</span>

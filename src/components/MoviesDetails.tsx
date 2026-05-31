@@ -1,4 +1,4 @@
-import { Play } from "lucide-react";
+import { ChevronLeft, ChevronRight, Play } from "lucide-react";
 import CardImage from "./CardImage";
 import VoteAveregeItem from "./VoteAveregeItem";
 import { Link, useParams } from 'react-router-dom';
@@ -37,7 +37,7 @@ import {
   usetMovieReviews
 } from "@/utils/queries";
 import Navbar from "./Navbar";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "./ui/button";
 import CardReview from "./CardReview";
 import { MovieReview } from "@/types/MovieReview";
@@ -54,6 +54,31 @@ const MoviesDetails = () => {
   const keyword = useMovieKeywords(Number(id));
   const movieRecommended = useMovieRecommended(Number(id));
   const movieReviews = usetMovieReviews(Number(id));
+  const reviewsScrollerRef = useRef<HTMLDivElement | null>(null);
+  const [canScrollReviewsLeft, setCanScrollReviewsLeft] = useState(false);
+  const [canScrollReviewsRight, setCanScrollReviewsRight] = useState(false);
+
+  const updateReviewsScrollButtons = () => {
+    const el = reviewsScrollerRef.current;
+    if (!el) return;
+    const maxScrollLeft = el.scrollWidth - el.clientWidth;
+    setCanScrollReviewsLeft(el.scrollLeft > 0);
+    setCanScrollReviewsRight(el.scrollLeft < maxScrollLeft - 1);
+  };
+
+  const scrollReviewsBy = (direction: "left" | "right") => {
+    const el = reviewsScrollerRef.current;
+    if (!el) return;
+    const amount = Math.max(320, Math.floor(el.clientWidth * 0.85));
+    el.scrollBy({ left: direction === "left" ? -amount : amount, behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    updateReviewsScrollButtons();
+    const onResize = () => updateReviewsScrollButtons();
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [movieReviews.data?.results?.length]);
 
   return (
     <>
@@ -291,19 +316,47 @@ const MoviesDetails = () => {
                 {movieReviews.data?.results?.length > 0 &&
                   <>
                     <h1 className="text-black text-2xl font-semibold mb-4">Avaliações em destaque</h1>
-                    <div className="flex">
-                    {movieReviews.data.results.map((item: MovieReview) => (
-                        <div key={item.id}>
-                          <CardReview
-                            key={item.id}
-                            avatar_path={item.author_details?.avatar_path}
-                            name={!item.author_details?.name ? item.author_details?.username : item.author_details?.name}
-                            rating={!item.author_details.rating ? 0 : item.author_details.rating}
-                            url={item.url}
-                            content={`${item.content.slice(0, 150) }...`}
-                          />
-                        </div>
-                      ))}
+                    <div className="relative">
+                      {canScrollReviewsLeft ? (
+                        <button
+                          type="button"
+                          onClick={() => scrollReviewsBy("left")}
+                          className="absolute left-2 top-1/2 -translate-y-1/2 z-10 h-10 w-10 rounded-full bg-gray-200/90 text-gray-800 shadow-md hover:bg-gray-200"
+                          aria-label="Rolar avaliações para a esquerda"
+                        >
+                          <ChevronLeft className="m-auto" />
+                        </button>
+                      ) : null}
+
+                      {canScrollReviewsRight ? (
+                        <button
+                          type="button"
+                          onClick={() => scrollReviewsBy("right")}
+                          className="absolute right-2 top-1/2 -translate-y-1/2 z-10 h-10 w-10 rounded-full bg-gray-200/90 text-gray-800 shadow-md hover:bg-gray-200"
+                          aria-label="Rolar avaliações para a direita"
+                        >
+                          <ChevronRight className="m-auto" />
+                        </button>
+                      ) : null}
+
+                      <div
+                        ref={reviewsScrollerRef}
+                        onScroll={updateReviewsScrollButtons}
+                        className="flex gap-3 overflow-x-auto overflow-y-hidden scroll-smooth pr-12 snap-x snap-mandatory"
+                      >
+                        {movieReviews.data.results.map((item: MovieReview) => (
+                          <div key={item.id} className="snap-start">
+                            <CardReview
+                              key={item.id}
+                              avatar_path={item.author_details?.avatar_path}
+                              name={!item.author_details?.name ? item.author_details?.username : item.author_details?.name}
+                              rating={!item.author_details.rating ? 0 : item.author_details.rating}
+                              url={item.url}
+                              content={`${item.content.slice(0, 150)}...`}
+                            />
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </>
                 }
@@ -520,4 +573,3 @@ const MoviesDetails = () => {
 }
 
 export default MoviesDetails
-
