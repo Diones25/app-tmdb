@@ -12,6 +12,8 @@ import {
 } from "@/components/ui/tabs";
 import arrow_down from "../assets/arrow-down.svg";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Button } from "./ui/button";
 
 type Props = {
   still_path: string;
@@ -96,13 +98,12 @@ const CardSeasonsEpisodeDetails = ({ still_path, name, star, vote_average, air_d
                     <Tabs defaultValue="player1" value={activeTab} onValueChange={setActiveTab} className="mt-3">
                       <div className="flex items-center">                        
                         <div className="w-[600px]">
-                          <TabsList className="grid w-full mb-[95px] sm:mb-[31px] md:mb-[0px] sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-6 bg-transparent border border-[#1BB293]">
+                          <TabsList className="grid w-full mb-[95px] sm:mb-[31px] md:mb-[0px] sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-5 bg-transparent border border-[#1BB293]">
                             <TabsTrigger value="player1" className={activeTab === 'player1' ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white' : ''}>Player 1</TabsTrigger>
                             <TabsTrigger value="player2" className={activeTab === 'player2' ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white' : ''}>Player 2</TabsTrigger>                            
                             <TabsTrigger value="player3" className={activeTab === 'player3' ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white' : ''}>Player 3</TabsTrigger>
                             <TabsTrigger value="player4" className={activeTab === 'player4' ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white' : ''}>Player 4</TabsTrigger>
                             <TabsTrigger value="player5" className={activeTab === 'player5' ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white' : ''}>Player 5</TabsTrigger>
-                            <TabsTrigger value="player6" className={activeTab === 'player6' ? 'bg-gradient-to-r from-sky-500 to-green-500 text-white' : ''}>Player 6</TabsTrigger>
                           </TabsList>
                         </div>
                       </div>
@@ -121,6 +122,22 @@ const CardSeasonsEpisodeDetails = ({ still_path, name, star, vote_average, air_d
                       </TabsContent>
 
                       <TabsContent value="player2">
+                        <div className="flex flex-col items-center">
+                          <iframe
+                            id="EmbedderContainer"
+                            className="w-full h-[28rem]"
+                            src={`https://fembed.sx/e/${series_id}/${season_number}-${episode_number}`}
+                            frameBorder="0"
+                            allowFullScreen
+                          >
+                          </iframe>
+                          <Link className="mt-3" to={`https://fembed.sx/e/${series_id}/${season_number}-${episode_number}`} target="_blank" rel="noopener noreferrer">
+                            <Button>Abrir no Fembed</Button>
+                          </Link>
+                        </div>
+                      </TabsContent>
+
+                      <TabsContent value="player3">
                         <div>
                           <iframe
                             id="EmbedderContainer"
@@ -133,7 +150,7 @@ const CardSeasonsEpisodeDetails = ({ still_path, name, star, vote_average, air_d
                         </div>
                       </TabsContent>
 
-                      <TabsContent value="player3">
+                      <TabsContent value="player4">
                         <div>
                           <iframe
                             id="EmbedderContainer"
@@ -146,7 +163,7 @@ const CardSeasonsEpisodeDetails = ({ still_path, name, star, vote_average, air_d
                         </div>
                       </TabsContent>
 
-                      <TabsContent value="player4">
+                      <TabsContent value="player5">
                         <div>
                           <iframe
                             id="EmbedderContainer"
@@ -158,32 +175,6 @@ const CardSeasonsEpisodeDetails = ({ still_path, name, star, vote_average, air_d
                           </iframe>
                         </div>
                       </TabsContent> 
-                      
-                      <TabsContent value="player5">
-                        <div>
-                          <iframe
-                            id="EmbedderContainer"
-                            className="w-full h-[28rem]"
-                            src={`https://embedder.net/e/series?imdb=${imdb}&sea=${season_number}&epi=${episode_number}`}
-                            frameBorder="0"
-                            allowFullScreen
-                          >
-                          </iframe>
-                        </div>
-                      </TabsContent> 
-
-                      <TabsContent value="player6">
-                        <div>
-                          <iframe
-                            id="EmbedderContainer"
-                            className="w-full h-[28rem]"
-                            src={`https://souapenasumsitenormal.com/player/tv/${series_id}/${season_number}/${episode_number}/dub`}
-                            frameBorder="0"
-                            allowFullScreen
-                          >
-                          </iframe>
-                        </div>
-                      </TabsContent>
                     </Tabs>
                   </AccordionContent>
                 </AccordionItem>
