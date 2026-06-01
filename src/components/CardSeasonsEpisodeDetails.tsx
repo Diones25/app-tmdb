@@ -29,7 +29,7 @@ type Props = {
   series_id?: string;
 }
 
-const CardSeasonsEpisodeDetails = ({ still_path, name, star, vote_average, air_date, runtime, overview, season_number, episode_number, imdb, series_id }: Props) => {
+const CardSeasonsEpisodeDetails = ({ still_path, name, star, vote_average, air_date, runtime, overview, season_number, episode_number, series_id }: Props) => {
   const [activeTab, setActiveTab] = useState('player1');
 
   return (
