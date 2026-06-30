@@ -45,12 +45,12 @@
 
 | Tela | Descrição |
 |------|-----------|
-| <img src="./src/assets/doc/home.png" alt="Home" width="300" /> | **Home / Dashboard** — Tela principal com abas para navegar entre filmes populares, lançamentos, séries, canais ao vivo e pessoas famosas. |
-| <img src="./src/assets/doc/filmes_details.png" alt="Detalhes do Filme" width="300" /> | **Detalhes do Filme** — Página completa com pôster, backdrop, trailer, elenco, avaliações, mídia, recomendações e players de streaming. |
-| <img src="./src/assets/doc/series_details.png" alt="Detalhes da Série" width="300" /> | **Detalhes da Série** — Informações completas da série com temporadas, elenco, vídeos e recomendações. |
-| <img src="./src/assets/doc/series_temporada.png" alt="Temporadas" width="300" /> | **Temporadas** — Lista todas as temporadas disponíveis de uma série. |
-| <img src="./src/assets/doc/series_episodies.png" alt="Episódios" width="300" /> | **Episódios** — Exibe os episódios de uma temporada com player de vídeo embutido. |
-| <img src="./src/assets/doc/" alt="Lista de canais de TV" width="300" /> | **Lista de canais de TV** — Esta tela tem uma lista paginada de canais de TV, além disso é possível pesquisar por um nome especifico de um canal de TV. |
+| <img src="./src/assets/doc/home.png" alt="Home" width="600" /> | **Home / Dashboard** — Tela principal com abas para navegar entre filmes populares, lançamentos, séries, canais ao vivo e pessoas famosas. |
+| <img src="./src/assets/doc/filmes_details.png" alt="Detalhes do Filme" width="600" /> | **Detalhes do Filme** — Página completa com pôster, backdrop, trailer, elenco, avaliações, mídia, recomendações e players de streaming. |
+| <img src="./src/assets/doc/series_details.png" alt="Detalhes da Série" width="600" /> | **Detalhes da Série** — Informações completas da série com temporadas, elenco, vídeos e recomendações. |
+| <img src="./src/assets/doc/series_temporada.png" alt="Temporadas" width="600" /> | **Temporadas** — Lista todas as temporadas disponíveis de uma série. |
+| <img src="./src/assets/doc/series_episodies.png" alt="Episódios" width="600" /> | **Episódios** — Exibe os episódios de uma temporada com player de vídeo embutido. |
+| <img src="./src/assets/doc/tela_tv.png" alt="Lista de canais de TV" width="600" /> | **Lista de canais de TV** — Esta tela tem uma lista paginada de canais de TV, além disso é possível pesquisar por um nome especifico de um canal de TV. |
 
 ---
 
