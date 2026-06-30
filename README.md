@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="src/assets/tmdb.svg" alt="TMDB" width="64" height="64" />
+  <img src="src/assets/tmdb.svg" alt="TMDB" width="180" height="180" />
 </p>
 
 <h1 align="center">App Movies TMDB</h1>
