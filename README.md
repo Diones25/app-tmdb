@@ -41,7 +41,7 @@
 
 ## Screenshots
 
-> OS screenshots abaixo descrevem as principais telas do projeto app-tmdb.
+> Os screenshots abaixo descrevem as principais telas do projeto app-tmdb.
 
 | Tela | Descrição |
 |------|-----------|
