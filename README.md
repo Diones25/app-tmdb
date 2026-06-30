@@ -5,7 +5,7 @@
 <h1 align="center">App Movies TMDB</h1>
 
 <p align="center">
-  Aplicação web para explorar filmes, séries, atores e muito mais, utilizando a API do The Movie Database (TMDB).
+  Web application to explore movies, TV shows, actors and more, using The Movie Database (TMDB) API.
   <br />
   <a href="https://developer.themoviedb.org/docs/getting-started"><strong>TMDB API Docs »</strong></a>
 </p>
@@ -20,85 +20,85 @@
 
 ---
 
-## Índice
+## Table of Contents
 
 - [Screenshots](#screenshots)
-- [Sobre o Projeto](#sobre-o-projeto)
-- [Funcionalidades](#funcionalidades)
-- [Tecnologias](#tecnologias)
-- [Arquitetura](#arquitetura)
-- [Estrutura do Projeto](#estrutura-do-projeto)
-- [Fluxo de Dados](#fluxo-de-dados)
-- [Começando](#começando)
-  - [Pré-requisitos](#pré-requisitos)
-  - [Instalação](#instalação)
-  - [Variáveis de Ambiente](#variáveis-de-ambiente)
-- [Scripts Disponíveis](#scripts-disponíveis)
+- [About the Project](#about-the-project)
+- [Features](#features)
+- [Technologies](#technologies)
+- [Architecture](#architecture)
+- [Project Structure](#project-structure)
+- [Data Flow](#data-flow)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Environment Variables](#environment-variables)
+- [Available Scripts](#available-scripts)
 - [Deploy](#deploy)
-- [Licença](#licença)
+- [License](#license)
 
 ---
 
 ## Screenshots
 
-> Os screenshots abaixo descrevem as principais telas do projeto app-tmdb.
+> The screenshots below describe the main screens of the app-tmdb project.
 
-| Tela | Descrição |
-|------|-----------|
-| <img src="./src/assets/doc/home.png" alt="Home" width="600" /> | **Home / Dashboard** — Tela principal com abas para navegar entre filmes populares, lançamentos, séries, canais ao vivo e pessoas famosas. |
-| <img src="./src/assets/doc/filmes_details.png" alt="Detalhes do Filme" width="600" /> | **Detalhes do Filme** — Página completa com pôster, backdrop, trailer, elenco, avaliações, mídia, recomendações e players de streaming. |
-| <img src="./src/assets/doc/series_details.png" alt="Detalhes da Série" width="600" /> | **Detalhes da Série** — Informações completas da série com temporadas, elenco, vídeos e recomendações. |
-| <img src="./src/assets/doc/series_temporada.png" alt="Temporadas" width="600" /> | **Temporadas** — Lista todas as temporadas disponíveis de uma série. |
-| <img src="./src/assets/doc/series_episodies.png" alt="Episódios" width="600" /> | **Episódios** — Exibe os episódios de uma temporada com player de vídeo embutido. |
-| <img src="./src/assets/doc/tela_tv.png" alt="Lista de canais de TV" width="600" /> | **Lista de canais de TV** — Esta tela tem uma lista paginada de canais de TV, além disso é possível pesquisar por um nome especifico de um canal de TV. |
-
----
-
-## Sobre o Projeto
-
-O **App Movies TMDB** é uma aplicação web React desenvolvida em TypeScript que consome a [API do TMDB](https://developer.themoviedb.org/docs/getting-started) para oferecer uma experiência completa de catálogo de entretenimento. O projeto é focado no público brasileiro, com UI totalmente em português (pt-BR) e integração com players de streaming embedados.
+| Screen | Description |
+|--------|-------------|
+| <img src="./src/assets/doc/home.png" alt="Home" width="600" /> | **Home / Dashboard** — Main screen with tabs to browse popular movies, upcoming releases, TV shows, live channels, and famous people. |
+| <img src="./src/assets/doc/filmes_details.png" alt="Movie Details" width="600" /> | **Movie Details** — Full page with poster, backdrop, trailer, cast, reviews, media, recommendations, and streaming players. |
+| <img src="./src/assets/doc/series_details.png" alt="TV Show Details" width="600" /> | **TV Show Details** — Complete show information with seasons, cast, videos, and recommendations. |
+| <img src="./src/assets/doc/series_temporada.png" alt="Seasons" width="600" /> | **Seasons** — Lists all available seasons of a TV show. |
+| <img src="./src/assets/doc/series_episodies.png" alt="Episodes" width="600" /> | **Episodes** — Displays episodes of a season with an embedded video player. |
+| <img src="./src/assets/doc/tela_tv.png" alt="TV Channels List" width="600" /> | **TV Channels List** — Paginated list of TV channels, with the ability to search for a specific channel by name. |
 
 ---
 
-## Funcionalidades
+## About the Project
 
-- **Dashboard com Abas** — Navegue por Filmes Populares, Lançamentos, Séries, TV ao Vivo e Pessoas em uma única interface.
-- **Detalhes Completos** — Páginas ricas com backdrop, pôster, nota circular, trailer no YouTube, elenco, avaliações e mídia.
-- **Players de Streaming** — 5 opções de players embedados para assistir filmes e episódios diretamente no navegador.
-- **Temporadas e Episódios** — Explore temporadas de séries e assista episódios com players integrados.
-- **Perfil de Atores** — Biografia, filmografia, dados pessoais e links para redes sociais.
-- **Busca com Debounce** — Pesquisa por filmes e séries com input com debounce de 500ms.
-- **Scroll Infinito** — Navegação por palavras-chave com carregamento contínuo via IntersectionObserver.
-- **Paginação** — Navegação entre páginas em todas as listagens.
-- **Design Responsivo** — Layout adaptável para mobile, tablet e desktop.
-- **Tema Escuro** — Interface em dark mode com paleta de cores personalizada.
+**App Movies TMDB** is a React web application built in TypeScript that consumes the [TMDB API](https://developer.themoviedb.org/docs/getting-started) to deliver a complete entertainment catalog experience. The project features a fully Portuguese (pt-BR) UI and integration with embedded streaming players.
 
 ---
 
-## Tecnologias
+## Features
 
-| Categoria | Tecnologia | Versão |
-|-----------|-----------|--------|
+- **Tabbed Dashboard** — Browse Popular Movies, Upcoming Releases, TV Shows, Live TV, and People in a single interface.
+- **Rich Details** — Detailed pages with backdrop, poster, circular rating, YouTube trailer, cast, reviews, and media.
+- **Streaming Players** — 5 embedded player options to watch movies and episodes directly in the browser.
+- **Seasons and Episodes** — Explore TV show seasons and watch episodes with integrated players.
+- **Actor Profile** — Biography, filmography, personal info, and social media links.
+- **Debounced Search** — Search for movies and TV shows with a 500ms debounce input.
+- **Infinite Scroll** — Keyword-based navigation with continuous loading via IntersectionObserver.
+- **Pagination** — Page navigation across all listings.
+- **Responsive Design** — Adaptive layout for mobile, tablet, and desktop.
+- **Dark Theme** — Dark mode interface with custom color palette.
+
+---
+
+## Technologies
+
+| Category | Technology | Version |
+|----------|------------|---------|
 | **Framework** | [React](https://react.dev/) | ^18.2.0 |
-| **Linguagem** | [TypeScript](https://www.typescriptlang.org/) | ^5.0.2 |
+| **Language** | [TypeScript](https://www.typescriptlang.org/) | ^5.0.2 |
 | **Build Tool** | [Vite](https://vitejs.dev/) | ^7.1.10 |
-| **Roteamento** | [React Router DOM](https://reactrouter.com/) | ^7.13.1 |
+| **Routing** | [React Router DOM](https://reactrouter.com/) | ^7.13.1 |
 | **Data Fetching** | [TanStack React Query](https://tanstack.com/query) | ^5.40.0 |
 | **HTTP Client** | [Axios](https://axios-http.com/) | ^1.16.1 |
-| **Estilização** | [Tailwind CSS](https://tailwindcss.com/) | ^3.4.3 |
-| **Componentes** | [Shadcn/ui](https://ui.shadcn.com/) (Radix Primitives) | — |
-| **Ícones** | [Lucide React](https://lucide.dev/) | ^0.379.0 |
-| **Datas** | [date-fns](https://date-fns.org/) + [moment](https://momentjs.com/) | ^3.6.0 / ^2.30.1 |
-| **Estado** | TanStack React Query (server state) + useState (local) | — |
-| **Hospedagem** | [Vercel](https://vercel.com/) | — |
+| **Styling** | [Tailwind CSS](https://tailwindcss.com/) | ^3.4.3 |
+| **Components** | [Shadcn/ui](https://ui.shadcn.com/) (Radix Primitives) | — |
+| **Icons** | [Lucide React](https://lucide.dev/) | ^0.379.0 |
+| **Dates** | [date-fns](https://date-fns.org/) + [moment](https://momentjs.com/) | ^3.6.0 / ^2.30.1 |
+| **State** | TanStack React Query (server state) + useState (local) | — |
+| **Hosting** | [Vercel](https://vercel.com/) | — |
 
 ---
 
-## Arquitetura
+## Architecture
 
-A aplicação segue uma arquitetura **monolítica SPA (Single Page Application)** com separação clara de responsabilidades:
+The application follows a **monolithic SPA (Single Page Application)** architecture with clear separation of concerns:
 
-### Camadas
+### Layers
 
 ```
 ┌────────────────────────────────────────────────┐
@@ -113,86 +113,86 @@ A aplicação segue uma arquitetura **monolítica SPA (Single Page Application)*
 ├────────────────────────────────────────────────┤
 │            External APIs                        │
 │   TMDB API (api.themoviedb.org/3)              │
-│   + reidosembeds.com (canais TV)               │
+│   + reidosembeds.com (TV channels)             │
 └────────────────────────────────────────────────┘
 ```
 
-### Decisões Técnicas
+### Technical Decisions
 
-- **React Query** para todo estado de servidor — cache automático, deduplicação de requisições, refetch e paginação otimizada com `placeholderData: keepPreviousData`.
-- **Componentização granular** — cada elemento de UI (cards, badges, reviews) é um componente isolado e reutilizável.
-- **API Layer desacoplada** — funções puras em `api.ts` transformam os dados da TMDB nos tipos TypeScript da aplicação, isolando a lógica de rede dos componentes.
-- **Shadcn/ui** — componentes acessíveis e customizáveis via Tailwind, sem dependência pesada de design system.
-- **Vite** — build extremamente rápido com HMR nativo e tree-shaking eficiente.
+- **React Query** for all server state — automatic caching, request deduplication, refetch, and optimized pagination with `placeholderData: keepPreviousData`.
+- **Granular componentization** — each UI element (cards, badges, reviews) is an isolated, reusable component.
+- **Decoupled API Layer** — pure functions in `api.ts` transform TMDB data into TypeScript types, isolating network logic from components.
+- **Shadcn/ui** — accessible and customizable components via Tailwind, without heavy design system dependencies.
+- **Vite** — extremely fast build with native HMR and efficient tree-shaking.
 
 ---
 
-## Estrutura do Projeto
+## Project Structure
 
 ```
 app-movies-tmdb/
-├── public/                        # Assets estáticos (favicon)
+├── public/                        # Static assets (favicon)
 ├── src/
-│   ├── assets/                    # SVGs, PNGs, imagens estáticas
+│   ├── assets/                    # SVGs, PNGs, static images
 │   ├── components/
 │   │   ├── ui/                    # Shadcn/ui primitives (button, card, dialog, etc.)
-│   │   ├── Home.tsx               # Dashboard principal
-│   │   ├── MoviesDetails.tsx      # Detalhes do filme
-│   │   ├── SeriesDetails.tsx      # Detalhes da série
-│   │   ├── SeriesSeasonsDetails.tsx       # Lista de temporadas
-│   │   ├── SeriesSeasonsEpisodeDetails.tsx # Episódios por temporada
-│   │   ├── PersonDetails.tsx      # Detalhes da pessoa/ator
-│   │   ├── AllMoviesKeywords.tsx  # Filmes por palavra-chave
-│   │   ├── Navbar.tsx             # Barra de navegação
-│   │   ├── Footer.tsx             # Rodapé
+│   │   ├── Home.tsx               # Main dashboard
+│   │   ├── MoviesDetails.tsx      # Movie details
+│   │   ├── SeriesDetails.tsx      # TV show details
+│   │   ├── SeriesSeasonsDetails.tsx       # Season list
+│   │   ├── SeriesSeasonsEpisodeDetails.tsx # Episodes per season
+│   │   ├── PersonDetails.tsx      # Person/actor details
+│   │   ├── AllMoviesKeywords.tsx  # Movies by keyword
+│   │   ├── Navbar.tsx             # Navigation bar
+│   │   ├── Footer.tsx             # Footer
 │   │   ├── Banner.tsx             # Hero banner
-│   │   ├── Card.tsx               # Card de filme/série
-│   │   ├── CardImage.tsx          # Imagem do pôster
-│   │   ├── CardPerson.tsx         # Card de pessoa
-│   │   ├── CardPersonMovieDetail.tsx  # Card de membro do elenco
-│   │   ├── CardMoviePerson.tsx    # Card de crédito no perfil da pessoa
-│   │   ├── CardReview.tsx         # Card de avaliação
-│   │   ├── CardKeywordMovies.tsx  # Item de filme por keyword
-│   │   ├── CardTv.tsx             # Card de canal de TV
-│   │   ├── CardSeasonsDetails.tsx # Card de temporada
-│   │   ├── CardSeasonsEpisodeDetails.tsx # Card de episódio
-│   │   ├── MoviesRecommended.tsx  # Miniatura de recomendação
-│   │   ├── PaginationComponent.tsx # Controle de paginação
-│   │   ├── SearchInput.tsx        # Input de busca com debounce
-│   │   └── VoteAveregeItem.tsx    # Badge circular de nota
+│   │   ├── Card.tsx               # Movie/TV show card
+│   │   ├── CardImage.tsx          # Poster image
+│   │   ├── CardPerson.tsx         # Person card
+│   │   ├── CardPersonMovieDetail.tsx  # Cast member card
+│   │   ├── CardMoviePerson.tsx    # Credit card in person profile
+│   │   ├── CardReview.tsx         # Review card
+│   │   ├── CardKeywordMovies.tsx  # Keyword movie item
+│   │   ├── CardTv.tsx             # TV channel card
+│   │   ├── CardSeasonsDetails.tsx # Season card
+│   │   ├── CardSeasonsEpisodeDetails.tsx # Episode card
+│   │   ├── MoviesRecommended.tsx  # Recommendation thumbnail
+│   │   ├── PaginationComponent.tsx # Pagination control
+│   │   ├── SearchInput.tsx        # Debounced search input
+│   │   └── VoteAveregeItem.tsx    # Circular rating badge
 │   ├── lib/
-│   │   └── utils.ts               # Utilitários (cn(), formatação de data/moeda)
+│   │   └── utils.ts               # Utilities (cn(), date/currency formatting)
 │   ├── router/
-│   │   └── router.tsx             # Definição de rotas (React Router)
-│   ├── types/                     # Interfaces TypeScript (24 arquivos)
+│   │   └── router.tsx             # Route definitions (React Router)
+│   ├── types/                     # TypeScript interfaces (24 files)
 │   ├── utils/
-│   │   ├── api.ts                 # Funções de chamada à API (Axios)
-│   │   ├── queries.ts             # Custom hooks React Query
-│   │   ├── providers.tsx          # Provider do React Query
-│   │   └── useDebounce.ts         # Hook de debounce
-│   ├── App.tsx                    # Componente raiz
+│   │   ├── api.ts                 # API call functions (Axios)
+│   │   ├── queries.ts             # React Query custom hooks
+│   │   ├── providers.tsx          # React Query provider
+│   │   └── useDebounce.ts         # Debounce hook
+│   ├── App.tsx                    # Root component
 │   ├── main.tsx                   # Entry point
-│   ├── index.css                  # Estilos globais + variáveis CSS
-│   └── vote_average.css           # Barra circular de votação (CSS puro)
-├── .env.example                   # Template de variáveis de ambiente
-├── components.json                # Configuração Shadcn/ui
-├── index.html                     # HTML de entrada do Vite
-├── package.json                   # Dependências e scripts
-├── tailwind.config.js             # Configuração do Tailwind
-├── tsconfig.json                  # Configuração do TypeScript
-├── vercel.json                    # Configuração de deploy Vercel
-└── vite.config.ts                 # Configuração do Vite
+│   ├── index.css                  # Global styles + CSS variables
+│   └── vote_average.css           # Circular vote bar (pure CSS)
+├── .env.example                   # Environment variables template
+├── components.json                # Shadcn/ui configuration
+├── index.html                     # Vite entry HTML
+├── package.json                   # Dependencies and scripts
+├── tailwind.config.js             # Tailwind configuration
+├── tsconfig.json                  # TypeScript configuration
+├── vercel.json                    # Vercel deploy configuration
+└── vite.config.ts                 # Vite configuration
 ```
 
 ---
 
-## Fluxo de Dados
+## Data Flow
 
 ```
-Usuário
+User
   │
   ▼
-Componente React
+React Component
   │
   ▼
 Custom Hook (queries.ts) ── useQuery(queryKey, apiFunction)
@@ -208,78 +208,78 @@ TMDB API ── api.themoviedb.org/3 (pt-BR)
          └── reidosembeds.com/api/channels
   │
   ▼
-Dados Tipados (types/) ── retornam ao componente
+Typed Data (types/) ── returned to component
 ```
 
 ---
 
-## Começando
+## Getting Started
 
-### Pré-requisitos
+### Prerequisites
 
 - Node.js >= 18
 - npm >= 9
-- Conta gratuita no [TMDB](https://www.themoviedb.org/) para obter a chave da API
+- Free [TMDB](https://www.themoviedb.org/) account to obtain your API key
 
-### Instalação
+### Installation
 
 ```bash
-# Clone o repositório
-git clone https://github.com/seu-usuario/app-movies-tmdb.git
+# Clone the repository
+git clone https://github.com/your-username/app-movies-tmdb.git
 cd app-movies-tmdb
 
-# Instale as dependências
+# Install dependencies
 npm install
 
-# Configure as variáveis de ambiente (veja abaixo)
+# Configure environment variables (see below)
 cp .env.example .env
 
-# Inicie o servidor de desenvolvimento
+# Start the development server
 npm run dev
 ```
 
-### Variáveis de Ambiente
+### Environment Variables
 
 ```env
-VITE_API_KEY=sua_chave_da_api_tmdb
-VITE_API_TOKEN=seu_token_de_acesso_tmdb
+VITE_API_KEY=your_tmdb_api_key
+VITE_API_TOKEN=your_tmdb_access_token
 ```
 
-> Obtenha sua chave e token em [https://www.themoviedb.org/settings/api](https://www.themoviedb.org/settings/api).
+> Get your key and token at [https://www.themoviedb.org/settings/api](https://www.themoviedb.org/settings/api).
 
 ---
 
-## Scripts Disponíveis
+## Available Scripts
 
-| Script | Comando | Descrição |
-|--------|---------|-----------|
-| `dev` | `vite` | Inicia servidor de desenvolvimento com HMR |
-| `build` | `tsc && vite build` | Compila TypeScript e gera build de produção |
-| `preview` | `vite preview` | Pré-visualiza o build de produção localmente |
-| `lint` | `eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0` | Executa verificação de lint |
+| Script | Command | Description |
+|--------|---------|-------------|
+| `dev` | `vite` | Starts development server with HMR |
+| `build` | `tsc && vite build` | Compiles TypeScript and generates production build |
+| `preview` | `vite preview` | Previews production build locally |
+| `lint` | `eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0` | Runs lint check |
 
 ---
 
 ## Deploy
 
-O projeto está configurado para deploy na **Vercel**:
+The project is configured for deployment on **Vercel**:
 
-1. Conecte o repositório à [Vercel](https://vercel.com/)
-2. Configure as variáveis de ambiente (`VITE_API_KEY`, `VITE_API_TOKEN`)
-3. Faça deploy automático a cada push na branch principal
+1. Connect the repository to [Vercel](https://vercel.com/)
+2. Configure environment variables (`VITE_API_KEY`, `VITE_API_TOKEN`)
+3. Automatic deploy on every push to the main branch
 
-O arquivo `vercel.json` já inclui as regras de SPA rewrites necessárias para o React Router funcionar corretamente.
+The `vercel.json` file already includes the necessary SPA rewrite rules for React Router to work correctly.
 
 ---
 
-## Licença
+## License
 
-Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
+Distributed under the MIT License. See `LICENSE` for more information.
 
 ---
 
 <p align="center">
   <img src="src/assets/logo.png" alt="Logo" width="40" />
   <br />
-  <sub>Desenvolvido com dados da <a href="https://www.themoviedb.org/">TMDB</a></sub>
+  <sub>Powered by data from <a href="https://www.themoviedb.org/">TMDB</a></sub>
 </p>
