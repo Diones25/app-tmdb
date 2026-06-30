@@ -41,7 +41,7 @@
 
 ## Screenshots
 
-> **Instruções:** Substitua os caminhos abaixo por prints reais do projeto. Coloque as imagens em uma pasta `screenshots/` na raiz do projeto.
+> OS screenshots abaixo descrevem as principais telas do projeto app-tmdb.
 
 | Tela | Descrição |
 |------|-----------|
