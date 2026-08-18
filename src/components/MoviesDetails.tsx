@@ -365,60 +365,61 @@ const MoviesDetails = () => {
                 }
               </div> 
 
-              <div className="flex pb-6 mt-6">
-
-                <Tabs defaultValue="videos">
-                  <div className="flex items-center text-black mt-2">
-                    <h1 className="text-black text-2xl font-semibold mr-10">Mídia</h1>
-                    <TabsList className="bg-transparent">
-                      <TabsTrigger value="videos" className="mr-6">Vídeos <span className="text-gray-500">{movieVideo.data?.length}</span></TabsTrigger>
-                      <TabsTrigger value="imagens" className="">Imagens de fundo <span className="text-gray-500">{movieImages.data?.length}</span></TabsTrigger>
-                    </TabsList>
-                  </div>
-
-                  <div className="">
-                    <div className=" w-[260px] sm:w-[380px] md:w-[450px] lg:w-[620px] xl:w-[870px] overflow-x-scroll overflow-y-hidden">
-                      <TabsContent value="videos">
-                        <div className="flex">
-                          
-
-                          {movieVideo.data?.length as number > 0 ? (
-                            <>
-                              {movieVideo.data?.map((item, index) => (
-                                <iframe
-                                  key={index}
-                                  className="min-w-[33rem] h-[19rem]"
-                                  src={`https://www.youtube.com/embed/${item?.key}`}
-                                  title="YouTube video player"
-                                  frameBorder="0"
-                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                  referrerPolicy="strict-origin-when-cross-origin"
-                                  allowFullScreen
-                                >
-                                </iframe>
-                              ))} 
-                            </>
-                          ) : (
-                              <img src={ noVideoAvaible } alt="" />
-                          )}
-                          
-                        </div>
-                      </TabsContent>
-
-                      <TabsContent value="imagens">
-                        <div className="flex">
-                          {movieImages.data?.map((item, index) => (
-                            <div key={index} className="min-w-[533px] h-[19rem]">
-                              <img src={`https://media.themoviedb.org/t/p/w533_and_h300_bestv2${item.file_path}`} alt="" />
-                            </div>
-                          ))}
-                        </div>
-                      </TabsContent>
+              {movieImages.data?.length as number > 0 &&
+                <div className="flex pb-6 mt-6">
+                  <Tabs defaultValue="videos">
+                    <div className="flex items-center text-black mt-2">
+                      <h1 className="text-black text-2xl font-semibold mr-10">Mídia</h1>
+                      <TabsList className="bg-transparent">
+                        <TabsTrigger value="videos" className="mr-6">Vídeos <span className="text-gray-500">{movieVideo.data?.length}</span></TabsTrigger>
+                        <TabsTrigger value="imagens" className="">Imagens de fundo <span className="text-gray-500">{movieImages.data?.length}</span></TabsTrigger>
+                      </TabsList>
                     </div>
-                  </div>
 
-                </Tabs> 
-              </div> 
+                    <div className="">
+                      <div className=" w-[260px] sm:w-[380px] md:w-[450px] lg:w-[620px] xl:w-[870px] overflow-x-scroll overflow-y-hidden">
+                        <TabsContent value="videos">
+                          <div className="flex">
+
+
+                            {movieVideo.data?.length as number > 0 ? (
+                              <>
+                                {movieVideo.data?.map((item, index) => (
+                                  <iframe
+                                    key={index}
+                                    className="min-w-[33rem] h-[19rem]"
+                                    src={`https://www.youtube.com/embed/${item?.key}`}
+                                    title="YouTube video player"
+                                    frameBorder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerPolicy="strict-origin-when-cross-origin"
+                                    allowFullScreen
+                                  >
+                                  </iframe>
+                                ))}
+                              </>
+                            ) : (
+                              <img src={noVideoAvaible} alt="" />
+                            )}
+
+                          </div>
+                        </TabsContent>
+
+                        <TabsContent value="imagens">
+                          <div className="flex">
+                            {movieImages.data?.map((item, index) => (
+                              <div key={index} className="min-w-[533px] h-[19rem]">
+                                <img src={`https://media.themoviedb.org/t/p/w533_and_h300_bestv2${item.file_path}`} alt="" />
+                              </div>
+                            ))}
+                          </div>
+                        </TabsContent>
+                      </div>
+                    </div>
+
+                  </Tabs>
+                </div>
+              }
               
               {movieRecommended.data && movieRecommended.data.length > 0 &&
                 <>
