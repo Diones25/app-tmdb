@@ -43,7 +43,7 @@ const api = axios.create({
 });
 
 export const getAllChannels = async (): Promise<Channel> => {
-  const response = await axios.get(`https://reidosembeds.com/api/channels`);
+  const response = await axios.get(`https://reidosembeds.online/api/channels`);
   return response.data;
 }
 
