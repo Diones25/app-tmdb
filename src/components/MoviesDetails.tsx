@@ -345,7 +345,7 @@ const MoviesDetails = () => {
                       <div
                         ref={reviewsScrollerRef}
                         onScroll={updateReviewsScrollButtons}
-                        className="flex gap-3 overflow-x-auto overflow-y-hidden scroll-smooth pr-12 snap-x snap-mandatory"
+                        className="no-scrollbar flex gap-3 overflow-x-auto overflow-y-hidden scroll-smooth pr-12 snap-x snap-mandatory"
                       >
                         {movieReviews.data.results.map((item: MovieReview) => (
                           <div key={item.id} className="snap-start">
