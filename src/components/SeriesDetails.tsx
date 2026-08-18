@@ -161,7 +161,9 @@ const SeriesDetails = () => {
         <div className="container">
           <div className='grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6'>
             <div className='sm:col-span-3 md:col-span-2'>
-              <h1 className="text-black text-2xl font-semibold">Elenco principal</h1>
+              {serieCredits.data && serieCredits.data.length > 0 &&
+                <h1 className="text-black text-2xl font-semibold">Elenco principal</h1>
+              }
               <ScrollableCarousel className="gap-4 pb-6 mt-4">
 
                 {serieCredits.data &&
