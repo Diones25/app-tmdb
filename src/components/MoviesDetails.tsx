@@ -425,7 +425,7 @@ const MoviesDetails = () => {
                 <>
                   <div className="mt-6">
                     <h1 className="text-black text-2xl font-semibold">Recomendações</h1>
-                    <div className="flex overflow-x-scroll overflow-y-hidden gap-4 pb-6 mt-4">
+                    <ScrollableCarousel className="gap-4 pb-6 mt-4">
                       {movieRecommended.data?.map(item => (
                         <Link to={`/details/${item.id}`} key={item.id}>
                           <MoviesRecommended
@@ -435,7 +435,7 @@ const MoviesDetails = () => {
                           />
                         </Link>
                       ))}
-                    </div>
+                    </ScrollableCarousel>
                   </div>
                 </>
               }
