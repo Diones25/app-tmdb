@@ -17,6 +17,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import CardPersonMovieDetail from "./CardPersonMovieDetail";
+import ScrollableCarousel from "./ScrollableCarousel";
 import svgFacebook from '../assets/facebook.svg';
 import svgTwitter from '../assets/twitter.svg';
 import svgInstagram from '../assets/instagram.svg';
@@ -161,7 +162,7 @@ const SeriesDetails = () => {
           <div className='grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6'>
             <div className='sm:col-span-3 md:col-span-2'>
               <h1 className="text-black text-2xl font-semibold">Elenco principal</h1>
-              <div className="flex overflow-x-scroll overflow-y-hidden gap-4 pb-6 mt-4">
+              <ScrollableCarousel className="gap-4 pb-6 mt-4">
 
                 {serieCredits.data &&
                   <>
@@ -180,7 +181,7 @@ const SeriesDetails = () => {
                   </>
 
                 }
-              </div>
+              </ScrollableCarousel>
 
               {seriesDetails.data?.seasons.length as number > 0 ? (
                 <>
